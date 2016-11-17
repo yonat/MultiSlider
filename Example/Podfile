@@ -1,0 +1,6 @@
+
+use_frameworks!
+pod 'MultiSlider', :path => '..'
+
+target 'MultiSliderDemo' do
+end
