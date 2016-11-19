@@ -23,10 +23,8 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlo-FK-eVl" customClass="MultiSlider" customModule="MultiSlider">
                                 <rect key="frame" x="67" y="28" width="240" height="467"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="Hva-Jt-Vw0"/>
-                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="snapStepSize">
                                         <real key="value" value="0.5"/>
@@ -42,13 +40,16 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <slider opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.25" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="boZ-4g-DNW">
+                                <rect key="frame" x="-2" y="428" width="363" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="I7c-MT-9mU">
+                                <rect key="frame" x="-2" y="503" width="302" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zlo-FK-eVl" secondAttribute="bottom" constant="172" id="POw-i2-To0"/>
-                            <constraint firstItem="zlo-FK-eVl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Xja-Wa-leK"/>
-                            <constraint firstItem="zlo-FK-eVl" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="dCS-Da-B2b"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="multiSlider" destination="zlo-FK-eVl" id="oni-yL-a0s"/>

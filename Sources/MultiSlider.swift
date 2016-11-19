@@ -20,6 +20,14 @@ public class MultiSlider: UIControl
         }
     }
 
+    public var disabledThumbIndices: Set<Int> = [] {
+        didSet {
+            for i in 0 ..< thumbCount {
+                thumbViews[i].blur(disabledThumbIndices.contains(i))
+            }
+        }
+    }
+
     @IBInspectable public var minimumValue: CGFloat = 0     { didSet {adjustValuesToStepAndLimits()} }
     @IBInspectable public var maximumValue: CGFloat = 1     { didSet {adjustValuesToStepAndLimits()} }
     @IBInspectable public var snapStepSize: CGFloat = 0     { didSet {adjustValuesToStepAndLimits()} }
@@ -84,6 +92,7 @@ public class MultiSlider: UIControl
             let location = panGesture.locationInView(slideView)
             var minimumDistance = CGFloat.max
             for i in 0 ..< thumbViews.count {
+                guard !disabledThumbIndices.contains(i) else {continue}
                 let distance = location.distanceTo(thumbViews[i].center)
                 if distance > minimumDistance {break}
                 minimumDistance = distance
@@ -165,6 +174,7 @@ public class MultiSlider: UIControl
                 thumbViews.append(thumbView)
                 slideView.addConstrainedSubview(thumbView, constrain: .CenterX)
                 positionThumbView(i)
+                thumbViews[i].blur(disabledThumbIndices.contains(i))
             }
         }
     }
@@ -264,6 +274,11 @@ public class MultiSlider: UIControl
         // make visual editing easier
         layer.borderWidth = 0.5
         layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5).CGColor
+
+        // evenly distribue thumbs
+        let oldThumbCount = thumbCount
+        thumbCount = 0
+        thumbCount = oldThumbCount
     }
 }
 
@@ -309,6 +324,27 @@ extension UIView {
         layer.shadowOffset = CGSize(width: 0, height: 4)
         layer.shadowRadius = 0.5
     }
+}
+
+extension UIImageView {
+    func blur(on: Bool) {
+        if on {
+            guard nil == viewWithTag(UIImageView.blurViewTag) else {return}
+            let blurImage = image?.imageWithRenderingMode(.AlwaysTemplate)
+            let blurView = UIImageView(image: blurImage)
+            blurView.tag = UIImageView.blurViewTag
+            blurView.tintColor = .whiteColor()
+            blurView.alpha = 0.5
+            addConstrainedSubview(blurView, constrain: .Top, .Bottom, .Left, .Right)
+            layer.shadowOpacity /= 2
+        }
+        else {
+            guard let blurView = viewWithTag(UIImageView.blurViewTag) else {return}
+            blurView.removeFromSuperview()
+            layer.shadowOpacity *= 2
+        }
+    }
+    static var blurViewTag: Int {return 898989}
 }
 
 extension NSLayoutAttribute {

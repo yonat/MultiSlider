@@ -25,6 +25,7 @@ func sliderChanged(slider: MultiSlider) {
     print("\(slider.value)")
 }
 ```
+
 ## Changing Appearance
 
 ```swift
@@ -33,6 +34,12 @@ slider.minimumImage = UIImage(named: "clown")
 slider.maximumImage = UIImage(named: "cloud")
 slider.trackWidth = 5
 slider.tintColor = .cyanColor()
+```
+
+## Disabling/Freezing Thumbs
+
+```swift
+slider.disabledThumbIndices = [1, 3]
 ```
 
 ## Installation
@@ -45,10 +52,10 @@ pod 'MultiSlider'
 
 ### Manually
 
-Copy `MultiSlider.swift`, `circle@3x.png` and [`MiniLayout.swift`](https://github.com/yonat/MiniLayout) to your Xcode project.
+Copy `Sources/*.*` and [`MiniLayout.swift`](https://github.com/yonat/MiniLayout) to your Xcode project.
 
 ## TODO
 
 - [ ] Horizontal slider and not just vertical.
 - [ ] `isContinuous=false` for clients that only want a single `.valueChanged` event on drag end.
-- [ ] Fix IB presentation. (images appearing as ?, thumbs not vertically centered)
+- [ ] Fix IB presentation. (dlopen error "image not found", thumbs should be vertically centered and evenly distributed.)
