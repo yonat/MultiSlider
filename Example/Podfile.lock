@@ -2,9 +2,6 @@ PODS:
   - MiniLayout (1.0.1)
   - MultiSlider (1.0.0):
     - MiniLayout
-    - MultiSlider/Resources (= 1.0.0)
-  - MultiSlider/Resources (1.0.0):
-    - MiniLayout
 
 DEPENDENCIES:
   - MultiSlider (from `..`)
@@ -15,8 +12,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   MiniLayout: 764eae77dd3aff551a293f9c06b1b2d72783cd74
-  MultiSlider: 617a873dd52efd87ceecbd35ab281ab5ce53be0a
+  MultiSlider: 07214e8a019406cd3569efbb1bad9a2633b27fd7
 
-PODFILE CHECKSUM: 63e353d01b103bfd8aa42cac11460dd650875899
+PODFILE CHECKSUM: 757f3ff88c248f3c17f5e5ade83ae7f7c5b90380
 
 COCOAPODS: 1.1.1

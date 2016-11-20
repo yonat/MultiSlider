@@ -25,13 +25,5 @@
     "MiniLayout": [
 
     ]
-  },
-  "subspecs": [
-    {
-      "name": "Resources",
-      "resource_bundles": {
-        "MultiSlider": "Sources/*.png"
-      }
-    }
-  ]
+  }
 }

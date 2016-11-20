@@ -96,7 +96,7 @@ public class MultiSlider: UIControl
                 let distance = location.distanceTo(thumbViews[i].center)
                 if distance > minimumDistance {break}
                 minimumDistance = distance
-                if distance < hypot(thumbImage!.size.width, thumbImage!.size.height) {
+                if distance < hypot(thumbViews[i].frame.width, thumbViews[i].frame.height) {
                     draggedThumbIndex = i
                 }
             }
@@ -120,7 +120,7 @@ public class MultiSlider: UIControl
         }
 
         // don't cross prev/next thumb and total range
-        let delta: CGFloat = snapStepSize > 0 ? stepSizeInView : (thumbImage?.size.height ?? 2e-5) / 2
+        let delta: CGFloat = snapStepSize > 0 ? stepSizeInView : (thumbViews[draggedThumbIndex].frame.height ?? 2e-5) / 2
         let maxLimit = draggedThumbIndex > 0 ? thumbViews[draggedThumbIndex-1].center.y - delta : slideView.bounds.maxY
         let minLimit = draggedThumbIndex < thumbViews.count-1 ? thumbViews[draggedThumbIndex+1].center.y + delta : slideView.bounds.minY
         targetPosition = min(maxLimit, max(targetPosition, minLimit))
@@ -142,6 +142,7 @@ public class MultiSlider: UIControl
     private var slideView = UIView()
     private var isSettingValue = false
     private var draggedThumbIndex: Int = -1
+    private lazy var defaultThumbImage: UIImage = .circle(diameter: 29, lineWidth: 0.5, lineColor: UIColor.lightGrayColor().colorWithAlphaComponent(0.5), fillColor: .whiteColor())
 
     private func setup() {
         trackView.backgroundColor = actualTintColor
@@ -153,8 +154,6 @@ public class MultiSlider: UIControl
 
         addConstrainedSubview(minimumView, constrain: .BottomMargin, .CenterXWithinMargins)
         addConstrainedSubview(maximumView, constrain: .TopMargin, .CenterXWithinMargins)
-
-        thumbImage = bundledImage("circle")
 
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(didDrag(_:))))
     }
@@ -169,7 +168,7 @@ public class MultiSlider: UIControl
         }
         else { // add thumbViews
             for i in thumbViews.count ..< value.count {
-                let thumbView = UIImageView(image: thumbImage)
+                let thumbView = UIImageView(image: thumbImage ?? defaultThumbImage)
                 thumbView.addShadow()
                 thumbViews.append(thumbView)
                 slideView.addConstrainedSubview(thumbView, constrain: .CenterX)
@@ -377,17 +376,20 @@ extension NSLayoutAttribute {
     }
 }
 
-extension UITraitEnvironment {
-    func bundledImage(named: String) -> UIImage? {
-        if let image = UIImage(named: named) {
-            return image
-        }
-        let objectType = self.dynamicType
-        let moduleName = String(reflecting: objectType).componentsSeparatedByString(".").first ?? "\(objectType)"
-        let podBundle = NSBundle(forClass: objectType)
-        if let url = podBundle.URLForResource(moduleName, withExtension: "bundle") {
-            return UIImage(named: named, inBundle: NSBundle(URL: url), compatibleWithTraitCollection: traitCollection)
-        }
-        return nil
+extension UIImage {
+    static func circle(diameter diameter: CGFloat, lineWidth: CGFloat = 1, lineColor: UIColor? = nil, fillColor: UIColor? = nil) -> UIImage {
+        let circleLayer = CAShapeLayer()
+        circleLayer.fillColor = fillColor?.CGColor
+        circleLayer.strokeColor = lineColor?.CGColor
+        circleLayer.lineWidth = lineWidth
+        let margin = lineWidth * 2
+        let circle = UIBezierPath(ovalInRect: CGRect(x: margin, y: margin, width: diameter, height: diameter))
+        circleLayer.bounds = CGRect(x: 0, y: 0, width: diameter + margin*2, height: diameter + margin*2)
+        circleLayer.path = circle.CGPath
+        UIGraphicsBeginImageContextWithOptions(circleLayer.bounds.size, false, 0)
+        circleLayer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let image =  UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
     }
 }
