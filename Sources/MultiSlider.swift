@@ -149,7 +149,7 @@ public class MultiSlider: UIControl
         // snap translation to stepSizeInView
         if snapStepSize > 0 {
             targetPosition = targetPosition.rounded(stepSizeInView)
-            var translation = targetPosition - thumbViews[draggedThumbIndex].center.y
+            let translation = targetPosition - thumbViews[draggedThumbIndex].center.y
             guard abs(translation) >= stepSizeInView else {return}
         }
 
