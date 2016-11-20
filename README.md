@@ -1,5 +1,5 @@
 # MultiSlider
-UISlider clone with multiple thumbs and values, and optional snap intervals.
+UISlider clone with multiple thumbs and values, optional snap intervals, optional value labels.
 
 <p align="center">
 <img src="Screenshots/MultiSlider.png">
