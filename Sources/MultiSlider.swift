@@ -54,7 +54,7 @@ public class MultiSlider: UIControl
         didSet {
             valueLabels.removeViewsStartingAt(0)
             if valueLabelPosition != .NotAnAttribute {
-                for i in 0 ..< thumbViews.count {
+                for _ in 0 ..< thumbViews.count {
                     addValueLabel()
                 }
             }
@@ -208,7 +208,7 @@ public class MultiSlider: UIControl
             valueLabels.removeViewsStartingAt(value.count)
         }
         else { // add thumbViews
-            for i in thumbViews.count ..< value.count {
+            for _ in thumbViews.count ..< value.count {
                 addThumbView()
             }
         }
