@@ -36,6 +36,13 @@ slider.trackWidth = 5
 slider.tintColor = .cyanColor()
 ```
 
+## Adding Labels Showing Thumb Value
+
+```swift
+slider.valueLabelPosition = .Left // .NotAnAttribute = don't show labels
+slider.isValueLabelRelative = true // shows differences instead of absolute values
+```
+
 ## Disabling/Freezing Thumbs
 
 ```swift
@@ -44,15 +51,15 @@ slider.disabledThumbIndices = [1, 3]
 
 ## Installation
 
-### CocoaPods
+### CocoaPods:
 
 ```ruby
 pod 'MultiSlider'
 ```
 
-### Manually
+### Manually:
 
-Copy `Sources/*.*` and [`MiniLayout.swift`](https://github.com/yonat/MiniLayout) to your Xcode project.
+Copy `Sources/MultiSlider.swift` and [`MiniLayout.swift`](https://github.com/yonat/MiniLayout) to your Xcode project.
 
 ## TODO
 

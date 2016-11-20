@@ -17,19 +17,16 @@ public class MultiSlider: UIControl
             if isSettingValue {return}
             adjustThumbCountToValueCount()
             adjustValuesToStepAndLimits()
-        }
-    }
-
-    public var disabledThumbIndices: Set<Int> = [] {
-        didSet {
-            for i in 0 ..< thumbCount {
-                thumbViews[i].blur(disabledThumbIndices.contains(i))
+            for i in 0 ..< valueLabels.count {
+                updateValueLabel(i)
             }
         }
     }
 
     @IBInspectable public var minimumValue: CGFloat = 0     { didSet {adjustValuesToStepAndLimits()} }
     @IBInspectable public var maximumValue: CGFloat = 1     { didSet {adjustValuesToStepAndLimits()} }
+
+    /// snap thumbs to specific values, evenly spaced. (default = 0: allow any value)
     @IBInspectable public var snapStepSize: CGFloat = 0     { didSet {adjustValuesToStepAndLimits()} }
 
     @IBInspectable public var thumbCount: Int {
@@ -40,6 +37,36 @@ public class MultiSlider: UIControl
             guard newValue > 0 else {return}
             updateValueCount(newValue)
             adjustThumbCountToValueCount()
+        }
+    }
+
+    /// make specific thumbs fixed (and grayed)
+    public var disabledThumbIndices: Set<Int> = [] {
+        didSet {
+            for i in 0 ..< thumbCount {
+                thumbViews[i].blur(disabledThumbIndices.contains(i))
+            }
+        }
+    }
+
+    /// show value labels next to thumbs. (default: show no label)
+    @IBInspectable public var valueLabelPosition: NSLayoutAttribute = .NotAnAttribute {
+        didSet {
+            valueLabels.removeViewsStartingAt(0)
+            if valueLabelPosition != .NotAnAttribute {
+                for i in 0 ..< thumbViews.count {
+                    addValueLabel()
+                }
+            }
+        }
+    }
+
+    /// value label shows difference from previous thumb value (true) or absolute value (false = default)
+    @IBInspectable public var isValueLabelRelative: Bool = false {
+        didSet {
+            for i in 0 ..< valueLabels.count {
+                updateValueLabel(i)
+            }
         }
     }
 
@@ -76,10 +103,17 @@ public class MultiSlider: UIControl
             trackView.constrain(.Width, to: trackWidth)
         }
     }
+    public var valueLabelFormatter: NSNumberFormatter = {
+        let formatter = NSNumberFormatter()
+        formatter.maximumFractionDigits = 2
+        formatter.minimumIntegerDigits = 1
+        return formatter
+    }()
 
     // MARK: - Subviews
 
     public var thumbViews: [UIImageView] = []
+    public var valueLabels: [UITextField] = [] // UILabels are a pain to layout, text fields look nice as-is.
     public var trackView = UIView()
     public var minimumView = UIImageView()
     public var maximumView = UIImageView()
@@ -96,7 +130,7 @@ public class MultiSlider: UIControl
                 let distance = location.distanceTo(thumbViews[i].center)
                 if distance > minimumDistance {break}
                 minimumDistance = distance
-                if distance < hypot(thumbViews[i].frame.width, thumbViews[i].frame.height) {
+                if distance < thumbViews[i].diagonalSize {
                     draggedThumbIndex = i
                 }
             }
@@ -132,7 +166,14 @@ public class MultiSlider: UIControl
         value[draggedThumbIndex] = newValue
         isSettingValue = false
 
-        positionThumbView(self.draggedThumbIndex)
+        // update thumb and label
+        positionThumbView(draggedThumbIndex)
+        if draggedThumbIndex < valueLabels.count {
+            updateValueLabel(draggedThumbIndex)
+            if isValueLabelRelative && draggedThumbIndex+1 < valueLabels.count {
+                updateValueLabel(draggedThumbIndex+1)
+            }
+        }
 
         sendActionsForControlEvents(.ValueChanged)
     }
@@ -163,19 +204,50 @@ public class MultiSlider: UIControl
             return
         }
         else if value.count < thumbViews.count {
-            thumbViews[value.count ..< thumbViews.count].forEach {$0.removeFromSuperview()}
-            thumbViews.removeLast(thumbViews.count - value.count)
+            thumbViews.removeViewsStartingAt(value.count)
+            valueLabels.removeViewsStartingAt(value.count)
         }
         else { // add thumbViews
             for i in thumbViews.count ..< value.count {
-                let thumbView = UIImageView(image: thumbImage ?? defaultThumbImage)
-                thumbView.addShadow()
-                thumbViews.append(thumbView)
-                slideView.addConstrainedSubview(thumbView, constrain: .CenterX)
-                positionThumbView(i)
-                thumbViews[i].blur(disabledThumbIndices.contains(i))
+                addThumbView()
             }
         }
+    }
+
+    private func addThumbView() {
+        let i = thumbViews.count
+        let thumbView = UIImageView(image: thumbImage ?? defaultThumbImage)
+        thumbView.addShadow()
+        thumbViews.append(thumbView)
+        slideView.addConstrainedSubview(thumbView, constrain: .CenterX)
+        positionThumbView(i)
+        thumbView.blur(disabledThumbIndices.contains(i))
+        addValueLabel()
+    }
+
+    private func addValueLabel() {
+        guard valueLabelPosition != .NotAnAttribute else {return}
+        let i = valueLabels.count
+        let valueLabel = UITextField()
+        valueLabel.borderStyle = .RoundedRect
+        slideView.addSubview(valueLabel)
+        valueLabel.translatesAutoresizingMaskIntoConstraints = false
+        let thumbView = thumbViews[i]
+        slideView.constrain(valueLabel, at: valueLabelPosition.perpendicularCenter, to: thumbView)
+        slideView.constrain(valueLabel, at: valueLabelPosition.opposite, to: thumbView, at: valueLabelPosition, diff: -valueLabelPosition.inwardSign * thumbView.diagonalSize / 4)
+        valueLabels.append(valueLabel)
+        updateValueLabel(i)
+    }
+
+    private func updateValueLabel(i: Int) {
+        let labelValue: CGFloat
+        if isValueLabelRelative {
+            labelValue = i > 0 ? value[i] - value[i-1] : value[i] - minimumValue
+        }
+        else {
+            labelValue = value[i]
+        }
+        valueLabels[i].text = valueLabelFormatter.stringFromNumber(labelValue)
     }
 
     private func updateValueCount(count: Int) {
@@ -303,6 +375,8 @@ extension CGPoint {
 }
 
 extension UIView {
+    var diagonalSize: CGFloat {return hypot(frame.width, frame.height)}
+
     var actualTintColor: UIColor {
         var tintedView: UIView? = self
         while let currentView = tintedView where nil == currentView.tintColor {
@@ -322,6 +396,14 @@ extension UIView {
         layer.shadowOpacity = 0.25
         layer.shadowOffset = CGSize(width: 0, height: 4)
         layer.shadowRadius = 0.5
+    }
+}
+
+extension Array where Element: UIView {
+    mutating func removeViewsStartingAt(index: Int) {
+        guard index >= 0 && index < count else {return}
+        self[index ..< count].forEach {$0.removeFromSuperview()}
+        removeLast(count - index)
     }
 }
 
@@ -372,6 +454,13 @@ extension NSLayoutAttribute {
         case .Left, .Leading, .LeftMargin, .LeadingMargin: return 1
         case .Right, .Trailing, .RightMargin, .TrailingMargin: return -1
         default: return 1
+        }
+    }
+
+    var perpendicularCenter: NSLayoutAttribute {
+        switch self {
+        case .Left, .Leading, .LeftMargin, .LeadingMargin, .Right, .Trailing, .RightMargin, .TrailingMargin: return .CenterY
+        default: return .CenterY
         }
     }
 }
