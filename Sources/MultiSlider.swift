@@ -107,6 +107,7 @@ public class MultiSlider: UIControl
         let formatter = NSNumberFormatter()
         formatter.maximumFractionDigits = 2
         formatter.minimumIntegerDigits = 1
+        formatter.roundingMode = .RoundHalfEven
         return formatter
     }()
 
@@ -147,10 +148,9 @@ public class MultiSlider: UIControl
 
         // snap translation to stepSizeInView
         if snapStepSize > 0 {
+            targetPosition = targetPosition.rounded(stepSizeInView)
             var translation = targetPosition - thumbViews[draggedThumbIndex].center.y
-            translation = translation.rounded(stepSizeInView)
             guard abs(translation) >= stepSizeInView else {return}
-            targetPosition = thumbViews[draggedThumbIndex].center.y + translation
         }
 
         // don't cross prev/next thumb and total range
