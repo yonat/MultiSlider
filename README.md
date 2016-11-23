@@ -57,6 +57,12 @@ slider.disabledThumbIndices = [1, 3]
 pod 'MultiSlider'
 ```
 
+For legacy Swift 2.3:
+
+```ruby
+pod 'MultiSlider', '~> 1.0.1'
+```
+
 ### Manually:
 
 Copy `Sources/MultiSlider.swift` and [`MiniLayout.swift`](https://github.com/yonat/MiniLayout) to your Xcode project.

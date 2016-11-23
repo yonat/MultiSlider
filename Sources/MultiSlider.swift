@@ -154,7 +154,7 @@ open class MultiSlider: UIControl
         }
 
         // don't cross prev/next thumb and total range
-        let delta: CGFloat = snapStepSize > 0 ? stepSizeInView : (thumbViews[draggedThumbIndex].frame.height ?? 2e-5) / 2
+        let delta: CGFloat = snapStepSize > 0 ? stepSizeInView : thumbViews[draggedThumbIndex].frame.height / 2
         let maxLimit = draggedThumbIndex > 0 ? thumbViews[draggedThumbIndex-1].center.y - delta : slideView.bounds.maxY
         let minLimit = draggedThumbIndex < thumbViews.count-1 ? thumbViews[draggedThumbIndex+1].center.y + delta : slideView.bounds.minY
         targetPosition = min(maxLimit, max(targetPosition, minLimit))
@@ -466,7 +466,7 @@ extension NSLayoutAttribute {
 }
 
 extension UIImage {
-    static func circle(diameter diameter: CGFloat, lineWidth: CGFloat = 1, lineColor: UIColor? = nil, fillColor: UIColor? = nil) -> UIImage {
+    static func circle(diameter: CGFloat, lineWidth: CGFloat = 1, lineColor: UIColor? = nil, fillColor: UIColor? = nil) -> UIImage {
         let circleLayer = CAShapeLayer()
         circleLayer.fillColor = fillColor?.cgColor
         circleLayer.strokeColor = lineColor?.cgColor
