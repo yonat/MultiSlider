@@ -1,6 +1,6 @@
 PODS:
-  - MiniLayout (1.0.1)
-  - MultiSlider (1.0.0):
+  - MiniLayout (1.1.0)
+  - MultiSlider (1.1.0):
     - MiniLayout
 
 DEPENDENCIES:
@@ -11,8 +11,8 @@ EXTERNAL SOURCES:
     :path: ..
 
 SPEC CHECKSUMS:
-  MiniLayout: 764eae77dd3aff551a293f9c06b1b2d72783cd74
-  MultiSlider: 07214e8a019406cd3569efbb1bad9a2633b27fd7
+  MiniLayout: 7664ed112a89d954e6ccb83b6ef5dc122fb77852
+  MultiSlider: 6a53f68c99e8608eca53faa9231236ff7c1c13f9
 
 PODFILE CHECKSUM: 757f3ff88c248f3c17f5e5ade83ae7f7c5b90380
 

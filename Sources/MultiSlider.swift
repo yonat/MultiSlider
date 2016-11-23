@@ -50,10 +50,10 @@ public class MultiSlider: UIControl
     }
 
     /// show value labels next to thumbs. (default: show no label)
-    @IBInspectable public var valueLabelPosition: NSLayoutAttribute = .NotAnAttribute {
+    @IBInspectable public var valueLabelPosition: NSLayoutAttribute = .notAnAttribute {
         didSet {
             valueLabels.removeViewsStartingAt(0)
-            if valueLabelPosition != .NotAnAttribute {
+            if valueLabelPosition != .notAnAttribute {
                 for _ in 0 ..< thumbViews.count {
                     addValueLabel()
                 }
@@ -85,7 +85,7 @@ public class MultiSlider: UIControl
         }
         set {
             minimumView.image = newValue
-            layoutTrackEdge(minimumView, edge: .Bottom, superviewEdge: .BottomMargin)
+            layoutTrackEdge(toView: minimumView, edge: .bottom, superviewEdge: .bottomMargin)
         }
     }
     @IBInspectable public var maximumImage: UIImage? {
@@ -94,20 +94,20 @@ public class MultiSlider: UIControl
         }
         set {
             maximumView.image = newValue
-            layoutTrackEdge(maximumView, edge: .Top, superviewEdge: .TopMargin)
+            layoutTrackEdge(toView: maximumView, edge: .top, superviewEdge: .topMargin)
         }
     }
     @IBInspectable public var trackWidth: CGFloat = 2 {
         didSet {
-            trackView.removeFirstConstraintWhere {$0.firstAttribute == .Width}
-            trackView.constrain(.Width, to: trackWidth)
+            trackView.removeFirstConstraintWhere {$0.firstAttribute == .width}
+            trackView.constrain(.width, to: trackWidth)
         }
     }
-    public var valueLabelFormatter: NSNumberFormatter = {
-        let formatter = NSNumberFormatter()
+    public var valueLabelFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 2
         formatter.minimumIntegerDigits = 1
-        formatter.roundingMode = .RoundHalfEven
+        formatter.roundingMode = .halfEven
         return formatter
     }()
 
@@ -121,11 +121,11 @@ public class MultiSlider: UIControl
 
     // MARK: - Actions
 
-    func didDrag(panGesture: UIPanGestureRecognizer) {
+    func didDrag(_ panGesture: UIPanGestureRecognizer) {
         // determine thumb to drag
-        if panGesture.state == .Began {
-            let location = panGesture.locationInView(slideView)
-            var minimumDistance = CGFloat.max
+        if panGesture.state == .began {
+            let location = panGesture.location(in: slideView)
+            var minimumDistance = CGFloat.greatestFiniteMagnitude
             for i in 0 ..< thumbViews.count {
                 guard !disabledThumbIndices.contains(i) else {continue}
                 let distance = location.distanceTo(thumbViews[i].center)
@@ -138,12 +138,12 @@ public class MultiSlider: UIControl
         }
         guard draggedThumbIndex >= 0 else {return}
         defer {
-            if panGesture.state == .Ended {
+            if panGesture.state == .ended {
                 draggedThumbIndex = -1
             }
         }
 
-        var targetPosition = panGesture.locationInView(slideView).y
+        var targetPosition = panGesture.location(in: slideView).y
         let stepSizeInView = CGFloat(snapStepSize / (maximumValue - minimumValue)) * slideView.bounds.height
 
         // snap translation to stepSizeInView
@@ -175,7 +175,7 @@ public class MultiSlider: UIControl
             }
         }
 
-        sendActionsForControlEvents(.ValueChanged)
+        sendActions(for: .valueChanged)
     }
 
     // MARK: - Privates
@@ -183,18 +183,18 @@ public class MultiSlider: UIControl
     private var slideView = UIView()
     private var isSettingValue = false
     private var draggedThumbIndex: Int = -1
-    private lazy var defaultThumbImage: UIImage = .circle(diameter: 29, lineWidth: 0.5, lineColor: UIColor.lightGrayColor().colorWithAlphaComponent(0.5), fillColor: .whiteColor())
+    private lazy var defaultThumbImage: UIImage = .circle(diameter: 29, lineWidth: 0.5, lineColor: UIColor.lightGray.withAlphaComponent(0.5), fillColor: .white)
 
     private func setup() {
         trackView.backgroundColor = actualTintColor
         trackView.layer.cornerRadius = 1
-        addConstrainedSubview(trackView, constrain: .Top, .Bottom, .CenterXWithinMargins)
-        trackView.constrain(.Width, to: trackWidth)
-        trackView.addConstrainedSubview(slideView, constrain: .CenterX, .Width, .BottomMargin, .TopMargin)
-        slideView.layoutMargins = UIEdgeInsetsZero
+        addConstrainedSubview(trackView, constrain: .top, .bottom, .centerXWithinMargins)
+        trackView.constrain(.width, to: trackWidth)
+        trackView.addConstrainedSubview(slideView, constrain: .centerX, .width, .bottomMargin, .topMargin)
+        slideView.layoutMargins = .zero
 
-        addConstrainedSubview(minimumView, constrain: .BottomMargin, .CenterXWithinMargins)
-        addConstrainedSubview(maximumView, constrain: .TopMargin, .CenterXWithinMargins)
+        addConstrainedSubview(minimumView, constrain: .bottomMargin, .centerXWithinMargins)
+        addConstrainedSubview(maximumView, constrain: .topMargin, .centerXWithinMargins)
 
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(didDrag(_:))))
     }
@@ -219,17 +219,17 @@ public class MultiSlider: UIControl
         let thumbView = UIImageView(image: thumbImage ?? defaultThumbImage)
         thumbView.addShadow()
         thumbViews.append(thumbView)
-        slideView.addConstrainedSubview(thumbView, constrain: .CenterX)
+        slideView.addConstrainedSubview(thumbView, constrain: .centerX)
         positionThumbView(i)
         thumbView.blur(disabledThumbIndices.contains(i))
         addValueLabel()
     }
 
     private func addValueLabel() {
-        guard valueLabelPosition != .NotAnAttribute else {return}
+        guard valueLabelPosition != .notAnAttribute else {return}
         let i = valueLabels.count
         let valueLabel = UITextField()
-        valueLabel.borderStyle = .RoundedRect
+        valueLabel.borderStyle = .roundedRect
         slideView.addSubview(valueLabel)
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
         let thumbView = thumbViews[i]
@@ -239,7 +239,7 @@ public class MultiSlider: UIControl
         updateValueLabel(i)
     }
 
-    private func updateValueLabel(i: Int) {
+    private func updateValueLabel(_  i: Int) {
         let labelValue: CGFloat
         if isValueLabelRelative {
             labelValue = i > 0 ? value[i] - value[i-1] : value[i] - minimumValue
@@ -247,10 +247,10 @@ public class MultiSlider: UIControl
         else {
             labelValue = value[i]
         }
-        valueLabels[i].text = valueLabelFormatter.stringFromNumber(labelValue)
+        valueLabels[i].text = valueLabelFormatter.string(from: NSNumber(value: Double(labelValue)))
     }
 
-    private func updateValueCount(count: Int) {
+    private func updateValueCount(_ count: Int) {
         guard count != value.count else {return}
         isSettingValue = true
         if value.count < count {
@@ -269,7 +269,7 @@ public class MultiSlider: UIControl
                 }
             }
             if 0 == step {step = relativeStepSize}
-            value += startValue.stride(through: maximumValue, by: step)
+            value += stride(from: startValue, through: maximumValue, by: step)
         }
         if value.count > count { // don't add "else", since prev calc may add too many values in some cases
             value.removeLast(value.count - count)
@@ -279,7 +279,7 @@ public class MultiSlider: UIControl
     }
 
     private func adjustValuesToStepAndLimits() {
-        var adjusted = value.sort()
+        var adjusted = value.sorted()
         for i in 0..<adjusted.count {
             let snapped = adjusted[i].rounded(snapStepSize)
             adjusted[i] = min(maximumValue, max(minimumValue, snapped))
@@ -294,18 +294,18 @@ public class MultiSlider: UIControl
         }
     }
 
-    private func positionThumbView(i: Int) {
+    private func positionThumbView(_ i: Int) {
         let thumbView = thumbViews[i]
         let thumbValue = value[i]
-        slideView.removeFirstConstraintWhere {$0.firstItem === thumbView && $0.firstAttribute == .CenterY}
+        slideView.removeFirstConstraintWhere {$0.firstItem === thumbView && $0.firstAttribute == .centerY}
         let thumbRelativeY = (maximumValue - thumbValue) / (maximumValue - minimumValue)
         if thumbRelativeY.isNormal {
-            slideView.constrain(thumbView, at: .CenterY, to: slideView, at: .Bottom, ratio: CGFloat(thumbRelativeY))
+            slideView.constrain(thumbView, at: .centerY, to: slideView, at: .bottom, ratio: CGFloat(thumbRelativeY))
         }
         else {
-            slideView.constrain(thumbView, at: .CenterY, to: slideView, at: .Top)
+            slideView.constrain(thumbView, at: .centerY, to: slideView, at: .top)
         }
-        UIView.animateWithDuration(0.1) {
+        UIView.animate(withDuration: 0.1) {
             self.slideView.layoutIfNeeded()
         }
     }
@@ -344,7 +344,7 @@ public class MultiSlider: UIControl
     override public func prepareForInterfaceBuilder() {
         // make visual editing easier
         layer.borderWidth = 0.5
-        layer.borderColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.5).CGColor
+        layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
 
         // evenly distribue thumbs
         let oldThumbCount = thumbCount
@@ -356,19 +356,19 @@ public class MultiSlider: UIControl
 // MARK: Extensions
 
 extension CGFloat {
-    func truncated(step: CGFloat) -> CGFloat {
-        return step.isNormal ? self - (self % step) : self
+    func truncated(_ step: CGFloat) -> CGFloat {
+        return step.isNormal ? self - self.remainder(dividingBy: step) : self
     }
-    func rounded(step: CGFloat) -> CGFloat {
+    func rounded(_ step: CGFloat) -> CGFloat {
         guard step.isNormal && self.isNormal else {return self}
-        let remainder = self % step
+        let remainder = self.remainder(dividingBy: step)
         let truncated = self - remainder
         return remainder * 2 < step ? truncated : truncated + step
     }
 }
 
 extension CGPoint {
-    func distanceTo(point: CGPoint) -> CGFloat {
+    func distanceTo(_ point: CGPoint) -> CGFloat {
         let (dx, dy) = (x - point.x, y - point.y)
         return hypot(dx, dy)
     }
@@ -379,20 +379,20 @@ extension UIView {
 
     var actualTintColor: UIColor {
         var tintedView: UIView? = self
-        while let currentView = tintedView where nil == currentView.tintColor {
+        while let currentView = tintedView, nil == currentView.tintColor {
             tintedView = currentView.superview
         }
-        return tintedView?.tintColor ?? .blueColor()
+        return tintedView?.tintColor ?? .blue
     }
 
-    func removeFirstConstraintWhere(predicate: (constraint: NSLayoutConstraint) -> Bool) {
-        if let constrainIndex = constraints.indexOf(predicate) {
+    func removeFirstConstraintWhere(_ predicate: (_: NSLayoutConstraint) -> Bool) {
+        if let constrainIndex = constraints.index(where: predicate) {
             removeConstraint(constraints[constrainIndex])
         }
     }
 
     func addShadow() {
-        layer.shadowColor = UIColor.grayColor().CGColor
+        layer.shadowColor = UIColor.gray.cgColor
         layer.shadowOpacity = 0.25
         layer.shadowOffset = CGSize(width: 0, height: 4)
         layer.shadowRadius = 0.5
@@ -400,7 +400,7 @@ extension UIView {
 }
 
 extension Array where Element: UIView {
-    mutating func removeViewsStartingAt(index: Int) {
+    mutating func removeViewsStartingAt(_ index: Int) {
         guard index >= 0 && index < count else {return}
         self[index ..< count].forEach {$0.removeFromSuperview()}
         removeLast(count - index)
@@ -408,15 +408,15 @@ extension Array where Element: UIView {
 }
 
 extension UIImageView {
-    func blur(on: Bool) {
+    func blur(_ on: Bool) {
         if on {
             guard nil == viewWithTag(UIImageView.blurViewTag) else {return}
-            let blurImage = image?.imageWithRenderingMode(.AlwaysTemplate)
+            let blurImage = image?.withRenderingMode(.alwaysTemplate)
             let blurView = UIImageView(image: blurImage)
             blurView.tag = UIImageView.blurViewTag
-            blurView.tintColor = .whiteColor()
+            blurView.tintColor = .white
             blurView.alpha = 0.5
-            addConstrainedSubview(blurView, constrain: .Top, .Bottom, .Left, .Right)
+            addConstrainedSubview(blurView, constrain: .top, .bottom, .left, .right)
             layer.shadowOpacity /= 2
         }
         else {
@@ -431,36 +431,36 @@ extension UIImageView {
 extension NSLayoutAttribute {
     var opposite: NSLayoutAttribute {
         switch self {
-        case .Left: return .Right
-        case .Right: return .Left
-        case .Top: return .Bottom
-        case .Bottom: return .Top
-        case .Leading: return .Trailing
-        case .Trailing: return .Leading
-        case .LeftMargin: return .RightMargin
-        case .RightMargin: return .LeftMargin
-        case .TopMargin: return .BottomMargin
-        case .BottomMargin: return .TopMargin
-        case .LeadingMargin: return .TrailingMargin
-        case .TrailingMargin: return .LeadingMargin
+        case .left: return .right
+        case .right: return .left
+        case .top: return .bottom
+        case .bottom: return .top
+        case .leading: return .trailing
+        case .trailing: return .leading
+        case .leftMargin: return .rightMargin
+        case .rightMargin: return .leftMargin
+        case .topMargin: return .bottomMargin
+        case .bottomMargin: return .topMargin
+        case .leadingMargin: return .trailingMargin
+        case .trailingMargin: return .leadingMargin
         default: return self
         }
     }
 
     var inwardSign: CGFloat {
         switch self {
-        case .Top, .TopMargin: return 1
-        case .Bottom, .BottomMargin: return -1
-        case .Left, .Leading, .LeftMargin, .LeadingMargin: return 1
-        case .Right, .Trailing, .RightMargin, .TrailingMargin: return -1
+        case .top, .topMargin: return 1
+        case .bottom, .bottomMargin: return -1
+        case .left, .leading, .leftMargin, .leadingMargin: return 1
+        case .right, .trailing, .rightMargin, .trailingMargin: return -1
         default: return 1
         }
     }
 
     var perpendicularCenter: NSLayoutAttribute {
         switch self {
-        case .Left, .Leading, .LeftMargin, .LeadingMargin, .Right, .Trailing, .RightMargin, .TrailingMargin: return .CenterY
-        default: return .CenterY
+        case .left, .leading, .leftMargin, .leadingMargin, .right, .trailing, .rightMargin, .trailingMargin: return .centerY
+        default: return .centerX
         }
     }
 }
@@ -468,15 +468,15 @@ extension NSLayoutAttribute {
 extension UIImage {
     static func circle(diameter diameter: CGFloat, lineWidth: CGFloat = 1, lineColor: UIColor? = nil, fillColor: UIColor? = nil) -> UIImage {
         let circleLayer = CAShapeLayer()
-        circleLayer.fillColor = fillColor?.CGColor
-        circleLayer.strokeColor = lineColor?.CGColor
+        circleLayer.fillColor = fillColor?.cgColor
+        circleLayer.strokeColor = lineColor?.cgColor
         circleLayer.lineWidth = lineWidth
         let margin = lineWidth * 2
-        let circle = UIBezierPath(ovalInRect: CGRect(x: margin, y: margin, width: diameter, height: diameter))
+        let circle = UIBezierPath(ovalIn: CGRect(x: margin, y: margin, width: diameter, height: diameter))
         circleLayer.bounds = CGRect(x: 0, y: 0, width: diameter + margin*2, height: diameter + margin*2)
-        circleLayer.path = circle.CGPath
+        circleLayer.path = circle.cgPath
         UIGraphicsBeginImageContextWithOptions(circleLayer.bounds.size, false, 0)
-        circleLayer.renderInContext(UIGraphicsGetCurrentContext()!)
+        circleLayer.render(in: UIGraphicsGetCurrentContext()!)
         let image =  UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return image

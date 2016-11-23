@@ -15,22 +15,22 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        multiSlider.addTarget(self, action: #selector(sliderChanged(_:)), forControlEvents: .ValueChanged)
+        multiSlider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
         multiSlider.disabledThumbIndices = [3]
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC)), dispatch_get_main_queue()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.multiSlider.value = [0.4, 2.8]
-            self.multiSlider.valueLabelPosition = .Left
+            self.multiSlider.valueLabelPosition = .top
         }
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * Int64(NSEC_PER_SEC)), dispatch_get_main_queue()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.multiSlider.thumbCount = 5
-            self.multiSlider.valueLabelPosition = .Right
+            self.multiSlider.valueLabelPosition = .right
             self.multiSlider.isValueLabelRelative = true
         }
     }
 
-    func sliderChanged(slider: MultiSlider) {
+    func sliderChanged(_ slider: MultiSlider) {
         print("\(slider.value)")
     }
 
