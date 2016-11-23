@@ -10,9 +10,9 @@ import UIKit
 import MiniLayout
 
 @IBDesignable
-public class MultiSlider: UIControl
+open class MultiSlider: UIControl
 {
-    public var value: [CGFloat] = [] {
+    open var value: [CGFloat] = [] {
         didSet {
             if isSettingValue {return}
             adjustThumbCountToValueCount()
@@ -23,13 +23,13 @@ public class MultiSlider: UIControl
         }
     }
 
-    @IBInspectable public var minimumValue: CGFloat = 0     { didSet {adjustValuesToStepAndLimits()} }
-    @IBInspectable public var maximumValue: CGFloat = 1     { didSet {adjustValuesToStepAndLimits()} }
+    @IBInspectable open var minimumValue: CGFloat = 0     { didSet {adjustValuesToStepAndLimits()} }
+    @IBInspectable open var maximumValue: CGFloat = 1     { didSet {adjustValuesToStepAndLimits()} }
 
     /// snap thumbs to specific values, evenly spaced. (default = 0: allow any value)
-    @IBInspectable public var snapStepSize: CGFloat = 0     { didSet {adjustValuesToStepAndLimits()} }
+    @IBInspectable open var snapStepSize: CGFloat = 0     { didSet {adjustValuesToStepAndLimits()} }
 
-    @IBInspectable public var thumbCount: Int {
+    @IBInspectable open var thumbCount: Int {
         get {
             return thumbViews.count
         }
@@ -41,7 +41,7 @@ public class MultiSlider: UIControl
     }
 
     /// make specific thumbs fixed (and grayed)
-    public var disabledThumbIndices: Set<Int> = [] {
+    open var disabledThumbIndices: Set<Int> = [] {
         didSet {
             for i in 0 ..< thumbCount {
                 thumbViews[i].blur(disabledThumbIndices.contains(i))
@@ -50,7 +50,7 @@ public class MultiSlider: UIControl
     }
 
     /// show value labels next to thumbs. (default: show no label)
-    @IBInspectable public var valueLabelPosition: NSLayoutAttribute = .notAnAttribute {
+    @IBInspectable open var valueLabelPosition: NSLayoutAttribute = .notAnAttribute {
         didSet {
             valueLabels.removeViewsStartingAt(0)
             if valueLabelPosition != .notAnAttribute {
@@ -62,7 +62,7 @@ public class MultiSlider: UIControl
     }
 
     /// value label shows difference from previous thumb value (true) or absolute value (false = default)
-    @IBInspectable public var isValueLabelRelative: Bool = false {
+    @IBInspectable open var isValueLabelRelative: Bool = false {
         didSet {
             for i in 0 ..< valueLabels.count {
                 updateValueLabel(i)
@@ -72,14 +72,14 @@ public class MultiSlider: UIControl
 
     // MARK: - Appearance
 
-    @IBInspectable public var thumbImage: UIImage? {
+    @IBInspectable open var thumbImage: UIImage? {
         didSet {
             thumbViews.forEach {$0.image = thumbImage}
             let halfHeight = (thumbImage?.size.height ?? 2)/2 - 1 // 1 pixel for semi-transparent boundary
             trackView.layoutMargins = UIEdgeInsets(top: halfHeight, left: 0, bottom: halfHeight, right: 0)
         }
     }
-    @IBInspectable public var minimumImage: UIImage? {
+    @IBInspectable open var minimumImage: UIImage? {
         get {
             return minimumView.image
         }
@@ -88,7 +88,7 @@ public class MultiSlider: UIControl
             layoutTrackEdge(toView: minimumView, edge: .bottom, superviewEdge: .bottomMargin)
         }
     }
-    @IBInspectable public var maximumImage: UIImage? {
+    @IBInspectable open var maximumImage: UIImage? {
         get {
             return maximumView.image
         }
@@ -97,13 +97,13 @@ public class MultiSlider: UIControl
             layoutTrackEdge(toView: maximumView, edge: .top, superviewEdge: .topMargin)
         }
     }
-    @IBInspectable public var trackWidth: CGFloat = 2 {
+    @IBInspectable open var trackWidth: CGFloat = 2 {
         didSet {
             trackView.removeFirstConstraintWhere {$0.firstAttribute == .width}
             trackView.constrain(.width, to: trackWidth)
         }
     }
-    public var valueLabelFormatter: NumberFormatter = {
+    open var valueLabelFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 2
         formatter.minimumIntegerDigits = 1
@@ -113,15 +113,15 @@ public class MultiSlider: UIControl
 
     // MARK: - Subviews
 
-    public var thumbViews: [UIImageView] = []
-    public var valueLabels: [UITextField] = [] // UILabels are a pain to layout, text fields look nice as-is.
-    public var trackView = UIView()
-    public var minimumView = UIImageView()
-    public var maximumView = UIImageView()
+    open var thumbViews: [UIImageView] = []
+    open var valueLabels: [UITextField] = [] // UILabels are a pain to layout, text fields look nice as-is.
+    open var trackView = UIView()
+    open var minimumView = UIImageView()
+    open var maximumView = UIImageView()
 
     // MARK: - Actions
 
-    func didDrag(_ panGesture: UIPanGestureRecognizer) {
+    open func didDrag(_ panGesture: UIPanGestureRecognizer) {
         // determine thumb to drag
         if panGesture.state == .began {
             let location = panGesture.location(in: slideView)
@@ -322,7 +322,7 @@ public class MultiSlider: UIControl
 
     // MARK: - Overrides
 
-    override public func tintColorDidChange() {
+    override open func tintColorDidChange() {
         let thumbTint = thumbViews.map {$0.tintColor} // different thumbs may have different tints
         super.tintColorDidChange()
         trackView.backgroundColor = actualTintColor
@@ -341,7 +341,7 @@ public class MultiSlider: UIControl
         setup()
     }
 
-    override public func prepareForInterfaceBuilder() {
+    override open func prepareForInterfaceBuilder() {
         // make visual editing easier
         layer.borderWidth = 0.5
         layer.borderColor = UIColor.lightGray.withAlphaComponent(0.5).cgColor
