@@ -1,0 +1,6 @@
+framework module MultiSlider {
+  umbrella header "MultiSlider-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module MiniLayout {
+  umbrella header "MiniLayout-umbrella.h"
+
+  export *
+  module * { export * }
+}
