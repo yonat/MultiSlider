@@ -22,7 +22,7 @@ slider.addTarget(self, action: #selector(sliderChanged(_:)), forControlEvents: .
 
 ```swift
 func sliderChanged(slider: MultiSlider) {
-    print("\(slider.value)")
+    print("\(slider.value)") // e.g., [1.0, 4.5, 5.0]
 }
 ```
 
