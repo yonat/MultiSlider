@@ -160,7 +160,7 @@ open class MultiSlider: UIControl
         targetPosition = min(maxLimit, max(targetPosition, minLimit))
 
         // change corresponding value
-        let newValue = maximumValue - (targetPosition / slideView.bounds.height) * (maximumValue - minimumValue)
+        let newValue = ( maximumValue - (targetPosition / slideView.bounds.height) * (maximumValue - minimumValue) ).rounded(snapStepSize)
         guard newValue != value[draggedThumbIndex] else {return}
         isSettingValue = true
         value[draggedThumbIndex] = newValue
