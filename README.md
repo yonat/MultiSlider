@@ -1,6 +1,13 @@
 # MultiSlider
 UISlider clone with multiple thumbs and values, optional snap intervals, optional value labels.
 
+[![Swift Version][swift-image]][swift-url]
+[![Build Status][travis-image]][travis-url]
+[![License][license-image]][license-url]
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/MultiSlider.svg)](https://img.shields.io/cocoapods/v/MultiSlider.svg)  
+[![Platform](https://img.shields.io/cocoapods/p/MultiSlider.svg?style=flat)](http://cocoapods.org/pods/MultiSlider)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
 <p align="center">
 <img src="Screenshots/MultiSlider.png">
 </p>
@@ -49,6 +56,11 @@ slider.isValueLabelRelative = true // shows differences instead of absolute valu
 slider.disabledThumbIndices = [1, 3]
 ```
 
+## Requirements
+
+- iOS 8.0+
+- Xcode 7.3
+
 ## Installation
 
 ### CocoaPods:
@@ -72,3 +84,18 @@ Copy `Sources/MultiSlider.swift` and [`MiniLayout.swift`](https://github.com/yon
 - [ ] Horizontal slider and not just vertical.
 - [ ] `isContinuous=false` for clients that only want a single `.valueChanged` event on drag end.
 - [ ] Fix IB presentation. (dlopen error "image not found", thumbs should be vertically centered and evenly distributed.)
+
+## Meta
+
+[@yonatsharon](https://twitter.com/yonatsharon)
+
+[https://github.com/yonat/MultiSlider](https://github.com/yonat/MultiSlider)
+
+[swift-image]:https://img.shields.io/badge/swift-3.0-orange.svg
+[swift-url]: https://swift.org/
+[license-image]: https://img.shields.io/badge/License-MIT-blue.svg
+[license-url]: LICENSE.txt
+[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
+[codebeat-image]: https://codebeat.co/badges/c19b47ea-2f9d-45df-8458-b2d952fe9dad
+[codebeat-url]: https://codebeat.co/projects/github-com-vsouza-awesomeios-com
