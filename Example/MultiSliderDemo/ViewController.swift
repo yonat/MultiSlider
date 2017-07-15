@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         }
     }
 
-    func sliderChanged(_ slider: MultiSlider) {
+    @objc func sliderChanged(_ slider: MultiSlider) {
         print("\(slider.value)")
     }
 

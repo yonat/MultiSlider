@@ -12,7 +12,7 @@ import MiniLayout
 @IBDesignable
 open class MultiSlider: UIControl
 {
-    open var value: [CGFloat] = [] {
+    @objc open var value: [CGFloat] = [] {
         didSet {
             if isSettingValue {return}
             adjustThumbCountToValueCount()
@@ -23,13 +23,13 @@ open class MultiSlider: UIControl
         }
     }
 
-    @IBInspectable open var minimumValue: CGFloat = 0     { didSet {adjustValuesToStepAndLimits()} }
-    @IBInspectable open var maximumValue: CGFloat = 1     { didSet {adjustValuesToStepAndLimits()} }
+    @IBInspectable @objc open var minimumValue: CGFloat = 0     { didSet {adjustValuesToStepAndLimits()} }
+    @IBInspectable @objc open var maximumValue: CGFloat = 1     { didSet {adjustValuesToStepAndLimits()} }
 
     /// snap thumbs to specific values, evenly spaced. (default = 0: allow any value)
-    @IBInspectable open var snapStepSize: CGFloat = 0     { didSet {adjustValuesToStepAndLimits()} }
+    @IBInspectable @objc open var snapStepSize: CGFloat = 0     { didSet {adjustValuesToStepAndLimits()} }
 
-    @IBInspectable open var thumbCount: Int {
+    @IBInspectable @objc open var thumbCount: Int {
         get {
             return thumbViews.count
         }
@@ -41,7 +41,7 @@ open class MultiSlider: UIControl
     }
 
     /// make specific thumbs fixed (and grayed)
-    open var disabledThumbIndices: Set<Int> = [] {
+    @objc open var disabledThumbIndices: Set<Int> = [] {
         didSet {
             for i in 0 ..< thumbCount {
                 thumbViews[i].blur(disabledThumbIndices.contains(i))
@@ -50,7 +50,7 @@ open class MultiSlider: UIControl
     }
 
     /// show value labels next to thumbs. (default: show no label)
-    @IBInspectable open var valueLabelPosition: NSLayoutAttribute = .notAnAttribute {
+    @IBInspectable @objc open var valueLabelPosition: NSLayoutAttribute = .notAnAttribute {
         didSet {
             valueLabels.removeViewsStartingAt(0)
             if valueLabelPosition != .notAnAttribute {
@@ -62,7 +62,7 @@ open class MultiSlider: UIControl
     }
 
     /// value label shows difference from previous thumb value (true) or absolute value (false = default)
-    @IBInspectable open var isValueLabelRelative: Bool = false {
+    @IBInspectable @objc open var isValueLabelRelative: Bool = false {
         didSet {
             for i in 0 ..< valueLabels.count {
                 updateValueLabel(i)
@@ -72,14 +72,14 @@ open class MultiSlider: UIControl
 
     // MARK: - Appearance
 
-    @IBInspectable open var thumbImage: UIImage? {
+    @IBInspectable @objc open var thumbImage: UIImage? {
         didSet {
             thumbViews.forEach {$0.image = thumbImage}
             let halfHeight = (thumbImage?.size.height ?? 2)/2 - 1 // 1 pixel for semi-transparent boundary
             trackView.layoutMargins = UIEdgeInsets(top: halfHeight, left: 0, bottom: halfHeight, right: 0)
         }
     }
-    @IBInspectable open var minimumImage: UIImage? {
+    @IBInspectable @objc open var minimumImage: UIImage? {
         get {
             return minimumView.image
         }
@@ -88,7 +88,7 @@ open class MultiSlider: UIControl
             layoutTrackEdge(toView: minimumView, edge: .bottom, superviewEdge: .bottomMargin)
         }
     }
-    @IBInspectable open var maximumImage: UIImage? {
+    @IBInspectable @objc open var maximumImage: UIImage? {
         get {
             return maximumView.image
         }
@@ -97,7 +97,7 @@ open class MultiSlider: UIControl
             layoutTrackEdge(toView: maximumView, edge: .top, superviewEdge: .topMargin)
         }
     }
-    @IBInspectable open var trackWidth: CGFloat = 2 {
+    @IBInspectable @objc open var trackWidth: CGFloat = 2 {
         didSet {
             trackView.removeFirstConstraintWhere {$0.firstAttribute == .width}
             trackView.constrain(.width, to: trackWidth)
@@ -113,15 +113,15 @@ open class MultiSlider: UIControl
 
     // MARK: - Subviews
 
-    open var thumbViews: [UIImageView] = []
-    open var valueLabels: [UITextField] = [] // UILabels are a pain to layout, text fields look nice as-is.
-    open var trackView = UIView()
-    open var minimumView = UIImageView()
-    open var maximumView = UIImageView()
+    @objc open var thumbViews: [UIImageView] = []
+    @objc open var valueLabels: [UITextField] = [] // UILabels are a pain to layout, text fields look nice as-is.
+    @objc open var trackView = UIView()
+    @objc open var minimumView = UIImageView()
+    @objc open var maximumView = UIImageView()
 
     // MARK: - Actions
 
-    open func didDrag(_ panGesture: UIPanGestureRecognizer) {
+    @objc open func didDrag(_ panGesture: UIPanGestureRecognizer) {
         // determine thumb to drag
         if panGesture.state == .began {
             let location = panGesture.location(in: slideView)
