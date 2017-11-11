@@ -28,7 +28,13 @@ class ViewController: UIViewController {
             self.multiSlider.valueLabelPosition = .right
             self.multiSlider.isValueLabelRelative = true
         }
-    }
+
+        let horizontalMultiSlider = MultiSlider()
+        horizontalMultiSlider.orientation = .horizontal
+        horizontalMultiSlider.thumbCount = 3
+        horizontalMultiSlider.valueLabelPosition = .top
+        view.addConstrainedSubview(horizontalMultiSlider, constrain: .leftMargin, .rightMargin, .bottomMargin)
+}
 
     @objc func sliderChanged(_ slider: MultiSlider) {
         print("\(slider.value)")
