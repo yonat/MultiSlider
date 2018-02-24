@@ -81,7 +81,6 @@ Copy `Sources/MultiSlider.swift` and [`MiniLayout.swift`](https://github.com/yon
 
 ## TODO
 
-- [ ] Horizontal slider and not just vertical.
 - [ ] `isContinuous=false` for clients that only want a single `.valueChanged` event on drag end.
 - [ ] Fix IB presentation. (dlopen error "image not found", thumbs should be vertically centered and evenly distributed.)
 

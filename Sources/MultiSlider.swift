@@ -94,7 +94,11 @@ open class MultiSlider: UIControl
         }
         set {
             minimumView.image = newValue
-            layoutTrackEdge(toView: minimumView, edge: .bottom, superviewEdge: .bottomMargin)
+            layoutTrackEdge(
+                toView: minimumView,
+                edge: orientation == .vertical ? .bottom : .leading,
+                superviewEdge: orientation == .vertical ? .bottomMargin : .leadingMargin
+            )
         }
     }
     @IBInspectable @objc open var maximumImage: UIImage? {
@@ -103,13 +107,18 @@ open class MultiSlider: UIControl
         }
         set {
             maximumView.image = newValue
-            layoutTrackEdge(toView: maximumView, edge: .top, superviewEdge: .topMargin)
+            layoutTrackEdge(
+                toView: maximumView,
+                edge:  orientation == .vertical ? .top : .trailing,
+                superviewEdge:  orientation == .vertical ? .topMargin : .trailingMargin
+            )
         }
     }
     @IBInspectable @objc open var trackWidth: CGFloat = 2 {
         didSet {
-            trackView.removeFirstConstraintWhere {$0.firstAttribute == .width}
-            trackView.constrain(.width, to: trackWidth)
+            let widthAttribute: NSLayoutAttribute = orientation == .vertical ? .width : .height
+            trackView.removeFirstConstraintWhere { $0.firstAttribute == widthAttribute }
+            trackView.constrain(widthAttribute, to: trackWidth)
         }
     }
     open var valueLabelFormatter: NumberFormatter = {
@@ -271,7 +280,7 @@ open class MultiSlider: UIControl
     private func addValueLabel(_ i: Int) {
         guard valueLabelPosition != .notAnAttribute else {return}
         let valueLabel = UITextField()
-        valueLabel.borderStyle = .roundedRect
+        valueLabel.borderStyle = .none
         slideView.addSubview(valueLabel)
         valueLabel.translatesAutoresizingMaskIntoConstraints = false
         let thumbView = thumbViews[i]
@@ -398,7 +407,7 @@ open class MultiSlider: UIControl
         super.init(frame: frame)
         setup()
     }
-    
+
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
@@ -420,10 +429,11 @@ open class MultiSlider: UIControl
 
 extension CGFloat {
     func truncated(_ step: CGFloat) -> CGFloat {
-        return step.isNormal ? self - self.remainder(dividingBy: step) : self
+        return step.isNormal ? self - remainder(dividingBy: step) : self
     }
+
     func rounded(_ step: CGFloat) -> CGFloat {
-        guard step.isNormal && self.isNormal else {return self}
+        guard step.isNormal && isNormal else {return self}
         let remainder = self.remainder(dividingBy: step)
         let truncated = self - remainder
         return remainder * 2 < step ? truncated : truncated + step
@@ -511,7 +521,7 @@ extension Array where Element: UIView {
 extension UIImageView {
     func blur(_ on: Bool) {
         if on {
-            guard nil == viewWithTag(UIImageView.blurViewTag) else {return}
+            guard nil == viewWithTag(UIImageView.blurViewTag) else { return }
             let blurImage = image?.withRenderingMode(.alwaysTemplate)
             let blurView = UIImageView(image: blurImage)
             blurView.tag = UIImageView.blurViewTag
@@ -526,7 +536,8 @@ extension UIImageView {
             layer.shadowOpacity *= 2
         }
     }
-    static var blurViewTag: Int {return 898989}
+
+    static var blurViewTag: Int {return 898_989}
 }
 
 extension NSLayoutAttribute {
@@ -587,7 +598,7 @@ extension UIImage {
         circleLayer.path = circle.cgPath
         UIGraphicsBeginImageContextWithOptions(circleLayer.bounds.size, false, 0)
         circleLayer.render(in: UIGraphicsGetCurrentContext()!)
-        let image =  UIGraphicsGetImageFromCurrentImageContext()!
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return image
     }
