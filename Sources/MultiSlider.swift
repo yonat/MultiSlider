@@ -119,8 +119,15 @@ open class MultiSlider: UIControl
             let widthAttribute: NSLayoutAttribute = orientation == .vertical ? .width : .height
             trackView.removeFirstConstraintWhere { $0.firstAttribute == widthAttribute }
             trackView.constrain(widthAttribute, to: trackWidth)
+            updateTrackViewCornerRounding()
         }
     }
+    @IBInspectable @objc public var hasRoundTrackEnds: Bool = false {
+        didSet {
+            updateTrackViewCornerRounding()
+        }
+    }
+
     open var valueLabelFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 2
@@ -214,7 +221,7 @@ open class MultiSlider: UIControl
 
     private func setup() {
         trackView.backgroundColor = actualTintColor
-        trackView.layer.cornerRadius = 1
+        updateTrackViewCornerRounding()
         slideView.layoutMargins = .zero
         setupOrientation()
 
@@ -379,6 +386,10 @@ open class MultiSlider: UIControl
         else {
             constrain(trackView, at: edge, to: self, at: superviewEdge)
         }
+    }
+
+    private func updateTrackViewCornerRounding() {
+        trackView.layer.cornerRadius = hasRoundTrackEnds ? trackWidth / 2 : 1
     }
 
     // MARK: - Overrides
