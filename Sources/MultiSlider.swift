@@ -88,6 +88,11 @@ open class MultiSlider: UIControl
             invalidateIntrinsicContentSize()
         }
     }
+    @IBInspectable @objc public var showsThumbImageShadow: Bool = true {
+        didSet {
+            updateThumbViewShadowVisibility()
+        }
+    }
     @IBInspectable @objc open var minimumImage: UIImage? {
         get {
             return minimumView.image
@@ -282,6 +287,13 @@ open class MultiSlider: UIControl
         positionThumbView(i)
         thumbView.blur(disabledThumbIndices.contains(i))
         addValueLabel(i)
+        updateThumbViewShadowVisibility()
+    }
+
+    private func updateThumbViewShadowVisibility() {
+        thumbViews.forEach {
+            $0.layer.shadowOpacity = showsThumbImageShadow ? 0.25 : 0
+        }
     }
 
     private func addValueLabel(_ i: Int) {
