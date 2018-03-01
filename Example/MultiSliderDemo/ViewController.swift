@@ -33,6 +33,9 @@ class ViewController: UIViewController {
         horizontalMultiSlider.orientation = .horizontal
         horizontalMultiSlider.thumbCount = 3
         horizontalMultiSlider.valueLabelPosition = .top
+        horizontalMultiSlider.tintColor = .purple
+        horizontalMultiSlider.trackWidth = 32
+        horizontalMultiSlider.showsThumbImageShadow = false
         view.addConstrainedSubview(horizontalMultiSlider, constrain: .leftMargin, .rightMargin, .bottomMargin)
 }
 

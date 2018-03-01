@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MultiSlider"
-  s.version      = "1.3.1"
+  s.version      = "1.4"
   s.summary      = "UISlider clone with multiple thumbs and values, optional snap intervals, optional value labels."
 
   s.homepage     = "https://github.com/yonat/MultiSlider"
@@ -13,7 +13,6 @@ Pod::Spec.new do |s|
   s.author             = { "Yonat Sharon" => "yonat@ootips.org" }
   s.social_media_url   = "http://twitter.com/yonatsharon"
 
-  s.swift_version = '4.0'
   s.platform     = :ios, "8.0"
   s.requires_arc = true
 

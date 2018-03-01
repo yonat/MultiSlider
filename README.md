@@ -39,8 +39,10 @@ func sliderChanged(slider: MultiSlider) {
 slider.thumbImage   = UIImage(named: "baloon")
 slider.minimumImage = UIImage(named: "clown")
 slider.maximumImage = UIImage(named: "cloud")
+slider.tintColor = .cyan
 slider.trackWidth = 5
-slider.tintColor = .cyanColor()
+slider.hasRoundTrackEnds = true
+slider.showsThumbImageShadow = false
 ```
 
 ## Adding Labels Showing Thumb Value
