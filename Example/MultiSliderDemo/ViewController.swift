@@ -6,12 +6,11 @@
 //  Copyright © 2016 Yonat Sharon. All rights reserved.
 //
 
-import UIKit
 import MultiSlider
+import UIKit
 
 class ViewController: UIViewController {
-
-    @IBOutlet weak var multiSlider: MultiSlider!
+    @IBOutlet var multiSlider: MultiSlider!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,11 +36,9 @@ class ViewController: UIViewController {
         horizontalMultiSlider.trackWidth = 32
         horizontalMultiSlider.showsThumbImageShadow = false
         view.addConstrainedSubview(horizontalMultiSlider, constrain: .leftMargin, .rightMargin, .bottomMargin)
-}
+    }
 
     @objc func sliderChanged(_ slider: MultiSlider) {
         print("\(slider.value)")
     }
-
 }
-

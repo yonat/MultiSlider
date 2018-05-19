@@ -96,11 +96,12 @@
 			buildConfigurationList = DC9FAA7B1DDE3EA800FFD2A1 /* Build configuration list for PBXNativeTarget "MultiSliderDemo" */;
 			buildPhases = (
 				398675B49EAC4B8B165FE351 /* [CP] Check Pods Manifest.lock */,
+				DC9DD87220B0AD5D007E16DD /* ShellScript */,
 				DC9FAA651DDE3EA800FFD2A1 /* Sources */,
 				DC9FAA661DDE3EA800FFD2A1 /* Frameworks */,
 				DC9FAA671DDE3EA800FFD2A1 /* Resources */,
 				61F05BBEA427590579B0B9D8 /* [CP] Embed Pods Frameworks */,
-				983CC4C485AEF8D52A182E1D /* [CP] Copy Pods Resources */,
+				DC9DD87320B0AD7C007E16DD /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -118,7 +119,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Yonat Sharon";
 				TargetAttributes = {
 					DC9FAA681DDE3EA800FFD2A1 = {
@@ -198,20 +199,31 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MultiSliderDemo/Pods-MultiSliderDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		983CC4C485AEF8D52A182E1D /* [CP] Copy Pods Resources */ = {
+		DC9DD87220B0AD5D007E16DD /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MultiSliderDemo/Pods-MultiSliderDemo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "if which swiftformat >/dev/null; then\nswiftformat --stripunusedargs unnamed-only \"${SRCROOT}/../Sources\"\nswiftformat --stripunusedargs unnamed-only \"${SRCROOT}\"\nfi";
+		};
+		DC9DD87320B0AD7C007E16DD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint lint --config \"${SRCROOT}/../Sources/.swiftlint.yml\"\ncd \"${SRCROOT}/../Sources\"\nswiftlint\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -260,6 +272,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -267,6 +280,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -317,6 +331,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -324,6 +339,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
