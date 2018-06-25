@@ -434,7 +434,8 @@ open class MultiSlider: UIControl {
     }
 
     open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        if clipsToBounds || isHidden || alpha == 0 { return nil }
+        if isHidden || alpha == 0 { return nil }
+        if clipsToBounds { return super.hitTest(point, with: event) }
         return panGestureView.hitTest(panGestureView.convert(point, from: self), with: event)
     }
 
