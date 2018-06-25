@@ -207,7 +207,9 @@ open class MultiSlider: UIControl {
 
     // MARK: - Privates
 
-    private var slideView = UIView()
+    private let slideView = UIView()
+    private let panGestureView = UIView()
+    private let margin: CGFloat = 32
     private var isSettingValue = false
     private var draggedThumbIndex: Int = -1
     private lazy var defaultThumbImage: UIImage? = .circle(diameter: 29, width: 0.5, color: UIColor.lightGray.withAlphaComponent(0.5), fill: .white)
@@ -217,8 +219,15 @@ open class MultiSlider: UIControl {
         updateTrackViewCornerRounding()
         slideView.layoutMargins = .zero
         setupOrientation()
+        setupPanGesture()
+    }
 
-        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(didDrag(_:))))
+    private func setupPanGesture() {
+        addConstrainedSubview(panGestureView)
+        for edge: NSLayoutAttribute in [.top, .bottom, .left, .right] {
+            constrain(panGestureView, at: edge, diff: -edge.inwardSign * margin)
+        }
+        panGestureView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(didDrag(_:))))
     }
 
     private func setupOrientation() {
@@ -415,14 +424,18 @@ open class MultiSlider: UIControl {
     }
 
     open override var intrinsicContentSize: CGSize {
-        let marginTotal: CGFloat = 32
-        let thumbSize = (thumbImage ?? defaultThumbImage)?.size ?? CGSize(width: marginTotal, height: marginTotal)
+        let thumbSize = (thumbImage ?? defaultThumbImage)?.size ?? CGSize(width: margin, height: margin)
         switch orientation {
         case .vertical:
-            return CGSize(width: thumbSize.width + marginTotal, height: UIViewNoIntrinsicMetric)
+            return CGSize(width: thumbSize.width + margin, height: UIViewNoIntrinsicMetric)
         case .horizontal:
-            return CGSize(width: UIViewNoIntrinsicMetric, height: thumbSize.height + marginTotal)
+            return CGSize(width: UIViewNoIntrinsicMetric, height: thumbSize.height + margin)
         }
+    }
+
+    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        if clipsToBounds || isHidden || alpha == 0 { return nil }
+        return panGestureView.hitTest(panGestureView.convert(point, from: self), with: event)
     }
 
     public override init(frame: CGRect) {
