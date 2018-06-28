@@ -127,7 +127,7 @@ open class MultiSlider: UIControl
             updateTrackViewCornerRounding()
         }
     }
-    @IBInspectable @objc public var hasRoundTrackEnds: Bool = false {
+    @IBInspectable @objc public var hasRoundTrackEnds: Bool = true {
         didSet {
             updateTrackViewCornerRounding()
         }
