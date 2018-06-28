@@ -1,0 +1,39 @@
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - Pods
+disabled_rules:
+  - trailing_comma
+opt_in_rules:
+  - force_unwrapping
+  - explicit_init
+  - overridden_super_call
+  - redundant_nil_coalescing
+  - nimble_operator
+  - operator_usage_whitespace
+  - closure_end_indentation
+  - first_where
+  - number_separator
+  - prohibited_super_call
+  - fatal_error_message
+  - vertical_parameter_alignment_on_call
+  - unneeded_parentheses_in_closure_argument
+  - pattern_matching_keywords
+  - literal_expression_end_indentation
+  - joined_default_parameter
+  - contains_over_first_not_nil
+  - override_in_extension
+  - single_test_class
+  - sorted_first_last
+identifier_name:
+  excluded:
+    - i
+    - x
+    - y
+    - dx
+    - dy
+    - on
+line_length:
+  - 160
+file_length:
+  - 500
+type_body_length:
+  - 300
