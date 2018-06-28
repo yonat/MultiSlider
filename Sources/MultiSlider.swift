@@ -151,10 +151,14 @@ open class MultiSlider: UIControl {
     // MARK: - Actions
 
     @objc open func didDrag(_ panGesture: UIPanGestureRecognizer) {
-        // determine thumb to drag
-        if panGesture.state == .began {
+        switch panGesture.state {
+        case .began:
+            // determine thumb to drag
             let location = panGesture.location(in: slideView)
             draggedThumbIndex = closestThumb(point: location)
+        case .ended, .cancelled, .failed:
+            sendActions(for: .touchDragExit)
+        case .possible, .changed: break
         }
         guard draggedThumbIndex >= 0 else { return }
 
