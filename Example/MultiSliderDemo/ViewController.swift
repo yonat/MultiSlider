@@ -11,10 +11,12 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet var multiSlider: MultiSlider!
+    @IBOutlet var valueLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         multiSlider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
+        multiSlider.addTarget(self, action: #selector(sliderDragEnded(_:)), for: [.touchUpInside, .touchUpOutside])
         multiSlider.disabledThumbIndices = [3]
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -26,6 +28,10 @@ class ViewController: UIViewController {
             self.multiSlider.thumbCount = 5
             self.multiSlider.valueLabelPosition = .right
             self.multiSlider.isValueLabelRelative = true
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            self.updateValueLabel(text: "\(self.multiSlider.value)")
         }
 
         let horizontalMultiSlider = MultiSlider()
@@ -40,5 +46,13 @@ class ViewController: UIViewController {
 
     @objc func sliderChanged(_ slider: MultiSlider) {
         print("\(slider.value)")
+    }
+
+    @objc func sliderDragEnded(_ slider: MultiSlider) {
+        updateValueLabel(text: "\(slider.value)")
+    }
+
+    func updateValueLabel(text: String) {
+        valueLabel.text = text
     }
 }
