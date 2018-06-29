@@ -157,7 +157,11 @@ open class MultiSlider: UIControl {
             let location = panGesture.location(in: slideView)
             draggedThumbIndex = closestThumb(point: location)
         case .ended, .cancelled, .failed:
-            sendActions(for: .touchDragExit)
+            if bounds.contains(panGesture.location(in: self)) {
+                sendActions(for: .touchUpInside)
+            } else {
+                sendActions(for: .touchUpOutside)
+            }
         case .possible, .changed: break
         }
         guard draggedThumbIndex >= 0 else { return }
