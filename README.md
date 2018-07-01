@@ -22,7 +22,8 @@ slider.snapStepSize = 0.5  // default is 0.0, i.e. don't snap
 
 slider.value = [1, 4.5, 5]
 
-slider.addTarget(self, action: #selector(sliderChanged(_:)), forControlEvents: .ValueChanged)
+slider.addTarget(self, action: #selector(sliderChanged(_:)), forControlEvents: .valueChanged) // continuous changes
+slider.addTarget(self, action: #selector(sliderChanged(_:)), forControlEvents: . touchUpInside) // sent when drag ends
 ```
 
 ## Getting Multiple Thumb Values
@@ -36,7 +37,7 @@ func sliderChanged(slider: MultiSlider) {
 ## Changing Appearance
 
 ```swift
-slider.thumbImage   = UIImage(named: "baloon")
+slider.thumbImage   = UIImage(named: "balloon")
 slider.minimumImage = UIImage(named: "clown")
 slider.maximumImage = UIImage(named: "cloud")
 slider.tintColor = .cyan
@@ -83,7 +84,6 @@ Copy `Sources/MultiSlider.swift` and [`MiniLayout.swift`](https://github.com/yon
 
 ## TODO
 
-- [ ] `isContinuous=false` for clients that only want a single `.valueChanged` event on drag end.
 - [ ] Fix IB presentation. (dlopen error "image not found", thumbs should be vertically centered and evenly distributed.)
 
 ## Meta
