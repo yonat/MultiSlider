@@ -23,7 +23,7 @@ slider.snapStepSize = 0.5  // default is 0.0, i.e. don't snap
 slider.value = [1, 4.5, 5]
 
 slider.addTarget(self, action: #selector(sliderChanged(_:)), forControlEvents: .valueChanged) // continuous changes
-slider.addTarget(self, action: #selector(sliderChanged(_:)), forControlEvents: . touchUpInside) // sent when drag ends
+slider.addTarget(self, action: #selector(sliderDragEnded(_:)), forControlEvents: . touchUpInside) // sent when drag ends
 ```
 
 ## Getting Multiple Thumb Values
