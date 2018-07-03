@@ -30,6 +30,8 @@ class ViewController: UIViewController {
 
         let horizontalMultiSlider = MultiSlider()
         horizontalMultiSlider.orientation = .horizontal
+        horizontalMultiSlider.minimumValue = 5
+        horizontalMultiSlider.maximumValue = 15
         horizontalMultiSlider.thumbCount = 3
         horizontalMultiSlider.valueLabelPosition = .top
         horizontalMultiSlider.tintColor = .purple
