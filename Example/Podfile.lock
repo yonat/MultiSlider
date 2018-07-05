@@ -1,13 +1,13 @@
 PODS:
   - MiniLayout (1.2.0)
-  - MultiSlider (1.4):
+  - MultiSlider (1.6.0):
     - MiniLayout
 
 DEPENDENCIES:
   - MultiSlider (from `..`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - MiniLayout
 
 EXTERNAL SOURCES:
@@ -16,8 +16,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   MiniLayout: 2cee66f3d4887a003a2fdb48ba6d838145b2e2a9
-  MultiSlider: 0f63517c10a44d9aa9babc559e96255c362b525a
+  MultiSlider: f5caa81bd1bb2203016f7b089583fb679ae918f6
 
 PODFILE CHECKSUM: 757f3ff88c248f3c17f5e5ade83ae7f7c5b90380
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

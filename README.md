@@ -37,6 +37,7 @@ func sliderChanged(slider: MultiSlider) {
 ## Changing Appearance
 
 ```swift
+slider.orientation = .horizontal
 slider.thumbImage   = UIImage(named: "balloon")
 slider.minimumImage = UIImage(named: "clown")
 slider.maximumImage = UIImage(named: "cloud")
@@ -61,8 +62,8 @@ slider.disabledThumbIndices = [1, 3]
 
 ## Requirements
 
-- iOS 8.0+
-- Xcode 7.3
+- iOS 9.0+
+- Xcode 9
 
 ## Installation
 
@@ -80,7 +81,7 @@ pod 'MultiSlider', '~> 1.0.1'
 
 ### Manually:
 
-Copy `Sources/MultiSlider.swift` and [`MiniLayout.swift`](https://github.com/yonat/MiniLayout) to your Xcode project.
+Copy `Sources/*.swift` and [`MiniLayout.swift`](https://github.com/yonat/MiniLayout) to your Xcode project.
 
 ## TODO
 

@@ -24,6 +24,7 @@ open class MultiSlider: UIControl {
 
     @IBInspectable @objc open var minimumValue: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
     @IBInspectable @objc open var maximumValue: CGFloat = 1 { didSet { adjustValuesToStepAndLimits() } }
+    @IBInspectable @objc open var isContinuous: Bool = true
 
     /// snap thumbs to specific values, evenly spaced. (default = 0: allow any value)
     @IBInspectable @objc open var snapStepSize: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
@@ -158,6 +159,7 @@ open class MultiSlider: UIControl {
             draggedThumbIndex = closestThumb(point: location)
         case .ended, .cancelled, .failed:
             sendActions(for: .touchUpInside) // no bounds check for now (.touchUpInside vs .touchUpOutside)
+            if !isContinuous { sendActions(for: [.valueChanged, .primaryActionTriggered]) }
         case .possible, .changed: break
         }
         guard draggedThumbIndex >= 0 else { return }
@@ -188,7 +190,7 @@ open class MultiSlider: UIControl {
             }
         }
 
-        sendActions(for: .valueChanged)
+        if isContinuous { sendActions(for: [.valueChanged, .primaryActionTriggered]) }
     }
 
     /// adjusted position that doesn't cross prev/next thumb and total range
