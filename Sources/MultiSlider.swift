@@ -83,16 +83,17 @@ open class MultiSlider: UIControl {
     @IBInspectable @objc open var thumbImage: UIImage? {
         didSet {
             thumbViews.forEach { $0.image = thumbImage }
-            let halfHeight = (thumbImage?.size.height ?? 2) / 2 - 1 // 1 pixel for semi-transparent boundary
-            trackView.layoutMargins = UIEdgeInsets(top: halfHeight, left: 0, bottom: halfHeight, right: 0)
+            setupTrackLayoutMargins()
             invalidateIntrinsicContentSize()
         }
     }
+
     @IBInspectable @objc public var showsThumbImageShadow: Bool = true {
         didSet {
             updateThumbViewShadowVisibility()
         }
     }
+
     @IBInspectable @objc open var minimumImage: UIImage? {
         get {
             return minimumView.image
@@ -106,6 +107,7 @@ open class MultiSlider: UIControl {
             )
         }
     }
+
     @IBInspectable @objc open var maximumImage: UIImage? {
         get {
             return maximumView.image
@@ -119,6 +121,7 @@ open class MultiSlider: UIControl {
             )
         }
     }
+
     @IBInspectable @objc open var trackWidth: CGFloat = 2 {
         didSet {
             let widthAttribute: NSLayoutAttribute = orientation == .vertical ? .width : .height
@@ -127,6 +130,7 @@ open class MultiSlider: UIControl {
             updateTrackViewCornerRounding()
         }
     }
+
     @IBInspectable @objc public var hasRoundTrackEnds: Bool = true {
         didSet {
             updateTrackViewCornerRounding()
@@ -259,15 +263,31 @@ open class MultiSlider: UIControl {
         case .vertical:
             addConstrainedSubview(trackView, constrain: .top, .bottom, .centerXWithinMargins)
             trackView.constrain(.width, to: trackWidth)
-            trackView.addConstrainedSubview(slideView, constrain: .centerX, .width, .bottomMargin, .topMargin)
+            trackView.addConstrainedSubview(slideView, constrain: .left, .right, .bottomMargin, .topMargin)
             addConstrainedSubview(minimumView, constrain: .bottomMargin, .centerXWithinMargins)
             addConstrainedSubview(maximumView, constrain: .topMargin, .centerXWithinMargins)
         case .horizontal:
             addConstrainedSubview(trackView, constrain: .left, .right, .centerYWithinMargins)
             trackView.constrain(.height, to: trackWidth)
-            trackView.addConstrainedSubview(slideView, constrain: .centerY, .height, .leftMargin, .rightMargin)
+            if #available(iOS 12, *) {
+                trackView.addConstrainedSubview(slideView, constrain: .top, .bottom, .left, .right) // iOS 12 β doesn't like .leftMargin, .rightMargin
+            } else {
+                trackView.addConstrainedSubview(slideView, constrain: .top, .bottom, .leftMargin, .rightMargin)
+            }
             addConstrainedSubview(minimumView, constrain: .leftMargin, .centerYWithinMargins)
             addConstrainedSubview(maximumView, constrain: .rightMargin, .centerYWithinMargins)
+        }
+        setupTrackLayoutMargins()
+    }
+
+    private func setupTrackLayoutMargins() {
+        let thumbSize = (thumbImage ?? defaultThumbImage)?.size ?? CGSize(width: 2, height: 2)
+        let thumbDiameter = orientation == .vertical ? thumbSize.height : thumbSize.width
+        let halfThumb = thumbDiameter / 2 - 1 // 1 pixel for semi-transparent boundary
+        if orientation == .vertical {
+            trackView.layoutMargins = UIEdgeInsets(top: halfThumb, left: 0, bottom: halfThumb, right: 0)
+        } else {
+            trackView.layoutMargins = UIEdgeInsets(top: 0, left: halfThumb, bottom: 0, right: halfThumb)
         }
     }
 
@@ -399,7 +419,7 @@ open class MultiSlider: UIControl {
             }
         }
         UIView.animate(withDuration: 0.1) {
-            self.slideView.layoutIfNeeded()
+            self.slideView.updateConstraintsIfNeeded()
         }
     }
 
