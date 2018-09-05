@@ -50,7 +50,7 @@ open class MultiSlider: UIControl {
     }
 
     /// show value labels next to thumbs. (default: show no label)
-    @objc open var valueLabelPosition: NSLayoutAttribute = .notAnAttribute {
+    @objc open var valueLabelPosition: NSLayoutConstraint.Attribute = .notAnAttribute {
         didSet {
             valueLabels.removeViewsStartingAt(0)
             if valueLabelPosition != .notAnAttribute {
@@ -72,7 +72,7 @@ open class MultiSlider: UIControl {
 
     // MARK: - Appearance
 
-    @objc open var orientation: UILayoutConstraintAxis = .vertical {
+    @objc open var orientation: NSLayoutConstraint.Axis = .vertical {
         didSet {
             setupOrientation()
             invalidateIntrinsicContentSize()
@@ -124,7 +124,7 @@ open class MultiSlider: UIControl {
 
     @IBInspectable @objc open var trackWidth: CGFloat = 2 {
         didSet {
-            let widthAttribute: NSLayoutAttribute = orientation == .vertical ? .width : .height
+            let widthAttribute: NSLayoutConstraint.Attribute = orientation == .vertical ? .width : .height
             trackView.removeFirstConstraint { $0.firstAttribute == widthAttribute }
             trackView.constrain(widthAttribute, to: trackWidth)
             updateTrackViewCornerRounding()
@@ -185,13 +185,9 @@ open class MultiSlider: UIControl {
         // change corresponding value
         updateDraggedThumbValue(relativeValue: targetPosition / slideViewLength)
 
-        // update thumb and label
-        positionThumbView(draggedThumbIndex)
-        if draggedThumbIndex < valueLabels.count {
-            updateValueLabel(draggedThumbIndex)
-            if isValueLabelRelative && draggedThumbIndex + 1 < valueLabels.count {
-                updateValueLabel(draggedThumbIndex + 1)
-            }
+        UIView.animate(withDuration: 0.1) {
+            self.updateDraggedThumbPositionAndLabel()
+            self.layoutIfNeeded()
         }
 
         if isContinuous { sendActions(for: [.valueChanged, .primaryActionTriggered]) }
@@ -228,6 +224,16 @@ open class MultiSlider: UIControl {
         isSettingValue = false
     }
 
+    private func updateDraggedThumbPositionAndLabel() {
+        positionThumbView(draggedThumbIndex)
+        if draggedThumbIndex < valueLabels.count {
+            updateValueLabel(draggedThumbIndex)
+            if isValueLabelRelative && draggedThumbIndex + 1 < valueLabels.count {
+                updateValueLabel(draggedThumbIndex + 1)
+            }
+        }
+    }
+
     // MARK: - Privates
 
     private let slideView = UIView()
@@ -247,7 +253,7 @@ open class MultiSlider: UIControl {
 
     private func setupPanGesture() {
         addConstrainedSubview(panGestureView)
-        for edge: NSLayoutAttribute in [.top, .bottom, .left, .right] {
+        for edge: NSLayoutConstraint.Attribute in [.top, .bottom, .left, .right] {
             constrain(panGestureView, at: edge, diff: -edge.inwardSign * margin)
         }
         panGestureView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(didDrag(_:))))
@@ -317,7 +323,7 @@ open class MultiSlider: UIControl {
         let thumbView = UIImageView(image: thumbImage ?? defaultThumbImage)
         thumbView.addShadow()
         thumbViews.append(thumbView)
-        slideView.addConstrainedSubview(thumbView, constrain: NSLayoutAttribute.center(in: orientation).perpendicularCenter)
+        slideView.addConstrainedSubview(thumbView, constrain: NSLayoutConstraint.Attribute.center(in: orientation).perpendicularCenter)
         positionThumbView(i)
         thumbView.blur(disabledThumbIndices.contains(i))
         addValueLabel(i)
@@ -423,7 +429,7 @@ open class MultiSlider: UIControl {
         }
     }
 
-    private func layoutTrackEdge(toView: UIImageView, edge: NSLayoutAttribute, superviewEdge: NSLayoutAttribute) {
+    private func layoutTrackEdge(toView: UIImageView, edge: NSLayoutConstraint.Attribute, superviewEdge: NSLayoutConstraint.Attribute) {
         removeFirstConstraint { $0.firstItem === self.trackView && ($0.firstAttribute == edge || $0.firstAttribute == superviewEdge) }
         if nil != toView.image {
             constrain(trackView, at: edge, to: toView, at: edge.opposite, diff: edge.inwardSign * 8)
@@ -466,9 +472,9 @@ open class MultiSlider: UIControl {
         let thumbSize = (thumbImage ?? defaultThumbImage)?.size ?? CGSize(width: margin, height: margin)
         switch orientation {
         case .vertical:
-            return CGSize(width: thumbSize.width + margin, height: UIViewNoIntrinsicMetric)
+            return CGSize(width: thumbSize.width + margin, height: UIView.noIntrinsicMetric)
         case .horizontal:
-            return CGSize(width: UIViewNoIntrinsicMetric, height: thumbSize.height + margin)
+            return CGSize(width: UIView.noIntrinsicMetric, height: thumbSize.height + margin)
         }
     }
 

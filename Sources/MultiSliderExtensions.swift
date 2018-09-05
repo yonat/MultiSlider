@@ -26,7 +26,7 @@ extension CGPoint {
         return hypot(dx, dy)
     }
 
-    func coordinate(in axis: UILayoutConstraintAxis) -> CGFloat {
+    func coordinate(in axis: NSLayoutConstraint.Axis) -> CGFloat {
         switch axis {
         case .vertical:
             return y
@@ -37,7 +37,7 @@ extension CGPoint {
 }
 
 extension CGRect {
-    func size(in axis: UILayoutConstraintAxis) -> CGFloat {
+    func size(in axis: NSLayoutConstraint.Axis) -> CGFloat {
         switch axis {
         case .vertical:
             return height
@@ -46,7 +46,7 @@ extension CGRect {
         }
     }
 
-    func bottom(in axis: UILayoutConstraintAxis) -> CGFloat {
+    func bottom(in axis: NSLayoutConstraint.Axis) -> CGFloat {
         switch axis {
         case .vertical:
             return maxY
@@ -55,7 +55,7 @@ extension CGRect {
         }
     }
 
-    func top(in axis: UILayoutConstraintAxis) -> CGFloat {
+    func top(in axis: NSLayoutConstraint.Axis) -> CGFloat {
         switch axis {
         case .vertical:
             return minY
@@ -119,8 +119,8 @@ extension UIImageView {
     static var blurViewTag: Int { return 898_989 }
 }
 
-extension NSLayoutAttribute {
-    var opposite: NSLayoutAttribute {
+extension NSLayoutConstraint.Attribute {
+    var opposite: NSLayoutConstraint.Attribute {
         switch self {
         case .left: return .right
         case .right: return .left
@@ -148,7 +148,7 @@ extension NSLayoutAttribute {
         }
     }
 
-    var perpendicularCenter: NSLayoutAttribute {
+    var perpendicularCenter: NSLayoutConstraint.Attribute {
         switch self {
         case .left, .leading, .leftMargin, .leadingMargin, .right, .trailing, .rightMargin, .trailingMargin, .centerX:
             return .centerY
@@ -157,7 +157,7 @@ extension NSLayoutAttribute {
         }
     }
 
-    static func center(in axis: UILayoutConstraintAxis) -> NSLayoutAttribute {
+    static func center(in axis: NSLayoutConstraint.Axis) -> NSLayoutConstraint.Attribute {
         switch axis {
         case .vertical:
             return .centerY

@@ -10,6 +10,7 @@ UISlider clone with multiple thumbs and values, optional snap intervals, optiona
 
 <p align="center">
 <img src="Screenshots/MultiSlider.png">
+<img src="Screenshots/MultiSlider-h.png">
 </p>
 
 ## Usage
@@ -73,11 +74,13 @@ slider.disabledThumbIndices = [1, 3]
 pod 'MultiSlider'
 ```
 
-For legacy Swift 2.3:
+Legacy versions:
 
-```ruby
-pod 'MultiSlider', '~> 1.0.1'
-```
+| Swift version | MultiSlider version |
+| :---: | :---: |
+| 4.0 | 1.6.0 |
+| 3 | 1.1.2 |
+| 2.3 | 1.0.1 |
 
 ### Manually:
 
@@ -93,7 +96,7 @@ Copy `Sources/*.swift` and [`MiniLayout.swift`](https://github.com/yonat/MiniLay
 
 [https://github.com/yonat/MultiSlider](https://github.com/yonat/MultiSlider)
 
-[swift-image]:https://img.shields.io/badge/swift-4.1-orange.svg
+[swift-image]:https://img.shields.io/badge/swift-4.2-orange.svg
 [swift-url]: https://swift.org/
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-url]: LICENSE.txt

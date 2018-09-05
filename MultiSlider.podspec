@@ -2,17 +2,18 @@
 Pod::Spec.new do |s|
 
   s.name         = "MultiSlider"
-  s.version      = "1.6.0"
+  s.version      = "1.7.0"
   s.summary      = "UISlider clone with multiple thumbs and values, optional snap intervals, optional value labels."
 
   s.homepage     = "https://github.com/yonat/MultiSlider"
-  s.screenshots  = "https://raw.githubusercontent.com/yonat/MultiSlider/master/Screenshots/MultiSlider.png"
+  s.screenshots  = ["https://raw.githubusercontent.com/yonat/MultiSlider/master/Screenshots/MultiSlider.png", "https://raw.githubusercontent.com/yonat/MultiSlider/master/Screenshots/MultiSlider-h.png"]
 
   s.license      = { :type => "MIT", :file => "LICENSE.txt" }
 
   s.author             = { "Yonat Sharon" => "yonat@ootips.org" }
   s.social_media_url   = "http://twitter.com/yonatsharon"
 
+  s.swift_version = '4.2'
   s.platform     = :ios, "9.0"
   s.requires_arc = true
 
