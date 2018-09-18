@@ -36,4 +36,4 @@ line_length:
 file_length:
   - 500
 type_body_length:
-  - 300
+  - 400

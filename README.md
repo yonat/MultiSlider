@@ -10,6 +10,7 @@ UISlider clone with multiple thumbs and values, optional snap intervals, optiona
 
 <p align="center">
 <img src="Screenshots/MultiSlider.png">
+<img src="Screenshots/MultiSlider-h.png">
 </p>
 
 ## Usage
@@ -22,7 +23,8 @@ slider.snapStepSize = 0.5  // default is 0.0, i.e. don't snap
 
 slider.value = [1, 4.5, 5]
 
-slider.addTarget(self, action: #selector(sliderChanged(_:)), forControlEvents: .ValueChanged)
+slider.addTarget(self, action: #selector(sliderChanged(_:)), forControlEvents: .valueChanged) // continuous changes
+slider.addTarget(self, action: #selector(sliderDragEnded(_:)), forControlEvents: . touchUpInside) // sent when drag ends
 ```
 
 ## Getting Multiple Thumb Values
@@ -36,7 +38,8 @@ func sliderChanged(slider: MultiSlider) {
 ## Changing Appearance
 
 ```swift
-slider.thumbImage   = UIImage(named: "baloon")
+slider.orientation = .horizontal
+slider.thumbImage   = UIImage(named: "balloon")
 slider.minimumImage = UIImage(named: "clown")
 slider.maximumImage = UIImage(named: "cloud")
 slider.tintColor = .cyan
@@ -60,8 +63,8 @@ slider.disabledThumbIndices = [1, 3]
 
 ## Requirements
 
-- iOS 8.0+
-- Xcode 7.3
+- iOS 9.0+
+- Xcode 9
 
 ## Installation
 
@@ -71,19 +74,20 @@ slider.disabledThumbIndices = [1, 3]
 pod 'MultiSlider'
 ```
 
-For legacy Swift 2.3:
+Legacy versions:
 
-```ruby
-pod 'MultiSlider', '~> 1.0.1'
-```
+| Swift version | MultiSlider version |
+| :---: | :---: |
+| 4.0 | 1.6.0 |
+| 3 | 1.1.2 |
+| 2.3 | 1.0.1 |
 
 ### Manually:
 
-Copy `Sources/MultiSlider.swift` and [`MiniLayout.swift`](https://github.com/yonat/MiniLayout) to your Xcode project.
+Copy `Sources/*.swift` and [`MiniLayout.swift`](https://github.com/yonat/MiniLayout) to your Xcode project.
 
 ## TODO
 
-- [ ] `isContinuous=false` for clients that only want a single `.valueChanged` event on drag end.
 - [ ] Fix IB presentation. (dlopen error "image not found", thumbs should be vertically centered and evenly distributed.)
 
 ## Meta
@@ -92,7 +96,7 @@ Copy `Sources/MultiSlider.swift` and [`MiniLayout.swift`](https://github.com/yon
 
 [https://github.com/yonat/MultiSlider](https://github.com/yonat/MultiSlider)
 
-[swift-image]:https://img.shields.io/badge/swift-3.0-orange.svg
+[swift-image]:https://img.shields.io/badge/swift-4.2-orange.svg
 [swift-url]: https://swift.org/
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-url]: LICENSE.txt
