@@ -137,6 +137,8 @@ open class MultiSlider: UIControl {
         }
     }
 
+    @IBInspectable @objc public var keepsDistanceBetweenThumbs: Bool = true
+
     open var valueLabelFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 2
@@ -198,10 +200,10 @@ open class MultiSlider: UIControl {
         var delta = snapStepSize > 0 ? stepSizeInView : thumbViews[draggedThumbIndex].frame.size(in: orientation) / 2
         if orientation == .horizontal { delta = -delta }
         let bottomLimit = draggedThumbIndex > 0
-            ? thumbViews[draggedThumbIndex - 1].center.coordinate(in: orientation) - delta
+            ? thumbViews[draggedThumbIndex - 1].center.coordinate(in: orientation) - (keepsDistanceBetweenThumbs ? delta : 0)
             : slideView.bounds.bottom(in: orientation)
         let topLimit = draggedThumbIndex < thumbViews.count - 1
-            ? thumbViews[draggedThumbIndex + 1].center.coordinate(in: orientation) + delta
+            ? thumbViews[draggedThumbIndex + 1].center.coordinate(in: orientation) + (keepsDistanceBetweenThumbs ? delta : 0)
             : slideView.bounds.top(in: orientation)
         if orientation == .vertical {
             return min(bottomLimit, max(targetPosition, topLimit))
