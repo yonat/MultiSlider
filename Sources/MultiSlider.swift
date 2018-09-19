@@ -137,6 +137,8 @@ open class MultiSlider: UIControl {
         }
     }
 
+    @IBInspectable @objc public var keepsDistanceBetweenThumbs: Bool = true
+
     open var valueLabelFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 2
@@ -196,6 +198,7 @@ open class MultiSlider: UIControl {
     /// adjusted position that doesn't cross prev/next thumb and total range
     private func boundedDraggedThumbPosition(targetPosition: CGFloat, stepSizeInView: CGFloat) -> CGFloat {
         var delta = snapStepSize > 0 ? stepSizeInView : thumbViews[draggedThumbIndex].frame.size(in: orientation) / 2
+        delta = keepsDistanceBetweenThumbs ? delta : 0
         if orientation == .horizontal { delta = -delta }
         let bottomLimit = draggedThumbIndex > 0
             ? thumbViews[draggedThumbIndex - 1].center.coordinate(in: orientation) - delta
