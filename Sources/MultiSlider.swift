@@ -198,12 +198,13 @@ open class MultiSlider: UIControl {
     /// adjusted position that doesn't cross prev/next thumb and total range
     private func boundedDraggedThumbPosition(targetPosition: CGFloat, stepSizeInView: CGFloat) -> CGFloat {
         var delta = snapStepSize > 0 ? stepSizeInView : thumbViews[draggedThumbIndex].frame.size(in: orientation) / 2
+        delta = keepsDistanceBetweenThumbs ? delta : 0
         if orientation == .horizontal { delta = -delta }
         let bottomLimit = draggedThumbIndex > 0
-            ? thumbViews[draggedThumbIndex - 1].center.coordinate(in: orientation) - (keepsDistanceBetweenThumbs ? delta : 0)
+            ? thumbViews[draggedThumbIndex - 1].center.coordinate(in: orientation) - delta
             : slideView.bounds.bottom(in: orientation)
         let topLimit = draggedThumbIndex < thumbViews.count - 1
-            ? thumbViews[draggedThumbIndex + 1].center.coordinate(in: orientation) + (keepsDistanceBetweenThumbs ? delta : 0)
+            ? thumbViews[draggedThumbIndex + 1].center.coordinate(in: orientation) + delta
             : slideView.bounds.top(in: orientation)
         if orientation == .vertical {
             return min(bottomLimit, max(targetPosition, topLimit))
