@@ -77,10 +77,10 @@ pod 'MultiSlider'
 Legacy versions:
 
 | Swift version | MultiSlider version |
-| :---: | :---: |
-| 4.0 (Xcode 9.4) | `pod 'MultiSlider', '~> 1.6.0'` |
-| 3 | `pod 'MultiSlider', '~> 1.1.2'` |
-| 2.3 | `pod 'MultiSlider', '~> 1.0.1'` |
+| :---: | :--- |
+| 4.0 (Xcode 9.4) | `pod 'MiniLayout', '~> 1.2.1'`<br>`pod 'MultiSlider', '~> 1.6.0'` |
+| 3 | `pod 'MiniLayout', '~> 1.1.0'`<br>`pod 'MultiSlider', '~> 1.1.2'` |
+| 2.3 | `pod 'MiniLayout', '~> 1.0.1'`<br>`pod 'MultiSlider', '~> 1.0.1'` |
 
 ### Manually:
 
