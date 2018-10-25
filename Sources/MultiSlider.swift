@@ -6,6 +6,7 @@
 //  Copyright © 2016 Yonat Sharon. All rights reserved.
 //
 
+import AvailableHapticFeedback
 import MiniLayout
 import UIKit
 
@@ -163,7 +164,7 @@ open class MultiSlider: UIControl {
     var isSettingValue = false
     var draggedThumbIndex: Int = -1
     lazy var defaultThumbImage: UIImage? = .circle(diameter: 29, width: 0.5, color: UIColor.lightGray.withAlphaComponent(0.5), fill: .white)
-    var selectionFeedbackGenerator = AvailableSelectionFeedbackGenerator()
+    var selectionFeedbackGenerator = AvailableHapticFeedback()
 
     private func setup() {
         trackView.backgroundColor = actualTintColor

@@ -23,6 +23,12 @@ opt_in_rules:
   - override_in_extension
   - single_test_class
   - sorted_first_last
+  - convenience_type
+  - empty_count
+  - empty_string
+  - toggle_bool
+  - unused_private_declaration
+  - identical_operands
 identifier_name:
   excluded:
     - i

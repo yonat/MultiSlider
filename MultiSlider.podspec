@@ -21,4 +21,5 @@ Pod::Spec.new do |s|
   s.source_files  = "Sources/*.swift"
 
   s.dependency 'MiniLayout'
+  s.dependency 'AvailableHapticFeedback'
 end

@@ -9,7 +9,7 @@ extension MultiSlider {
     @objc open func didDrag(_ panGesture: UIPanGestureRecognizer) {
         switch panGesture.state {
         case .began:
-            selectionFeedbackGenerator.start()
+            selectionFeedbackGenerator.prepare()
             // determine thumb to drag
             let location = panGesture.location(in: slideView)
             draggedThumbIndex = closestThumb(point: location)
