@@ -25,6 +25,8 @@
 		DC9FAA731DDE3EA800FFD2A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC9FAA761DDE3EA800FFD2A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC9FAA781DDE3EA800FFD2A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCAE152A2181FC7B002B9A25 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		DCAE152B2181FC7B002B9A25 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
 		ED0F8C92467D76443D27A74D /* Pods_MultiSliderDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MultiSliderDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -60,6 +62,8 @@
 		DC9FAA601DDE3EA800FFD2A1 = {
 			isa = PBXGroup;
 			children = (
+				DCAE152A2181FC7B002B9A25 /* README.md */,
+				DCAE152B2181FC7B002B9A25 /* CHANGELOG.md */,
 				DC9FAA6B1DDE3EA800FFD2A1 /* MultiSliderDemo */,
 				DC9FAA6A1DDE3EA800FFD2A1 /* Products */,
 				945EA595AF8FFF6034B208B8 /* Pods */,

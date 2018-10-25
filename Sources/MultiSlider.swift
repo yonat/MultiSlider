@@ -155,96 +155,15 @@ open class MultiSlider: UIControl {
     @objc open var minimumView = UIImageView()
     @objc open var maximumView = UIImageView()
 
-    // MARK: - Actions
+    // MARK: - Internals
 
-    @objc open func didDrag(_ panGesture: UIPanGestureRecognizer) {
-        switch panGesture.state {
-        case .began:
-            // determine thumb to drag
-            let location = panGesture.location(in: slideView)
-            draggedThumbIndex = closestThumb(point: location)
-        case .ended, .cancelled, .failed:
-            sendActions(for: .touchUpInside) // no bounds check for now (.touchUpInside vs .touchUpOutside)
-            if !isContinuous { sendActions(for: [.valueChanged, .primaryActionTriggered]) }
-        case .possible, .changed: break
-        }
-        guard draggedThumbIndex >= 0 else { return }
-
-        let slideViewLength = slideView.bounds.size(in: orientation)
-        var targetPosition = panGesture.location(in: slideView).coordinate(in: orientation)
-        let stepSizeInView = CGFloat(snapStepSize / (maximumValue - minimumValue)) * slideViewLength
-
-        // snap translation to stepSizeInView
-        if snapStepSize > 0 {
-            targetPosition = targetPosition.rounded(stepSizeInView)
-            let translation = targetPosition - thumbViews[draggedThumbIndex].center.coordinate(in: orientation)
-            guard abs(translation) >= stepSizeInView else { return }
-        }
-
-        // don't cross prev/next thumb and total range
-        targetPosition = boundedDraggedThumbPosition(targetPosition: targetPosition, stepSizeInView: stepSizeInView)
-
-        // change corresponding value
-        updateDraggedThumbValue(relativeValue: targetPosition / slideViewLength)
-
-        UIView.animate(withDuration: 0.1) {
-            self.updateDraggedThumbPositionAndLabel()
-            self.layoutIfNeeded()
-        }
-
-        if isContinuous { sendActions(for: [.valueChanged, .primaryActionTriggered]) }
-    }
-
-    /// adjusted position that doesn't cross prev/next thumb and total range
-    private func boundedDraggedThumbPosition(targetPosition: CGFloat, stepSizeInView: CGFloat) -> CGFloat {
-        var delta = snapStepSize > 0 ? stepSizeInView : thumbViews[draggedThumbIndex].frame.size(in: orientation) / 2
-        delta = keepsDistanceBetweenThumbs ? delta : 0
-        if orientation == .horizontal { delta = -delta }
-        let bottomLimit = draggedThumbIndex > 0
-            ? thumbViews[draggedThumbIndex - 1].center.coordinate(in: orientation) - delta
-            : slideView.bounds.bottom(in: orientation)
-        let topLimit = draggedThumbIndex < thumbViews.count - 1
-            ? thumbViews[draggedThumbIndex + 1].center.coordinate(in: orientation) + delta
-            : slideView.bounds.top(in: orientation)
-        if orientation == .vertical {
-            return min(bottomLimit, max(targetPosition, topLimit))
-        } else {
-            return max(bottomLimit, min(targetPosition, topLimit))
-        }
-    }
-
-    private func updateDraggedThumbValue(relativeValue: CGFloat) {
-        var newValue = relativeValue * (maximumValue - minimumValue)
-        if orientation == .vertical {
-            newValue = maximumValue - newValue
-        } else {
-            newValue += minimumValue
-        }
-        newValue = newValue.rounded(snapStepSize)
-        guard newValue != value[draggedThumbIndex] else { return }
-        isSettingValue = true
-        value[draggedThumbIndex] = newValue
-        isSettingValue = false
-    }
-
-    private func updateDraggedThumbPositionAndLabel() {
-        positionThumbView(draggedThumbIndex)
-        if draggedThumbIndex < valueLabels.count {
-            updateValueLabel(draggedThumbIndex)
-            if isValueLabelRelative && draggedThumbIndex + 1 < valueLabels.count {
-                updateValueLabel(draggedThumbIndex + 1)
-            }
-        }
-    }
-
-    // MARK: - Privates
-
-    private let slideView = UIView()
-    private let panGestureView = UIView()
-    private let margin: CGFloat = 32
-    private var isSettingValue = false
-    private var draggedThumbIndex: Int = -1
-    private lazy var defaultThumbImage: UIImage? = .circle(diameter: 29, width: 0.5, color: UIColor.lightGray.withAlphaComponent(0.5), fill: .white)
+    let slideView = UIView()
+    let panGestureView = UIView()
+    let margin: CGFloat = 32
+    var isSettingValue = false
+    var draggedThumbIndex: Int = -1
+    lazy var defaultThumbImage: UIImage? = .circle(diameter: 29, width: 0.5, color: UIColor.lightGray.withAlphaComponent(0.5), fill: .white)
+    var selectionFeedbackGenerator = AvailableSelectionFeedbackGenerator()
 
     private func setup() {
         trackView.backgroundColor = actualTintColor
@@ -356,7 +275,7 @@ open class MultiSlider: UIControl {
         updateValueLabel(i)
     }
 
-    private func updateValueLabel(_ i: Int) {
+    func updateValueLabel(_ i: Int) {
         let labelValue: CGFloat
         if isValueLabelRelative {
             labelValue = i > 0 ? value[i] - value[i - 1] : value[i] - minimumValue
@@ -409,7 +328,7 @@ open class MultiSlider: UIControl {
         }
     }
 
-    private func positionThumbView(_ i: Int) {
+    func positionThumbView(_ i: Int) {
         let thumbView = thumbViews[i]
         let thumbValue = value[i]
         slideView.removeFirstConstraint { $0.firstItem === thumbView && $0.firstAttribute == .center(in: orientation) }
@@ -443,21 +362,6 @@ open class MultiSlider: UIControl {
 
     private func updateTrackViewCornerRounding() {
         trackView.layer.cornerRadius = hasRoundTrackEnds ? trackWidth / 2 : 1
-    }
-
-    private func closestThumb(point: CGPoint) -> Int {
-        var closest = -1
-        var minimumDistance = CGFloat.greatestFiniteMagnitude
-        for i in 0 ..< thumbViews.count {
-            guard !disabledThumbIndices.contains(i) else { continue }
-            let distance = point.distanceTo(thumbViews[i].center)
-            if distance > minimumDistance { break }
-            minimumDistance = distance
-            if distance < thumbViews[i].diagonalSize {
-                closest = i
-            }
-        }
-        return closest
     }
 
     // MARK: - Overrides
