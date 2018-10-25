@@ -51,7 +51,7 @@ slider.showsThumbImageShadow = false
 ## Adding Labels Showing Thumb Value
 
 ```swift
-slider.valueLabelPosition = .Left // .NotAnAttribute = don't show labels
+slider.valueLabelPosition = .left // .notAnAttribute = don't show labels
 slider.isValueLabelRelative = true // shows differences instead of absolute values
 ```
 
