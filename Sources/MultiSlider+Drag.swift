@@ -23,13 +23,13 @@ extension MultiSlider {
 
         let slideViewLength = slideView.bounds.size(in: orientation)
         var targetPosition = panGesture.location(in: slideView).coordinate(in: orientation)
-        let stepSizeInView = CGFloat(snapStepSize / (maximumValue - minimumValue)) * slideViewLength
+        let stepSizeInView = (snapStepSize / (maximumValue - minimumValue)) * slideViewLength
 
         // snap translation to stepSizeInView
         if snapStepSize > 0 {
-            targetPosition = targetPosition.rounded(stepSizeInView)
-            let translation = targetPosition - thumbViews[draggedThumbIndex].center.coordinate(in: orientation)
-            guard abs(translation) >= stepSizeInView else { return }
+            let translationSnapped = panGesture.translation(in: slideView).coordinate(in: orientation).rounded(stepSizeInView)
+            if 0 == Int(translationSnapped) { return }
+            panGesture.setTranslation(.zero, in: slideView)
         }
 
         // don't cross prev/next thumb and total range

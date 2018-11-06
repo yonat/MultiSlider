@@ -14,9 +14,7 @@ extension CGFloat {
 
     func rounded(_ step: CGFloat) -> CGFloat {
         guard step.isNormal && isNormal else { return self }
-        let remainder = self.remainder(dividingBy: step)
-        let truncated = self - remainder
-        return remainder * 2 < step ? truncated : truncated + step
+        return (self / step).rounded() * step
     }
 }
 
