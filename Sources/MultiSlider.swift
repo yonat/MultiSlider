@@ -23,14 +23,14 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable @objc open var minimumValue: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
-    @IBInspectable @objc open var maximumValue: CGFloat = 1 { didSet { adjustValuesToStepAndLimits() } }
-    @IBInspectable @objc open var isContinuous: Bool = true
+    @IBInspectable open var minimumValue: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
+    @IBInspectable open var maximumValue: CGFloat = 1 { didSet { adjustValuesToStepAndLimits() } }
+    @IBInspectable open var isContinuous: Bool = true
 
     /// snap thumbs to specific values, evenly spaced. (default = 0: allow any value)
-    @IBInspectable @objc open var snapStepSize: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
+    @IBInspectable open var snapStepSize: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
 
-    @IBInspectable @objc open var thumbCount: Int {
+    @IBInspectable open var thumbCount: Int {
         get {
             return thumbViews.count
         }
@@ -63,7 +63,7 @@ open class MultiSlider: UIControl {
     }
 
     /// value label shows difference from previous thumb value (true) or absolute value (false = default)
-    @IBInspectable @objc open var isValueLabelRelative: Bool = false {
+    @IBInspectable open var isValueLabelRelative: Bool = false {
         didSet {
             for i in 0 ..< valueLabels.count {
                 updateValueLabel(i)
@@ -89,13 +89,13 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable @objc public var showsThumbImageShadow: Bool = true {
+    @IBInspectable public var showsThumbImageShadow: Bool = true {
         didSet {
             updateThumbViewShadowVisibility()
         }
     }
 
-    @IBInspectable @objc open var minimumImage: UIImage? {
+    @IBInspectable open var minimumImage: UIImage? {
         get {
             return minimumView.image
         }
@@ -109,7 +109,7 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable @objc open var maximumImage: UIImage? {
+    @IBInspectable open var maximumImage: UIImage? {
         get {
             return maximumView.image
         }
@@ -123,7 +123,7 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable @objc open var trackWidth: CGFloat = 2 {
+    @IBInspectable open var trackWidth: CGFloat = 2 {
         didSet {
             let widthAttribute: NSLayoutConstraint.Attribute = orientation == .vertical ? .width : .height
             trackView.removeFirstConstraint { $0.firstAttribute == widthAttribute }
@@ -132,13 +132,13 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable @objc public var hasRoundTrackEnds: Bool = true {
+    @IBInspectable public var hasRoundTrackEnds: Bool = true {
         didSet {
             updateTrackViewCornerRounding()
         }
     }
 
-    @IBInspectable @objc public var keepsDistanceBetweenThumbs: Bool = true
+    @IBInspectable public var keepsDistanceBetweenThumbs: Bool = true
 
     open var valueLabelFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -153,6 +153,7 @@ open class MultiSlider: UIControl {
     @objc open var thumbViews: [UIImageView] = []
     @objc open var valueLabels: [UITextField] = [] // UILabels are a pain to layout, text fields look nice as-is.
     @objc open var trackView = UIView()
+    @objc open var outOfRangeTrackViews: [UIView] = []
     @objc open var minimumView = UIImageView()
     @objc open var maximumView = UIImageView()
 
