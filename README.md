@@ -1,17 +1,28 @@
 # MultiSlider
-UISlider clone with multiple thumbs and values, optional snap intervals, optional value labels.
+UISlider clone with multiple thumbs and values, range highlight, optional snap intervals, optional value labels, either vertical or horizontal.
 
 [![Swift Version][swift-image]][swift-url]
 [![Build Status][travis-image]][travis-url]
 [![License][license-image]][license-url]
-[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/MultiSlider.svg)](https://img.shields.io/cocoapods/v/MultiSlider.svg)  
+[![CocoaPods Compatible](https://img.shields.io/cocoapods/v/MultiSlider.svg)](https://img.shields.io/cocoapods/v/MultiSlider.svg)
 [![Platform](https://img.shields.io/cocoapods/p/MultiSlider.svg?style=flat)](http://cocoapods.org/pods/MultiSlider)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
+
 <p align="center">
 <img src="Screenshots/MultiSlider.png">
-<img src="Screenshots/MultiSlider-h.png">
 </p>
+
+## Features
+
+* Multiple thumbs
+* Range slider (optional) - track color between thumbs different from track color ouside thumbs
+* Vertical (optional)
+* Value labels (optional)
+* Snap interval (optional)
+* Haptic feedback
+* Configurable thumb image, minimum and maximum images.
+* Configurable track width, color, rounding.
 
 ## Usage
 
@@ -19,7 +30,6 @@ UISlider clone with multiple thumbs and values, optional snap intervals, optiona
 let slider   = MultiSlider()
 slider.minimumValue = 1    // default is 0.0
 slider.maximumValue = 5    // default is 1.0
-slider.snapStepSize = 0.5  // default is 0.0, i.e. don't snap
 
 slider.value = [1, 4.5, 5]
 
@@ -27,7 +37,7 @@ slider.addTarget(self, action: #selector(sliderChanged(_:)), forControlEvents: .
 slider.addTarget(self, action: #selector(sliderDragEnded(_:)), forControlEvents: . touchUpInside) // sent when drag ends
 ```
 
-## Getting Multiple Thumb Values
+### Getting multiple thumb values
 
 ```swift
 func sliderChanged(slider: MultiSlider) {
@@ -35,27 +45,50 @@ func sliderChanged(slider: MultiSlider) {
 }
 ```
 
-## Changing Appearance
+### Range slider
 
 ```swift
-slider.orientation = .horizontal
-slider.thumbImage   = UIImage(named: "balloon")
-slider.minimumImage = UIImage(named: "clown")
-slider.maximumImage = UIImage(named: "cloud")
-slider.tintColor = .cyan
-slider.trackWidth = 5
-slider.hasRoundTrackEnds = true
-slider.showsThumbImageShadow = false
+slider.outerTrackColor = .lightGray // outside of first and last thumbs
 ```
 
-## Adding Labels Showing Thumb Value
+### Vertical / horizontal orientation
+
+```swift
+slider.orientation = .horizontal // default is .vertical
+```
+
+### Value labels
 
 ```swift
 slider.valueLabelPosition = .left // .notAnAttribute = don't show labels
-slider.isValueLabelRelative = true // shows differences instead of absolute values
+slider.isValueLabelRelative = true // show differences between thumbs instead of absolute values
+slider.valueLabelFormatter.positiveSuffix= " 𝞵s"
 ```
 
-## Disabling/Freezing Thumbs
+### Snap interval
+
+```swift
+slider.snapStepSize = 0.5  // default is 0.0, i.e. don't snap
+```
+
+### Changing Appearance
+
+```swift
+slider.tintColor = .cyan // color of track
+slider.trackWidth = 32
+slider.hasRoundTrackEnds = true
+slider.showsThumbImageShadow = false // wide tracks look better without thumb shadow
+```
+
+### Images
+
+```swift
+slider.thumbImage   = UIImage(named: "balloon")
+slider.minimumImage = UIImage(named: "clown")
+slider.maximumImage = UIImage(named: "cloud")
+```
+
+### Disabling/freezing thumbs
 
 ```swift
 slider.disabledThumbIndices = [1, 3]
@@ -64,7 +97,7 @@ slider.disabledThumbIndices = [1, 3]
 ## Requirements
 
 - iOS 9.0+
-- Xcode 9
+- Xcode 10
 
 ## Installation
 
@@ -85,10 +118,6 @@ Legacy versions:
 ### Manually:
 
 Copy `Sources/*.swift` and [`MiniLayout.swift`](https://github.com/yonat/MiniLayout) to your Xcode project.
-
-## TODO
-
-- [ ] Fix IB presentation. (dlopen error "image not found", thumbs should be vertically centered and evenly distributed.)
 
 ## Meta
 

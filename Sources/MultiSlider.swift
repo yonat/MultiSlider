@@ -81,7 +81,14 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable @objc open var thumbImage: UIImage? {
+    /// track color before first thumb and after last thumb. `nil` means to use the tintColor, like the rest of the track.
+    @IBInspectable open var outerTrackColor: UIColor? {
+        didSet {
+            updateOuterTrackViews()
+        }
+    }
+
+    @IBInspectable open var thumbImage: UIImage? {
         didSet {
             thumbViews.forEach { $0.image = thumbImage }
             setupTrackLayoutMargins()
@@ -103,7 +110,7 @@ open class MultiSlider: UIControl {
             minimumView.image = newValue
             layoutTrackEdge(
                 toView: minimumView,
-                edge: orientation == .vertical ? .bottom : .leading,
+                edge: .bottom(in: orientation),
                 superviewEdge: orientation == .vertical ? .bottomMargin : .leadingMargin
             )
         }
@@ -117,7 +124,7 @@ open class MultiSlider: UIControl {
             maximumView.image = newValue
             layoutTrackEdge(
                 toView: maximumView,
-                edge: orientation == .vertical ? .top : .trailing,
+                edge: .top(in: orientation),
                 superviewEdge: orientation == .vertical ? .topMargin : .trailingMargin
             )
         }
@@ -153,7 +160,7 @@ open class MultiSlider: UIControl {
     @objc open var thumbViews: [UIImageView] = []
     @objc open var valueLabels: [UITextField] = [] // UILabels are a pain to layout, text fields look nice as-is.
     @objc open var trackView = UIView()
-    @objc open var outOfRangeTrackViews: [UIView] = []
+    @objc open var outerTrackViews: [UIView] = []
     @objc open var minimumView = UIImageView()
     @objc open var maximumView = UIImageView()
 
@@ -240,6 +247,35 @@ open class MultiSlider: UIControl {
                 addThumbView()
             }
         }
+        updateOuterTrackViews()
+    }
+
+    private func updateOuterTrackViews() {
+        outerTrackViews.removeViewsStartingAt(0)
+        outerTrackViews.removeAll()
+        guard nil != outerTrackColor else { return }
+        guard let firstThumb = thumbViews.first, let lastThumb = thumbViews.last, firstThumb != lastThumb else { return }
+
+        outerTrackViews = [
+            outerTrackView(constraining: .top(in: orientation), to: firstThumb),
+            outerTrackView(constraining: .bottom(in: orientation), to: lastThumb),
+        ]
+    }
+
+    private func outerTrackView(constraining: NSLayoutConstraint.Attribute, to thumbView: UIView) -> UIView {
+        let view = UIView()
+        view.backgroundColor = outerTrackColor
+        trackView.addConstrainedSubview(view, constrain: .top, .bottom, .leading, .trailing)
+        trackView.removeFirstConstraint { $0.firstItem === view && $0.firstAttribute == constraining }
+        trackView.constrain(view, at: constraining, to: thumbView, at: .center(in: orientation))
+        trackView.sendSubviewToBack(view)
+
+        view.layer.cornerRadius = trackView.layer.cornerRadius
+        if #available(iOS 11.0, *) {
+            view.layer.maskedCorners = .direction(constraining.opposite)
+        }
+
+        return view
     }
 
     private func addThumbView() {
@@ -364,6 +400,7 @@ open class MultiSlider: UIControl {
 
     private func updateTrackViewCornerRounding() {
         trackView.layer.cornerRadius = hasRoundTrackEnds ? trackWidth / 2 : 1
+        outerTrackViews.forEach { $0.layer.cornerRadius = trackView.layer.cornerRadius }
     }
 
     // MARK: - Overrides

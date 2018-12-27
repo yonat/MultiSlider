@@ -163,6 +163,41 @@ extension NSLayoutConstraint.Attribute {
             return .centerX
         }
     }
+
+    static func top(in axis: NSLayoutConstraint.Axis) -> NSLayoutConstraint.Attribute {
+        switch axis {
+        case .vertical:
+            return .top
+        case .horizontal:
+            return .trailing
+        }
+    }
+
+    static func bottom(in axis: NSLayoutConstraint.Axis) -> NSLayoutConstraint.Attribute {
+        switch axis {
+        case .vertical:
+            return .bottom
+        case .horizontal:
+            return .leading
+        }
+    }
+}
+
+extension CACornerMask {
+    static func direction(_ attribute: NSLayoutConstraint.Attribute) -> CACornerMask {
+        switch attribute {
+        case .bottom:
+            return [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        case .top:
+            return [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        case .leading, .left:
+            return [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        case .trailing, .right:
+            return [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        default:
+            return []
+        }
+    }
 }
 
 extension UIImage {
