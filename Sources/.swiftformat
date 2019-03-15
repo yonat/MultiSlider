@@ -1,0 +1,4 @@
+--commas always
+--comments ignore
+--self init-only
+--disable unusedArguments,andOperator

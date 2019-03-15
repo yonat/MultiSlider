@@ -1,7 +1,5 @@
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Pods
-disabled_rules:
-  - trailing_comma
 opt_in_rules:
   - force_unwrapping
   - explicit_init
@@ -29,6 +27,15 @@ opt_in_rules:
   - toggle_bool
   - unused_private_declaration
   - identical_operands
+  - array_init
+  - implicit_return
+  - implicitly_unwrapped_optional
+  - vertical_whitespace_opening_braces
+  - vertical_whitespace_closing_braces
+  - last_where
+  - redundant_type_annotation
+trailing_comma:
+  mandatory_comma: true
 identifier_name:
   excluded:
     - i
@@ -38,7 +45,8 @@ identifier_name:
     - dy
     - on
 line_length:
-  - 160
+  warning: 160
+  ignores_function_declarations: true
 file_length:
   - 500
 type_body_length:

@@ -62,7 +62,7 @@ slider.orientation = .horizontal // default is .vertical
 ```swift
 slider.valueLabelPosition = .left // .notAnAttribute = don't show labels
 slider.isValueLabelRelative = true // show differences between thumbs instead of absolute values
-slider.valueLabelFormatter.positiveSuffix= " 𝞵s"
+slider.valueLabelFormatter.positiveSuffix = " 𝞵s"
 ```
 
 ### Snap interval

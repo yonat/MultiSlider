@@ -187,7 +187,9 @@ open class MultiSlider: UIControl {
         for edge: NSLayoutConstraint.Attribute in [.top, .bottom, .left, .right] {
             constrain(panGestureView, at: edge, diff: -edge.inwardSign * margin)
         }
-        panGestureView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(didDrag(_:))))
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didDrag(_:)))
+        panGesture.delegate = self
+        panGestureView.addGestureRecognizer(panGesture)
     }
 
     private func setupOrientation() {

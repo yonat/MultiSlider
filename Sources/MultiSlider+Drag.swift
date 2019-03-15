@@ -5,7 +5,11 @@
 //  Created by Yonat Sharon on 25.10.2018.
 //
 
-extension MultiSlider {
+extension MultiSlider: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+
     @objc open func didDrag(_ panGesture: UIPanGestureRecognizer) {
         switch panGesture.state {
         case .began:
