@@ -33,8 +33,8 @@ slider.maximumValue = 5    // default is 1.0
 
 slider.value = [1, 4.5, 5]
 
-slider.addTarget(self, action: #selector(sliderChanged(_:)), forControlEvents: .valueChanged) // continuous changes
-slider.addTarget(self, action: #selector(sliderDragEnded(_:)), forControlEvents: . touchUpInside) // sent when drag ends
+slider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged) // continuous changes
+slider.addTarget(self, action: #selector(sliderDragEnded(_:)), for: . touchUpInside) // sent when drag ends
 ```
 
 ### Getting multiple thumb values
