@@ -206,15 +206,21 @@ open class MultiSlider: UIControl {
             addConstrainedSubview(minimumView, constrain: .bottomMargin, .centerXWithinMargins)
             addConstrainedSubview(maximumView, constrain: .topMargin, .centerXWithinMargins)
         case .horizontal:
-            addConstrainedSubview(trackView, constrain: .left, .right, .centerYWithinMargins)
+            let centerAttribute: NSLayoutConstraint.Attribute
+            if #available(iOS 12, *) {
+                centerAttribute = .centerY // iOS 12 doesn't like .leftMargin, .rightMargin
+            } else {
+                centerAttribute = .centerYWithinMargins
+            }
+            addConstrainedSubview(trackView, constrain: .left, .right, centerAttribute)
             trackView.constrain(.height, to: trackWidth)
             if #available(iOS 12, *) {
                 trackView.addConstrainedSubview(slideView, constrain: .top, .bottom, .left, .right) // iOS 12 β doesn't like .leftMargin, .rightMargin
             } else {
                 trackView.addConstrainedSubview(slideView, constrain: .top, .bottom, .leftMargin, .rightMargin)
             }
-            addConstrainedSubview(minimumView, constrain: .leftMargin, .centerYWithinMargins)
-            addConstrainedSubview(maximumView, constrain: .rightMargin, .centerYWithinMargins)
+            addConstrainedSubview(minimumView, constrain: .leftMargin, centerAttribute)
+            addConstrainedSubview(maximumView, constrain: .rightMargin, centerAttribute)
         }
         setupTrackLayoutMargins()
     }
