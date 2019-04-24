@@ -1,5 +1,0 @@
---commas always
---comments ignore
---self init-only
---disable unusedArguments, andOperator, yodaConditions, anyObjectProtocol
---ifdef no-indent
