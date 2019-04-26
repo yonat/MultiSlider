@@ -23,14 +23,14 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable open var minimumValue: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
-    @IBInspectable open var maximumValue: CGFloat = 1 { didSet { adjustValuesToStepAndLimits() } }
-    @IBInspectable open var isContinuous: Bool = true
+    @IBInspectable open dynamic var minimumValue: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
+    @IBInspectable open dynamic var maximumValue: CGFloat = 1 { didSet { adjustValuesToStepAndLimits() } }
+    @IBInspectable open dynamic var isContinuous: Bool = true
 
     /// snap thumbs to specific values, evenly spaced. (default = 0: allow any value)
-    @IBInspectable open var snapStepSize: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
+    @IBInspectable open dynamic var snapStepSize: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
 
-    @IBInspectable open var thumbCount: Int {
+    @IBInspectable open dynamic var thumbCount: Int {
         get {
             return thumbViews.count
         }
@@ -51,7 +51,7 @@ open class MultiSlider: UIControl {
     }
 
     /// show value labels next to thumbs. (default: show no label)
-    @objc open var valueLabelPosition: NSLayoutConstraint.Attribute = .notAnAttribute {
+    @objc open dynamic var valueLabelPosition: NSLayoutConstraint.Attribute = .notAnAttribute {
         didSet {
             valueLabels.removeViewsStartingAt(0)
             if valueLabelPosition != .notAnAttribute {
@@ -63,7 +63,7 @@ open class MultiSlider: UIControl {
     }
 
     /// value label shows difference from previous thumb value (true) or absolute value (false = default)
-    @IBInspectable open var isValueLabelRelative: Bool = false {
+    @IBInspectable open dynamic var isValueLabelRelative: Bool = false {
         didSet {
             for i in 0 ..< valueLabels.count {
                 updateValueLabel(i)
@@ -73,7 +73,7 @@ open class MultiSlider: UIControl {
 
     // MARK: - Appearance
 
-    @objc open var orientation: NSLayoutConstraint.Axis = .vertical {
+    @objc open dynamic var orientation: NSLayoutConstraint.Axis = .vertical {
         didSet {
             setupOrientation()
             invalidateIntrinsicContentSize()
@@ -82,13 +82,13 @@ open class MultiSlider: UIControl {
     }
 
     /// track color before first thumb and after last thumb. `nil` means to use the tintColor, like the rest of the track.
-    @IBInspectable open var outerTrackColor: UIColor? {
+    @IBInspectable open dynamic var outerTrackColor: UIColor? {
         didSet {
             updateOuterTrackViews()
         }
     }
 
-    @IBInspectable open var thumbImage: UIImage? {
+    @IBInspectable open dynamic var thumbImage: UIImage? {
         didSet {
             thumbViews.forEach { $0.image = thumbImage }
             setupTrackLayoutMargins()
@@ -96,13 +96,13 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable public var showsThumbImageShadow: Bool = true {
+    @IBInspectable public dynamic var showsThumbImageShadow: Bool = true {
         didSet {
             updateThumbViewShadowVisibility()
         }
     }
 
-    @IBInspectable open var minimumImage: UIImage? {
+    @IBInspectable open dynamic var minimumImage: UIImage? {
         get {
             return minimumView.image
         }
@@ -116,7 +116,7 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable open var maximumImage: UIImage? {
+    @IBInspectable open dynamic var maximumImage: UIImage? {
         get {
             return maximumView.image
         }
@@ -130,7 +130,7 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable open var trackWidth: CGFloat = 2 {
+    @IBInspectable open dynamic var trackWidth: CGFloat = 2 {
         didSet {
             let widthAttribute: NSLayoutConstraint.Attribute = orientation == .vertical ? .width : .height
             trackView.removeFirstConstraint { $0.firstAttribute == widthAttribute }
@@ -139,15 +139,15 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable public var hasRoundTrackEnds: Bool = true {
+    @IBInspectable public dynamic var hasRoundTrackEnds: Bool = true {
         didSet {
             updateTrackViewCornerRounding()
         }
     }
 
-    @IBInspectable public var keepsDistanceBetweenThumbs: Bool = true
+    @IBInspectable public dynamic var keepsDistanceBetweenThumbs: Bool = true
 
-    open var valueLabelFormatter: NumberFormatter = {
+    @objc open dynamic var valueLabelFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 2
         formatter.minimumIntegerDigits = 1
