@@ -114,7 +114,7 @@ extension UIImageView {
         }
     }
 
-    static var blurViewTag: Int { return 898_989 }
+    static var blurViewTag: Int { return 898_989 } // swiftlint:disable:this numbers_smell
 }
 
 extension NSLayoutConstraint.Attribute {
@@ -201,7 +201,7 @@ extension CACornerMask {
 }
 
 extension UIImage {
-    static func circle(diameter: CGFloat, width: CGFloat = 1, color: UIColor? = nil, fill: UIColor? = nil) -> UIImage? {
+    static func circle(diameter: CGFloat = 29, width: CGFloat = 0.5, color: UIColor? = UIColor.lightGray.withAlphaComponent(0.5), fill: UIColor? = .white) -> UIImage? {
         let circleLayer = CAShapeLayer()
         circleLayer.fillColor = fill?.cgColor
         circleLayer.strokeColor = color?.cgColor

@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  MultiSliderDemo
+//  swiftlint:disable numbers_smell
 //
 //  Created by Yonat Sharon on 17.11.2016.
 //  Copyright © 2016 Yonat Sharon. All rights reserved.
