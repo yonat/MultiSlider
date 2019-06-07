@@ -30,6 +30,9 @@ open class MultiSlider: UIControl {
     /// snap thumbs to specific values, evenly spaced. (default = 0: allow any value)
     @IBInspectable open dynamic var snapStepSize: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
 
+    /// generate haptic feedback when hitting snap steps
+    @IBInspectable open dynamic var isHapticSnap: Bool = true
+
     @IBInspectable open dynamic var thumbCount: Int {
         get {
             return thumbViews.count
