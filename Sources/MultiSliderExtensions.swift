@@ -28,7 +28,7 @@ extension CGPoint {
         switch axis {
         case .vertical:
             return y
-        case .horizontal:
+        default:
             return x
         }
     }
@@ -39,7 +39,7 @@ extension CGRect {
         switch axis {
         case .vertical:
             return height
-        case .horizontal:
+        default:
             return width
         }
     }
@@ -48,7 +48,7 @@ extension CGRect {
         switch axis {
         case .vertical:
             return maxY
-        case .horizontal:
+        default:
             return minX
         }
     }
@@ -57,7 +57,7 @@ extension CGRect {
         switch axis {
         case .vertical:
             return minY
-        case .horizontal:
+        default:
             return maxX
         }
     }
@@ -75,7 +75,7 @@ extension UIView {
     }
 
     func removeFirstConstraint(where: (_: NSLayoutConstraint) -> Bool) {
-        if let constrainIndex = constraints.index(where: `where`) {
+        if let constrainIndex = constraints.firstIndex(where: `where`) {
             removeConstraint(constraints[constrainIndex])
         }
     }
@@ -159,7 +159,7 @@ extension NSLayoutConstraint.Attribute {
         switch axis {
         case .vertical:
             return .centerY
-        case .horizontal:
+        default:
             return .centerX
         }
     }
@@ -168,7 +168,7 @@ extension NSLayoutConstraint.Attribute {
         switch axis {
         case .vertical:
             return .top
-        case .horizontal:
+        default:
             return .trailing
         }
     }
@@ -177,7 +177,7 @@ extension NSLayoutConstraint.Attribute {
         switch axis {
         case .vertical:
             return .bottom
-        case .horizontal:
+        default:
             return .leading
         }
     }

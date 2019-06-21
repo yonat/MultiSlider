@@ -21,7 +21,8 @@ extension MultiSlider: UIGestureRecognizerDelegate {
             if isHapticSnap { selectionFeedbackGenerator.end() }
             sendActions(for: .touchUpInside) // no bounds check for now (.touchUpInside vs .touchUpOutside)
             if !isContinuous { sendActions(for: [.valueChanged, .primaryActionTriggered]) }
-        case .possible, .changed: break
+        default:
+            break
         }
         guard draggedThumbIndex >= 0 else { return }
 

@@ -208,7 +208,7 @@ open class MultiSlider: UIControl {
             trackView.addConstrainedSubview(slideView, constrain: .left, .right, .bottomMargin, .topMargin)
             addConstrainedSubview(minimumView, constrain: .bottomMargin, .centerXWithinMargins)
             addConstrainedSubview(maximumView, constrain: .topMargin, .centerXWithinMargins)
-        case .horizontal:
+        default:
             let centerAttribute: NSLayoutConstraint.Attribute
             if #available(iOS 12, *) {
                 centerAttribute = .centerY // iOS 12 doesn't like .leftMargin, .rightMargin
@@ -430,7 +430,7 @@ open class MultiSlider: UIControl {
         switch orientation {
         case .vertical:
             return CGSize(width: thumbSize.width + margin, height: UIView.noIntrinsicMetric)
-        case .horizontal:
+        default:
             return CGSize(width: UIView.noIntrinsicMetric, height: thumbSize.height + margin)
         }
     }
