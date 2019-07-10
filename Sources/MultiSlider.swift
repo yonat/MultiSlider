@@ -20,6 +20,7 @@ open class MultiSlider: UIControl {
             for i in 0 ..< valueLabels.count {
                 updateValueLabel(i)
             }
+            accessibilityValue = value.description
         }
     }
 

@@ -12,6 +12,11 @@ extension MultiSlider {
         slideView.layoutMargins = .zero
         setupOrientation()
         setupPanGesture()
+
+        isAccessibilityElement = true
+        accessibilityIdentifier = "multi_slider"
+        accessibilityLabel = "slider"
+        accessibilityTraits = [.adjustable]
     }
 
     private func setupPanGesture() {
