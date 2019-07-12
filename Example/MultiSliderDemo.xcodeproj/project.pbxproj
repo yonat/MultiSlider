@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CF5066920782260539312306 /* Pods_MultiSliderDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0F8C92467D76443D27A74D /* Pods_MultiSliderDemo.framework */; };
+		BD551EB16742BBABC5D0A71E /* Pods_MultiSliderDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0F8C92467D76443D27A74D /* Pods_MultiSliderDemo.framework */; };
 		DC9FAA6D1DDE3EA800FFD2A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9FAA6C1DDE3EA800FFD2A1 /* AppDelegate.swift */; };
 		DC9FAA6F1DDE3EA800FFD2A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9FAA6E1DDE3EA800FFD2A1 /* ViewController.swift */; };
 		DC9FAA721DDE3EA800FFD2A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC9FAA701DDE3EA800FFD2A1 /* Main.storyboard */; };
@@ -35,7 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF5066920782260539312306 /* Pods_MultiSliderDemo.framework in Frameworks */,
+				BD551EB16742BBABC5D0A71E /* Pods_MultiSliderDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,14 +194,14 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MultiSliderDemo/Pods-MultiSliderDemo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AvailableHapticFeedback/AvailableHapticFeedback.framework",
-				"${BUILT_PRODUCTS_DIR}/MiniLayout/MiniLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/MultiSlider/MultiSlider.framework",
+				"${BUILT_PRODUCTS_DIR}/SweeterSwift/SweeterSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AvailableHapticFeedback.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MiniLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MultiSlider.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SweeterSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -216,7 +216,7 @@
 			name = "[CP-User] SwiftLint";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"Debug\" == \"${CONFIGURATION}\" ]; then ${PODS_ROOT}/SwiftLint/swiftlint --config ${PODS_ROOT}/SwiftQuality/.swiftlint.yml --path ${SRCROOT}/.. ; fi";
+			shellScript = "if [ \"Debug\" == \"${CONFIGURATION}\" ]; then ${PODS_ROOT}/SwiftLint/swiftlint --config ${PODS_ROOT}/SwiftQuality/.swiftlint.yml --path ${SRCROOT}/.. ; fi\n";
 			showEnvVarsInLog = 0;
 		};
 		787DB23368281E30FB7B3A89 /* [CP-User] SwiftLintAutocorrect */ = {
@@ -417,7 +417,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
-					"\"MiniLayout\"",
+					"\"SweeterSwift\"",
 					"-framework",
 					"\"MultiSlider\"",
 				);
@@ -438,7 +438,7 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
-					"\"MiniLayout\"",
+					"\"SweeterSwift\"",
 					"-framework",
 					"\"MultiSlider\"",
 				);

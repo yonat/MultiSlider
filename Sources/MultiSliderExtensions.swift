@@ -5,6 +5,7 @@
 //  Created by Yonat Sharon on 20.05.2018.
 //
 
+import SweeterSwift
 import UIKit
 
 extension CGFloat {
@@ -65,14 +66,6 @@ extension CGRect {
 
 extension UIView {
     var diagonalSize: CGFloat { return hypot(frame.width, frame.height) }
-
-    var actualTintColor: UIColor {
-        var tintedView: UIView? = self
-        while let currentView = tintedView, nil == currentView.tintColor {
-            tintedView = currentView.superview
-        }
-        return tintedView?.tintColor ?? .blue
-    }
 
     func removeFirstConstraint(where: (_: NSLayoutConstraint) -> Bool) {
         if let constrainIndex = constraints.firstIndex(where: `where`) {
