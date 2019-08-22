@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MultiSlider"
-  s.version      = "1.9.6"
+  s.version      = "1.9.7"
   s.summary      = "UISlider clone with multiple thumbs and values, optional snap intervals, optional value labels."
 
   s.homepage     = "https://github.com/yonat/MultiSlider"
