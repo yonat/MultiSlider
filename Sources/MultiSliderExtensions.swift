@@ -20,11 +20,6 @@ extension CGFloat {
 }
 
 extension CGPoint {
-    func distanceTo(_ point: CGPoint) -> CGFloat {
-        let (dx, dy) = (x - point.x, y - point.y)
-        return hypot(dx, dy)
-    }
-
     func coordinate(in axis: NSLayoutConstraint.Axis) -> CGFloat {
         switch axis {
         case .vertical:

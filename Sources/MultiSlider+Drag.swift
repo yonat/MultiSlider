@@ -99,10 +99,19 @@ extension MultiSlider: UIGestureRecognizerDelegate {
     private func closestThumb(point: CGPoint) -> Int {
         var closest = -1
         var minimumDistance = CGFloat.greatestFiniteMagnitude
+        let pointCoordinate = point.coordinate(in: orientation)
         for i in 0 ..< thumbViews.count {
             guard !disabledThumbIndices.contains(i) else { continue }
-            let distance = point.distanceTo(thumbViews[i].center)
+            let thumbCoordinate = thumbViews[i].center.coordinate(in: orientation)
+            let distance = abs(pointCoordinate - thumbCoordinate)
             if distance > minimumDistance { break }
+            if i > 0 && closest == i - 1 && thumbViews[i].center == thumbViews[i - 1].center { // overlapping thumbs
+                let greaterSign: CGFloat = orientation == .vertical ? -1 : 1
+                if greaterSign * thumbCoordinate < greaterSign * pointCoordinate {
+                    closest = i
+                }
+                break
+            }
             minimumDistance = distance
             if distance < thumbViews[i].diagonalSize {
                 closest = i
