@@ -116,9 +116,13 @@ Legacy versions:
 | 3 | `pod 'MiniLayout', '~> 1.1.0'`<br>`pod 'MultiSlider', '~> 1.1.2'` |
 | 2.3 | `pod 'MiniLayout', '~> 1.0.1'`<br>`pod 'MultiSlider', '~> 1.0.1'` |
 
-### Manually:
+### Swift Package Manager:
 
-Copy `Sources/*.swift` and [`MiniLayout.swift`](https://github.com/yonat/MiniLayout) to your Xcode project.
+```swift
+dependencies: [
+    .package(url: "https://github.com/yonat/MultiSlider", from: "1.9.8")
+]
+```
 
 ## Meta
 
