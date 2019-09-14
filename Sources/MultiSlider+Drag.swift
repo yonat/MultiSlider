@@ -5,6 +5,8 @@
 //  Created by Yonat Sharon on 25.10.2018.
 //
 
+import UIKit
+
 extension MultiSlider: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true

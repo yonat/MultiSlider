@@ -5,6 +5,8 @@
 //  Created by Yonat Sharon on 21/06/2019.
 //
 
+import UIKit
+
 extension MultiSlider {
     func setup() {
         trackView.backgroundColor = actualTintColor
