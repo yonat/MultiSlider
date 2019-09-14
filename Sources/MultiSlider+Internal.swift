@@ -19,6 +19,9 @@ extension MultiSlider {
         accessibilityIdentifier = "multi_slider"
         accessibilityLabel = "slider"
         accessibilityTraits = [.adjustable]
+
+        minimumView.isHidden = true
+        maximumView.isHidden = true
     }
 
     private func setupPanGesture() {
@@ -70,8 +73,10 @@ extension MultiSlider {
         let halfThumb = thumbDiameter / 2 - 1 // 1 pixel for semi-transparent boundary
         if orientation == .vertical {
             trackView.layoutMargins = UIEdgeInsets(top: halfThumb, left: 0, bottom: halfThumb, right: 0)
+            constrain(.width, to: max(thumbSize.width, trackWidth))
         } else {
             trackView.layoutMargins = UIEdgeInsets(top: 0, left: halfThumb, bottom: 0, right: halfThumb)
+            constrain(.height, to: max(thumbSize.height, trackWidth))
         }
     }
 

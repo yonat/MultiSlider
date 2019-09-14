@@ -79,6 +79,8 @@ open class MultiSlider: UIControl {
 
     @objc open dynamic var orientation: NSLayoutConstraint.Axis = .vertical {
         didSet {
+            let oldConstraintAttribute: NSLayoutConstraint.Attribute = oldValue == .vertical ? .width : .height
+            removeFirstConstraint(where: { $0.firstAttribute == oldConstraintAttribute && $0.firstItem === self && $0.secondItem == nil })
             setupOrientation()
             invalidateIntrinsicContentSize()
             repositionThumbViews()
@@ -112,6 +114,7 @@ open class MultiSlider: UIControl {
         }
         set {
             minimumView.image = newValue
+            minimumView.isHidden = newValue == nil
             layoutTrackEdge(
                 toView: minimumView,
                 edge: .bottom(in: orientation),
@@ -126,6 +129,7 @@ open class MultiSlider: UIControl {
         }
         set {
             maximumView.image = newValue
+            maximumView.isHidden = newValue == nil
             layoutTrackEdge(
                 toView: maximumView,
                 edge: .top(in: orientation),
