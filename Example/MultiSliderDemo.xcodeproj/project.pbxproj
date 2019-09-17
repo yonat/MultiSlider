@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BD551EB16742BBABC5D0A71E /* Pods_MultiSliderDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0F8C92467D76443D27A74D /* Pods_MultiSliderDemo.framework */; };
+		DC64D11323311C5300506A50 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC64D11223311C5300506A50 /* SwiftUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		DC64D11523311C8F00506A50 /* MultiValueSliderDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC64D11423311C8F00506A50 /* MultiValueSliderDemo.swift */; };
 		DC9FAA6D1DDE3EA800FFD2A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9FAA6C1DDE3EA800FFD2A1 /* AppDelegate.swift */; };
 		DC9FAA6F1DDE3EA800FFD2A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9FAA6E1DDE3EA800FFD2A1 /* ViewController.swift */; };
 		DC9FAA721DDE3EA800FFD2A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC9FAA701DDE3EA800FFD2A1 /* Main.storyboard */; };
@@ -18,6 +20,8 @@
 /* Begin PBXFileReference section */
 		1DECD70B602B52AE320E28CD /* Pods-MultiSliderDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultiSliderDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MultiSliderDemo/Pods-MultiSliderDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		99930DE4D58EFEAF1D745B49 /* Pods-MultiSliderDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultiSliderDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MultiSliderDemo/Pods-MultiSliderDemo.release.xcconfig"; sourceTree = "<group>"; };
+		DC64D11223311C5300506A50 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		DC64D11423311C8F00506A50 /* MultiValueSliderDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiValueSliderDemo.swift; sourceTree = "<group>"; };
 		DC9FAA691DDE3EA800FFD2A1 /* MultiSliderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiSliderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC9FAA6C1DDE3EA800FFD2A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC9FAA6E1DDE3EA800FFD2A1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC64D11323311C5300506A50 /* SwiftUI.framework in Frameworks */,
 				BD551EB16742BBABC5D0A71E /* Pods_MultiSliderDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -45,6 +50,7 @@
 		4CE0773038075DD9E1826549 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DC64D11223311C5300506A50 /* SwiftUI.framework */,
 				ED0F8C92467D76443D27A74D /* Pods_MultiSliderDemo.framework */,
 			);
 			name = Frameworks;
@@ -82,8 +88,9 @@
 		DC9FAA6B1DDE3EA800FFD2A1 /* MultiSliderDemo */ = {
 			isa = PBXGroup;
 			children = (
-				DC9FAA6C1DDE3EA800FFD2A1 /* AppDelegate.swift */,
 				DC9FAA6E1DDE3EA800FFD2A1 /* ViewController.swift */,
+				DC64D11423311C8F00506A50 /* MultiValueSliderDemo.swift */,
+				DC9FAA6C1DDE3EA800FFD2A1 /* AppDelegate.swift */,
 				DC9FAA701DDE3EA800FFD2A1 /* Main.storyboard */,
 				DC9FAA731DDE3EA800FFD2A1 /* Assets.xcassets */,
 				DC9FAA751DDE3EA800FFD2A1 /* LaunchScreen.storyboard */,
@@ -270,6 +277,7 @@
 			files = (
 				DC9FAA6F1DDE3EA800FFD2A1 /* ViewController.swift in Sources */,
 				DC9FAA6D1DDE3EA800FFD2A1 /* AppDelegate.swift in Sources */,
+				DC64D11523311C8F00506A50 /* MultiValueSliderDemo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
