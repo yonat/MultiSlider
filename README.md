@@ -16,7 +16,7 @@ UISlider clone with multiple thumbs and values, range highlight, optional snap i
 ## Features
 
 * Multiple thumbs
-* Range slider (optional) - track color between thumbs different from track color ouside thumbs
+* Range slider (optional) - track color between thumbs different from track color outside thumbs
 * Vertical (optional)
 * Value labels (optional)
 * Snap interval (optional)
@@ -36,6 +36,10 @@ slider.value = [1, 4.5, 5]
 slider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged) // continuous changes
 slider.addTarget(self, action: #selector(sliderDragEnded(_:)), for: . touchUpInside) // sent when drag ends
 ```
+
+### SwiftUI
+
+Use `MultiValueSlider` from the [swiftui branch](https://github.com/yonat/MultiSlider/tree/swiftui).
 
 ### Getting multiple thumb values
 
