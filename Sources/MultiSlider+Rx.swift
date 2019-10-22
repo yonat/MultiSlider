@@ -7,7 +7,7 @@ import RxSwift
 extension Reactive where Base: MultiSlider {
     
     public var value: ControlProperty<[CGFloat]> {
-        return base.rx.controlProperty(editingEvents: .allTouchEvents, getter: { range in
+        return base.rx.controlProperty(editingEvents: .allEvents, getter: { range in
             range.value
         }, setter: { range, value in
             range.value = value
