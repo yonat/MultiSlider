@@ -127,7 +127,7 @@ Legacy versions:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/yonat/MultiSlider", from: "1.9.9")
+    .package(url: "https://github.com/yonat/MultiSlider", from: "1.10.0")
 ]
 ```
 
