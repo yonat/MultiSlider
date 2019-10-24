@@ -24,6 +24,8 @@ open class MultiSlider: UIControl {
         }
     }
 
+    @objc public internal(set) var draggedThumbIndex: Int = -1
+
     @IBInspectable open dynamic var minimumValue: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
     @IBInspectable open dynamic var maximumValue: CGFloat = 1 { didSet { adjustValuesToStepAndLimits() } }
     @IBInspectable open dynamic var isContinuous: Bool = true
@@ -178,7 +180,6 @@ open class MultiSlider: UIControl {
     let panGestureView = UIView()
     let margin: CGFloat = 32
     var isSettingValue = false
-    var draggedThumbIndex: Int = -1
     lazy var defaultThumbImage: UIImage? = .circle()
     var selectionFeedbackGenerator = AvailableHapticFeedback()
 

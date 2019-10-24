@@ -46,6 +46,7 @@ class ViewController: UIViewController {
     }
 
     @objc func sliderChanged(_ slider: MultiSlider) {
-        print("\(slider.value)")
+        print("thumb \(slider.draggedThumbIndex) moved")
+        print("now thumbs are at \(slider.value)") // e.g., [1.0, 4.5, 5.0]
     }
 }

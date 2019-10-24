@@ -43,9 +43,12 @@ Use `MultiValueSlider` from the [swiftui branch](https://github.com/yonat/MultiS
 
 ### Getting multiple thumb values
 
+Use `value` to get all thumbs values, and `draggedThumbIndex` to find which thumb was last moved.
+
 ```swift
 func sliderChanged(slider: MultiSlider) {
-    print("\(slider.value)") // e.g., [1.0, 4.5, 5.0]
+    print("thumb \(slider.draggedThumbIndex) moved")
+    print("now thumbs are at \(slider.value)") // e.g., [1.0, 4.5, 5.0]
 }
 ```
 
@@ -134,11 +137,9 @@ dependencies: [
 
 [https://github.com/yonat/MultiSlider](https://github.com/yonat/MultiSlider)
 
-[swift-image]:https://img.shields.io/badge/swift-4.2-orange.svg
+[swift-image]:https://img.shields.io/badge/swift-5.0-orange.svg
 [swift-url]: https://swift.org/
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-url]: LICENSE.txt
 [travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
 [travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
-[codebeat-image]: https://codebeat.co/badges/c19b47ea-2f9d-45df-8458-b2d952fe9dad
-[codebeat-url]: https://codebeat.co/projects/github-com-vsouza-awesomeios-com
