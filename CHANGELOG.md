@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- add `isVertical` property that can be used in Interface builder.
+
+## [1.10.0] - 2019-10-24
+
+### Added
+- add public access to `draggedThumbIndex` to allow funding which thumb was dragged.
+
 ## [1.9.8] - 2019-08-30
 
 ### Fixed

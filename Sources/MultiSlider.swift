@@ -79,6 +79,11 @@ open class MultiSlider: UIControl {
 
     // MARK: - Appearance
 
+    @IBInspectable open dynamic var isVertical: Bool {
+        get { return orientation == .vertical }
+        set { orientation = newValue ? .vertical : .horizontal }
+    }
+
     @objc open dynamic var orientation: NSLayoutConstraint.Axis = .vertical {
         didSet {
             let oldConstraintAttribute: NSLayoutConstraint.Attribute = oldValue == .vertical ? .width : .height

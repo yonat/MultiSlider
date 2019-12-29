@@ -27,7 +27,7 @@ UISlider clone with multiple thumbs and values, range highlight, optional snap i
 ## Usage
 
 ```swift
-let slider   = MultiSlider()
+let slider = MultiSlider()
 slider.minimumValue = 1    // default is 0.0
 slider.maximumValue = 5    // default is 1.0
 
@@ -62,6 +62,7 @@ slider.outerTrackColor = .lightGray // outside of first and last thumbs
 
 ```swift
 slider.orientation = .horizontal // default is .vertical
+slider.isVertical = false // same effect, but accessible from Interface Builder
 ```
 
 ### Value labels
