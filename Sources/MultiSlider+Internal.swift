@@ -22,6 +22,8 @@ extension MultiSlider {
 
         minimumView.isHidden = true
         maximumView.isHidden = true
+
+        valueLabelFormatter.addObserverForAllProperties(observer: self)
     }
 
     private func setupPanGesture() {
@@ -173,6 +175,12 @@ extension MultiSlider {
             labelValue = value[i]
         }
         valueLabels[i].text = valueLabelFormatter.string(from: NSNumber(value: Double(labelValue)))
+    }
+
+    func updateAllValueLabels() {
+        for i in 0 ..< valueLabels.count {
+            updateValueLabel(i)
+        }
     }
 
     func updateValueCount(_ count: Int) {

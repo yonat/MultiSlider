@@ -43,6 +43,7 @@ class ViewController: UIViewController {
 
         multiSlider.keepsDistanceBetweenThumbs = false
         horizontalMultiSlider.keepsDistanceBetweenThumbs = false
+        horizontalMultiSlider.valueLabelFormatter.positiveSuffix = " 𝞵s"
     }
 
     @objc func sliderChanged(_ slider: MultiSlider) {

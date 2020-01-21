@@ -17,9 +17,7 @@ open class MultiSlider: UIControl {
             if isSettingValue { return }
             adjustThumbCountToValueCount()
             adjustValuesToStepAndLimits()
-            for i in 0 ..< valueLabels.count {
-                updateValueLabel(i)
-            }
+            updateAllValueLabels()
             accessibilityValue = value.description
         }
     }
@@ -71,9 +69,7 @@ open class MultiSlider: UIControl {
     /// value label shows difference from previous thumb value (true) or absolute value (false = default)
     @IBInspectable open dynamic var isValueLabelRelative: Bool = false {
         didSet {
-            for i in 0 ..< valueLabels.count {
-                updateValueLabel(i)
-            }
+            updateAllValueLabels()
         }
     }
 
@@ -168,7 +164,13 @@ open class MultiSlider: UIControl {
         formatter.minimumIntegerDigits = 1
         formatter.roundingMode = .halfEven
         return formatter
-    }()
+    }() {
+        didSet {
+            updateAllValueLabels()
+            oldValue.removeObserverForAllProperties(observer: self)
+            valueLabelFormatter.addObserverForAllProperties(observer: self)
+        }
+    }
 
     // MARK: - Subviews
 
@@ -215,6 +217,13 @@ open class MultiSlider: UIControl {
         return panGestureView.hitTest(panGestureView.convert(point, from: self), with: event)
     }
 
+    // swiftlint:disable:next block_based_kvo
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+        if object as? NumberFormatter === valueLabelFormatter {
+            updateAllValueLabels()
+        }
+    }
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -223,6 +232,10 @@ open class MultiSlider: UIControl {
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
+    }
+
+    deinit {
+        valueLabelFormatter.removeObserverForAllProperties(observer: self)
     }
 
     open override func prepareForInterfaceBuilder() {
