@@ -58,11 +58,8 @@ extension MultiSlider {
             }
             addConstrainedSubview(trackView, constrain: .left, .right, centerAttribute)
             trackView.constrain(.height, to: trackWidth)
-            if #available(iOS 12, *) {
-                trackView.addConstrainedSubview(slideView, constrain: .top, .bottom, .left, .right) // iOS 12 β doesn't like .leftMargin, .rightMargin
-            } else {
-                trackView.addConstrainedSubview(slideView, constrain: .top, .bottom, .leftMargin, .rightMargin)
-            }
+            trackView.addConstrainedSubview(slideView, constrain: .top, .bottom)
+            constrainHorizontalTrackViewToLayoutMargins()
             addConstrainedSubview(minimumView, constrain: .leftMargin, centerAttribute)
             addConstrainedSubview(maximumView, constrain: .rightMargin, centerAttribute)
         }
@@ -78,8 +75,15 @@ extension MultiSlider {
             constrain(.width, to: max(thumbSize.width, trackWidth))
         } else {
             trackView.layoutMargins = UIEdgeInsets(top: 0, left: halfThumb, bottom: 0, right: halfThumb)
+            constrainHorizontalTrackViewToLayoutMargins()
             constrain(.height, to: max(thumbSize.height, trackWidth))
         }
+    }
+
+    /// workaround to a problem in iOS 12-13, of constraining to `leftMargin` and `rightMargin`.
+    func constrainHorizontalTrackViewToLayoutMargins() {
+        trackView.constrain(slideView, at: .left, diff: trackView.layoutMargins.left)
+        trackView.constrain(slideView, at: .right, diff: -trackView.layoutMargins.right)
     }
 
     func repositionThumbViews() {
