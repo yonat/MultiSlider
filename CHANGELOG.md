@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.10.5] - 2020-01-30
+
+### Fixed
+- fix crash on iOS 9-10 introduced in 1.10.2 and only partially fixed in 1.10.4.
+
 ## [1.10.4] - 2020-01-28
 
 ### Fixed

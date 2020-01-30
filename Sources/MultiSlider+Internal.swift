@@ -23,7 +23,9 @@ extension MultiSlider {
         minimumView.isHidden = true
         maximumView.isHidden = true
 
-        valueLabelFormatter.addObserverForAllProperties(observer: self)
+        if #available(iOS 11.0, *) {
+            valueLabelFormatter.addObserverForAllProperties(observer: self)
+        }
     }
 
     private func setupPanGesture() {
