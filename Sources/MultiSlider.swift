@@ -237,7 +237,9 @@ open class MultiSlider: UIControl {
     }
 
     deinit {
-        valueLabelFormatter.removeObserverForAllProperties(observer: self)
+        if #available(iOS 11.0, *) {
+            valueLabelFormatter.removeObserverForAllProperties(observer: self)
+        }
     }
 
     open override func prepareForInterfaceBuilder() {
