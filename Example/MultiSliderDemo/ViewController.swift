@@ -17,6 +17,11 @@ class ViewController: UIViewController {
         multiSlider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
         multiSlider.disabledThumbIndices = [3]
 
+        if #available(iOS 13.0, *) {
+            multiSlider.minimumImage = UIImage(systemName: "moon.fill")
+            multiSlider.maximumImage = UIImage(systemName: "sun.max.fill")
+        }
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.multiSlider.value = [0.4, 2.8]
             self.multiSlider.valueLabelPosition = .top
@@ -44,6 +49,11 @@ class ViewController: UIViewController {
         multiSlider.keepsDistanceBetweenThumbs = false
         horizontalMultiSlider.keepsDistanceBetweenThumbs = false
         horizontalMultiSlider.valueLabelFormatter.positiveSuffix = " 𝞵s"
+
+        if #available(iOS 13.0, *) {
+            horizontalMultiSlider.minimumImage = UIImage(systemName: "scissors")
+            horizontalMultiSlider.maximumImage = UIImage(systemName: "paperplane.fill")
+        }
     }
 
     @objc func sliderChanged(_ slider: MultiSlider) {

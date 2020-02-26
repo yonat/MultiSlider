@@ -46,11 +46,18 @@ extension MultiSlider {
         maximumView.removeFromSuperview()
         switch orientation {
         case .vertical:
-            addConstrainedSubview(trackView, constrain: .top, .bottom, .centerXWithinMargins)
+            let centerAttribute: NSLayoutConstraint.Attribute
+            if #available(iOS 12, *) {
+                centerAttribute = .centerX // iOS 12 doesn't like .topMargin, .rightMargin
+            } else {
+                centerAttribute = .centerXWithinMargins
+            }
+            addConstrainedSubview(trackView, constrain: .top, .bottom, centerAttribute)
             trackView.constrain(.width, to: trackWidth)
-            trackView.addConstrainedSubview(slideView, constrain: .left, .right, .bottomMargin, .topMargin)
-            addConstrainedSubview(minimumView, constrain: .bottomMargin, .centerXWithinMargins)
-            addConstrainedSubview(maximumView, constrain: .topMargin, .centerXWithinMargins)
+            trackView.addConstrainedSubview(slideView, constrain: .left, .right)
+            constrainVerticalTrackViewToLayoutMargins()
+            addConstrainedSubview(minimumView, constrain: .bottomMargin, centerAttribute)
+            addConstrainedSubview(maximumView, constrain: .topMargin, centerAttribute)
         default:
             let centerAttribute: NSLayoutConstraint.Attribute
             if #available(iOS 12, *) {
@@ -74,11 +81,11 @@ extension MultiSlider {
         let halfThumb = thumbDiameter / 2 - 1 // 1 pixel for semi-transparent boundary
         if orientation == .vertical {
             trackView.layoutMargins = UIEdgeInsets(top: halfThumb, left: 0, bottom: halfThumb, right: 0)
-            constrain(.width, to: max(thumbSize.width, trackWidth))
+            constrain(.width, to: max(thumbSize.width, trackWidth), relation: .greaterThanOrEqual)
         } else {
             trackView.layoutMargins = UIEdgeInsets(top: 0, left: halfThumb, bottom: 0, right: halfThumb)
             constrainHorizontalTrackViewToLayoutMargins()
-            constrain(.height, to: max(thumbSize.height, trackWidth))
+            constrain(.height, to: max(thumbSize.height, trackWidth), relation: .greaterThanOrEqual)
         }
     }
 
@@ -86,6 +93,12 @@ extension MultiSlider {
     func constrainHorizontalTrackViewToLayoutMargins() {
         trackView.constrain(slideView, at: .left, diff: trackView.layoutMargins.left)
         trackView.constrain(slideView, at: .right, diff: -trackView.layoutMargins.right)
+    }
+
+    /// workaround to a problem in iOS 12-13, of constraining to `topMargin` and `bottomMargin`.
+    func constrainVerticalTrackViewToLayoutMargins() {
+        trackView.constrain(slideView, at: .top, diff: trackView.layoutMargins.top)
+        trackView.constrain(slideView, at: .bottom, diff: -trackView.layoutMargins.bottom)
     }
 
     func repositionThumbViews() {
@@ -125,7 +138,7 @@ extension MultiSlider {
     private func outerTrackView(constraining: NSLayoutConstraint.Attribute, to thumbView: UIView) -> UIView {
         let view = UIView()
         view.backgroundColor = outerTrackColor
-        trackView.addConstrainedSubview(view, constrain: .top, .bottom, .leading, .trailing)
+        trackView.addConstrainedSubview(view, constrain: .top, .bottom, .left, .right)
         trackView.removeFirstConstraint { $0.firstItem === view && $0.firstAttribute == constraining }
         trackView.constrain(view, at: constraining, to: thumbView, at: .center(in: orientation))
         trackView.sendSubviewToBack(view)

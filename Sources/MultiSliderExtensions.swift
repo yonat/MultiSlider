@@ -157,7 +157,7 @@ extension NSLayoutConstraint.Attribute {
         case .vertical:
             return .top
         default:
-            return .trailing
+            return .right
         }
     }
 
@@ -166,7 +166,7 @@ extension NSLayoutConstraint.Attribute {
         case .vertical:
             return .bottom
         default:
-            return .leading
+            return .left
         }
     }
 }

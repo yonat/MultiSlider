@@ -121,7 +121,7 @@ open class MultiSlider: UIControl {
             layoutTrackEdge(
                 toView: minimumView,
                 edge: .bottom(in: orientation),
-                superviewEdge: orientation == .vertical ? .bottomMargin : .leadingMargin
+                superviewEdge: orientation == .vertical ? .bottomMargin : .leftMargin
             )
         }
     }
@@ -136,7 +136,7 @@ open class MultiSlider: UIControl {
             layoutTrackEdge(
                 toView: maximumView,
                 edge: .top(in: orientation),
-                superviewEdge: orientation == .vertical ? .topMargin : .trailingMargin
+                superviewEdge: orientation == .vertical ? .topMargin : .rightMargin
             )
         }
     }
