@@ -4,10 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+- don't pull-to-dismiss iOS 13 modal when sliding down a vertical slider.
+
 ## [1.10.7] - 2020-02-26
 
 ### Fixed
-- workaround rare layout problems on  on iOS 12 and 13.
+- workaround rare layout problems on iOS 12 and 13.
 
 ## [1.10.6] - 2020-01-30
 
