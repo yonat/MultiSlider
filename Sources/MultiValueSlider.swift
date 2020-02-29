@@ -25,7 +25,7 @@ import SwiftUI
         isHapticSnap: Bool? = nil,
         valueLabelPosition: NSLayoutConstraint.Attribute? = nil,
         isValueLabelRelative: Bool? = nil,
-//        orientation: NSLayoutConstraint.Axis? = nil,
+        orientation: NSLayoutConstraint.Axis? = nil,
         outerTrackColor: UIColor? = nil,
         thumbImage: UIImage? = nil,
         showsThumbImageShadow: Bool? = nil,
@@ -45,7 +45,7 @@ import SwiftUI
         uiView.isHapticSnap =? isHapticSnap
         uiView.valueLabelPosition =? valueLabelPosition
         uiView.isValueLabelRelative =? isValueLabelRelative
-        uiView.orientation = .horizontal // TODO: thumb locations are wrong in vertical orientation when used in SwiftUI
+        uiView.orientation =? orientation
         uiView.outerTrackColor =? outerTrackColor
         uiView.thumbImage =? thumbImage
         uiView.showsThumbImageShadow =? showsThumbImageShadow

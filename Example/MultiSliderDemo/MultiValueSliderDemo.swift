@@ -21,6 +21,7 @@ struct MultiValueSliderDemo: View {
                 value: $doubleValue,
                 maximumValue: 5,
                 snapStepSize: 1,
+                orientation: .horizontal,
                 outerTrackColor: .lightGray
             )
                 .frame(width: 320)
@@ -29,24 +30,29 @@ struct MultiValueSliderDemo: View {
             MultiValueSlider(
                 value: $tripleValue,
                 maximumValue: 5,
-                valueLabelPosition: .top
+                valueLabelPosition: .top,
+                orientation: .horizontal
             )
                 .accentColor(.purple)
 
-            MultiValueSlider(
-                value: $doubleValue,
-                maximumValue: 5,
-                valueLabelPosition: .bottom,
-                trackWidth: 12
-            )
-                .accentColor(.green)
+            HStack {
+                MultiValueSlider(
+                    value: $doubleValue,
+                    maximumValue: 5,
+                    valueLabelPosition: .right,
+                    orientation: .vertical,
+                    trackWidth: 12
+                )
+                    .accentColor(.green)
 
-            MultiValueSlider(
-                value: $tripleValue,
-                maximumValue: 5,
-                outerTrackColor: .lightGray,
-                trackWidth: 12
-            )
+                MultiValueSlider(
+                    value: $tripleValue,
+                    maximumValue: 5,
+                    orientation: .vertical,
+                    outerTrackColor: .lightGray,
+                    trackWidth: 12
+                )
+            }
         }
             .padding()
     }
