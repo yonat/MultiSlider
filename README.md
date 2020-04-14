@@ -92,9 +92,16 @@ slider.showsThumbImageShadow = false // wide tracks look better without thumb sh
 ### Images
 
 ```swift
-slider.thumbImage   = UIImage(named: "balloon")
+// add images at the ends of the slider:
 slider.minimumImage = UIImage(named: "clown")
 slider.maximumImage = UIImage(named: "cloud")
+
+// change image for all thumbs:
+slider.thumbImage = UIImage(named: "balloon")
+
+// or let each thumb have a different image:
+slider.thumbViews[0].image = UIImage(named: "ball")
+slider.thumbViews[1].image = UIImage(named: "club")
 ```
 
 ### Disabling/freezing thumbs
