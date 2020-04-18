@@ -104,6 +104,16 @@ slider.thumbViews[0].image = UIImage(named: "ball")
 slider.thumbViews[1].image = UIImage(named: "club")
 ```
 
+### Distance/Overlap Between Thumbs
+
+```swift
+// allow thumbs to overlap:
+slider.keepsDistanceBetweenThumbs = false
+
+// make thumbs keep a greater distance from each other (default = half the thumb size):
+slider.distanceBetweenThumbs = 3.14
+```
+
 ### Disabling/freezing thumbs
 
 ```swift

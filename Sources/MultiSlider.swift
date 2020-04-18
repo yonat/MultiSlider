@@ -156,7 +156,13 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable public dynamic var keepsDistanceBetweenThumbs: Bool = true
+    /// minimal distance to keep between thumbs (half a thumb by default)
+    @IBInspectable public dynamic var distanceBetweenThumbs: CGFloat = -1
+
+    @IBInspectable public dynamic var keepsDistanceBetweenThumbs: Bool {
+        get { return distanceBetweenThumbs != 0 }
+        set { distanceBetweenThumbs = newValue ? -1 : 0 }
+    }
 
     @objc open dynamic var valueLabelFormatter: NumberFormatter = {
         let formatter = NumberFormatter()

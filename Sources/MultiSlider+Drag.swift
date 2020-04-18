@@ -58,8 +58,17 @@ extension MultiSlider: UIGestureRecognizerDelegate {
 
     /// adjusted position that doesn't cross prev/next thumb and total range
     private func boundedDraggedThumbPosition(targetPosition: CGFloat, stepSizeInView: CGFloat) -> CGFloat {
-        var delta = snapStepSize > 0 ? stepSizeInView : thumbViews[draggedThumbIndex].frame.size(in: orientation) / 2
-        delta = keepsDistanceBetweenThumbs ? delta : 0
+        var delta: CGFloat
+        switch (distanceBetweenThumbs, snapStepSize) {
+        case (0, _):
+            delta = 0
+        case let (_, snapStepSize) where snapStepSize > 0:
+            delta = stepSizeInView
+        case let (distance, _) where distance > 0 && distance < maximumValue - minimumValue:
+            delta = (distance / (maximumValue - minimumValue)) * slideView.bounds.size(in: orientation)
+        default:
+            delta = thumbViews[draggedThumbIndex].frame.size(in: orientation) / 2
+        }
         if orientation == .horizontal { delta = -delta }
         let bottomLimit = draggedThumbIndex > 0
             ? thumbViews[draggedThumbIndex - 1].center.coordinate(in: orientation) - delta
