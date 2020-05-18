@@ -11,4 +11,4 @@ assignees: yonat
 [description]
 
 **Minimal project that reproduces the problem (so I'll be able to figure out how to fix it):**
-[github repo or a zipped project]
+[link to a Minimal Reproducible Example as described at https://ootips.org/yonat/repex ]
