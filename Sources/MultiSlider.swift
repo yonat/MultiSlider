@@ -161,7 +161,11 @@ open class MultiSlider: UIControl {
 
     @IBInspectable public dynamic var keepsDistanceBetweenThumbs: Bool {
         get { return distanceBetweenThumbs != 0 }
-        set { distanceBetweenThumbs = newValue ? -1 : 0 }
+        set {
+            if keepsDistanceBetweenThumbs != newValue {
+                distanceBetweenThumbs = newValue ? -1 : 0
+            }
+        }
     }
 
     @objc open dynamic var valueLabelFormatter: NumberFormatter = {
