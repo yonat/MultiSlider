@@ -1,9 +1,9 @@
 PODS:
   - AvailableHapticFeedback (1.0.2)
-  - MultiSlider (1.10.8):
+  - MultiSlider (1.10.11):
     - AvailableHapticFeedback
     - SweeterSwift
-  - SweeterSwift (1.0.5)
+  - SweeterSwift (1.1.3)
   - SwiftFormat/CLI (0.42.0)
   - SwiftLint (0.38.0)
   - SwiftQuality (1.0.6):
@@ -34,8 +34,8 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AvailableHapticFeedback: 9b21b9f6d3e4566015988b5de35b40abefe6c09a
-  MultiSlider: a4fdcb3fb058a0af95720570b44d8683da5312c8
-  SweeterSwift: 2708d1eea926546f8f6e8fea38ac8f5598ff00c7
+  MultiSlider: 606824c5e1c25091eb64fac673b193276fc46f7a
+  SweeterSwift: d909211f6833405628c8c7c6bf9f8f2e8a0e9df9
   SwiftFormat: 5faa819600268dfaa5c19f1359730883db151678
   SwiftLint: 4105f061f9812b214568b736dab580ab2c73a582
   SwiftQuality: b050c45f490641616c7caa8629e37987da9fb60c

@@ -53,67 +53,11 @@ class ViewController: UIViewController {
         if #available(iOS 13.0, *) {
             horizontalMultiSlider.minimumImage = UIImage(systemName: "scissors")
             horizontalMultiSlider.maximumImage = UIImage(systemName: "paperplane.fill")
-            horizontalMultiSlider.thumbViews[0].image = UIImage(systemName: "arrow.up.doc.fill")
-            horizontalMultiSlider.thumbViews[1].image = UIImage(systemName: "personalhotspot")
         }
-
-        addTimeSlider()
-        configureAgeSlider()
     }
 
     @objc func sliderChanged(_ slider: MultiSlider) {
         print("thumb \(slider.draggedThumbIndex) moved")
         print("now thumbs are at \(slider.value)") // e.g., [1.0, 4.5, 5.0]
-    }
-
-    private func addTimeSlider() {
-        let timeSliderContainer = view!
-        let timeSlider = MultiSlider()
-        timeSlider.frame = CGRect(x: 16, y: 60, width: UIScreen.main.bounds.width - 32, height: 60)
-        timeSlider.minimumValue = 00.00 // default is 0.0
-        timeSlider.maximumValue = 23.5 // default is 1.0
-        timeSlider.snapStepSize = 0.5
-        timeSlider.value = [00.00, 23.5]
-        timeSlider.thumbCount = 2
-        timeSlider.outerTrackColor = .cyan // outside of first and last thumbs
-        timeSlider.orientation = .horizontal // default is .vertical
-        timeSlider.tintColor = .darkGray // color of track
-        timeSlider.trackWidth = 6
-        timeSlider.hasRoundTrackEnds = true
-        timeSlider.valueLabelPosition = .top
-        timeSlider.showsThumbImageShadow = true
-        timeSlider.keepsDistanceBetweenThumbs = true
-        timeSlider.distanceBetweenThumbs = 5
-
-        timeSliderContainer.addSubview(timeSlider)
-    }
-
-    private func configureAgeSlider() {
-        let ageSlider = MultiSlider()
-        ageSlider.minimumValue = 18
-        ageSlider.maximumValue = 30
-
-        let age: CGFloat = 50
-        let lowValue = max(ageSlider.minimumValue, age - 8)
-        let highValue = min(ageSlider.maximumValue, age + 8)
-        ageSlider.value = [lowValue, highValue]
-
-        ageSlider.orientation = .horizontal
-        ageSlider.tintColor = .red
-        ageSlider.trackWidth = 3
-        ageSlider.showsThumbImageShadow = false
-        ageSlider.addTarget(self, action: #selector(ageSliderChanged(_:)), for: .valueChanged)
-        view.addConstrainedSubview(ageSlider, constrain: .leftMargin, .rightMargin)
-        view.constrain(ageSlider, at: .top, to: multiSlider, at: .bottom, diff: 16)
-
-        // *** test problem here:
-        ageSlider.valueLabelPosition = .top
-        ageSlider.distanceBetweenThumbs = 4
-    }
-
-    @objc func ageSliderChanged(_ ageSlider: MultiSlider) {
-        print("thumb \(ageSlider.draggedThumbIndex) moved")
-        print("now thumbs are at \(ageSlider.value)")
-        print("Range slider value changed: \(ageSlider.value)")
     }
 }
