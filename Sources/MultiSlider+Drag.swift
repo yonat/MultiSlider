@@ -33,17 +33,17 @@ extension MultiSlider: UIGestureRecognizerDelegate {
 
         let slideViewLength = slideView.bounds.size(in: orientation)
         var targetPosition = panGesture.location(in: slideView).coordinate(in: orientation)
-        let stepSizeInView = (snapStepSize / (maximumValue - minimumValue)) * slideViewLength
 
         // snap translation to stepSizeInView
         if snapStepSize > 0 {
+            let stepSizeInView = (snapStepSize / (maximumValue - minimumValue)) * slideViewLength
             let translationSnapped = panGesture.translation(in: slideView).coordinate(in: orientation).rounded(stepSizeInView)
             if 0 == Int(translationSnapped) { return }
             panGesture.setTranslation(.zero, in: slideView)
         }
 
         // don't cross prev/next thumb and total range
-        targetPosition = boundedDraggedThumbPosition(targetPosition: targetPosition, stepSizeInView: stepSizeInView)
+        targetPosition = boundedDraggedThumbPosition(targetPosition: targetPosition)
 
         // change corresponding value
         updateDraggedThumbValue(relativeValue: targetPosition / slideViewLength)
@@ -57,17 +57,12 @@ extension MultiSlider: UIGestureRecognizerDelegate {
     }
 
     /// adjusted position that doesn't cross prev/next thumb and total range
-    private func boundedDraggedThumbPosition(targetPosition: CGFloat, stepSizeInView: CGFloat) -> CGFloat {
-        var delta: CGFloat
-        switch (distanceBetweenThumbs, snapStepSize) {
-        case (0, _):
-            delta = 0
-        case let (_, snapStepSize) where snapStepSize > 0:
-            delta = stepSizeInView
-        case let (distance, _) where distance > 0 && distance < maximumValue - minimumValue:
-            delta = (distance / (maximumValue - minimumValue)) * slideView.bounds.size(in: orientation)
-        default:
+    private func boundedDraggedThumbPosition(targetPosition: CGFloat) -> CGFloat {
+        var delta: CGFloat = 0 // distance between thumbs in view coordinates
+        if distanceBetweenThumbs < 0 {
             delta = thumbViews[draggedThumbIndex].frame.size(in: orientation) / 2
+        } else if distanceBetweenThumbs > 0 && distanceBetweenThumbs < maximumValue - minimumValue {
+            delta = (distanceBetweenThumbs / (maximumValue - minimumValue)) * slideView.bounds.size(in: orientation)
         }
         if orientation == .horizontal { delta = -delta }
         let bottomLimit = draggedThumbIndex > 0
