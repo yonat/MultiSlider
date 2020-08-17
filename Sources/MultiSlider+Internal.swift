@@ -212,11 +212,11 @@ extension MultiSlider {
             let length = maximumValue - startValue
             let relativeStepSize = snapStepSize / (maximumValue - minimumValue)
             var step: CGFloat = 0
-            if 0 == value.count && 1 < appendCount {
+            if value.isEmpty && 1 < appendCount {
                 step = (length / CGFloat(appendCount - 1)).truncated(relativeStepSize)
             } else {
                 step = (length / CGFloat(appendCount)).truncated(relativeStepSize)
-                if 0 < value.count {
+                if !value.isEmpty {
                     startValue += step
                 }
             }

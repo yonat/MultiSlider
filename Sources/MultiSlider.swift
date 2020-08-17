@@ -204,7 +204,7 @@ open class MultiSlider: UIControl {
 
     // MARK: - Overrides
 
-    open override func tintColorDidChange() {
+    override open func tintColorDidChange() {
         let thumbTint = thumbViews.map { $0.tintColor } // different thumbs may have different tints
         super.tintColorDidChange()
         trackView.backgroundColor = actualTintColor
@@ -213,7 +213,7 @@ open class MultiSlider: UIControl {
         }
     }
 
-    open override var intrinsicContentSize: CGSize {
+    override open var intrinsicContentSize: CGSize {
         let thumbSize = (thumbImage ?? defaultThumbImage)?.size ?? CGSize(width: margin, height: margin)
         switch orientation {
         case .vertical:
@@ -223,20 +223,20 @@ open class MultiSlider: UIControl {
         }
     }
 
-    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    override open func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if isHidden || alpha == 0 { return nil }
         if clipsToBounds { return super.hitTest(point, with: event) }
         return panGestureView.hitTest(panGestureView.convert(point, from: self), with: event)
     }
 
     // swiftlint:disable:next block_based_kvo
-    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if object as? NumberFormatter === valueLabelFormatter {
             updateAllValueLabels()
         }
     }
 
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
@@ -252,7 +252,7 @@ open class MultiSlider: UIControl {
         }
     }
 
-    open override func prepareForInterfaceBuilder() {
+    override open func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
 
         // make visual editing easier
