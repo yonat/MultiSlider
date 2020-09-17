@@ -137,7 +137,7 @@ extension MultiSlider {
         } else {
             guard let firstThumb = thumbViews.first else { return }
             outerTrackViews = [
-                outerTrackView(constraining: .top(in: orientation), to: firstThumb)
+                outerTrackView(constraining: .bottom(in: orientation), to: firstThumb)
             ]
         }
     }
