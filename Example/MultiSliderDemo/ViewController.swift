@@ -14,7 +14,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        multiSlider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
+        multiSlider.addTarget(self, action: #selector(sliderChanged), for: .valueChanged)
         multiSlider.disabledThumbIndices = [3]
 
         if #available(iOS 13.0, *) {
@@ -43,6 +43,7 @@ class ViewController: UIViewController {
         horizontalMultiSlider.tintColor = .purple
         horizontalMultiSlider.trackWidth = 32
         horizontalMultiSlider.showsThumbImageShadow = false
+        horizontalMultiSlider.addTarget(self, action: #selector(sliderChanged), for: .valueChanged)
         view.addConstrainedSubview(horizontalMultiSlider, constrain: .leftMargin, .rightMargin, .bottomMargin)
         view.layoutMargins = UIEdgeInsets(top: 32, left: 32, bottom: 32, right: 32)
 

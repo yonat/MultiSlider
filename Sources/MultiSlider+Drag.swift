@@ -34,14 +34,6 @@ extension MultiSlider: UIGestureRecognizerDelegate {
         let slideViewLength = slideView.bounds.size(in: orientation)
         var targetPosition = panGesture.location(in: slideView).coordinate(in: orientation)
 
-        // snap translation to stepSizeInView
-        if snapStepSize > 0 {
-            let stepSizeInView = (snapStepSize / (maximumValue - minimumValue)) * slideViewLength
-            let translationSnapped = panGesture.translation(in: slideView).coordinate(in: orientation).rounded(stepSizeInView)
-            if 0 == Int(translationSnapped) { return }
-            panGesture.setTranslation(.zero, in: slideView)
-        }
-
         // don't cross prev/next thumb and total range
         targetPosition = boundedDraggedThumbPosition(targetPosition: targetPosition)
 
@@ -52,8 +44,6 @@ extension MultiSlider: UIGestureRecognizerDelegate {
             self.updateDraggedThumbPositionAndLabel()
             self.layoutIfNeeded()
         }
-
-        if isContinuous { sendActions(for: [.valueChanged, .primaryActionTriggered]) }
     }
 
     /// adjusted position that doesn't cross prev/next thumb and total range
@@ -93,6 +83,7 @@ extension MultiSlider: UIGestureRecognizerDelegate {
         if (isHapticSnap && snapStepSize > 0) || relativeValue == 0 || relativeValue == 1 {
             selectionFeedbackGenerator.generateFeedback()
         }
+        if isContinuous { sendActions(for: [.valueChanged, .primaryActionTriggered]) }
     }
 
     private func updateDraggedThumbPositionAndLabel() {
