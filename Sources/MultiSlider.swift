@@ -97,9 +97,9 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable open dynamic var labelColor: UIColor? {
+    @IBInspectable open dynamic var valueLabelColor: UIColor? {
         didSet {
-            valueLabels.forEach { $0.textColor = labelColor }
+            valueLabels.forEach { $0.textColor = valueLabelColor }
         }
     }
 
