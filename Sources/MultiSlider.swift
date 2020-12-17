@@ -97,6 +97,12 @@ open class MultiSlider: UIControl {
         }
     }
 
+    @IBInspectable open dynamic var valueLabelColor: UIColor? {
+        didSet {
+            valueLabels.forEach { $0.textColor = valueLabelColor }
+        }
+    }
+
     @IBInspectable open dynamic var thumbImage: UIImage? {
         didSet {
             thumbViews.forEach { $0.image = thumbImage }

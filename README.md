@@ -71,6 +71,7 @@ slider.isVertical = false // same effect, but accessible from Interface Builder
 slider.valueLabelPosition = .left // .notAnAttribute = don't show labels
 slider.isValueLabelRelative = true // show differences between thumbs instead of absolute values
 slider.valueLabelFormatter.positiveSuffix = " 𝞵s"
+slider.valueLabelColor = .green
 ```
 
 ### Snap interval
