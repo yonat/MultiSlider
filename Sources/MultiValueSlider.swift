@@ -27,12 +27,15 @@ import SwiftUI
         isValueLabelRelative: Bool? = nil,
         orientation: NSLayoutConstraint.Axis? = nil,
         outerTrackColor: UIColor? = nil,
+        valueLabelColor: UIColor? = nil,
+        valueLabelFont: UIFont? = nil,
         thumbImage: UIImage? = nil,
         showsThumbImageShadow: Bool? = nil,
         minimumImage: UIImage? = nil,
         maximumImage: UIImage? = nil,
         trackWidth: CGFloat? = nil,
         hasRoundTrackEnds: Bool? = nil,
+        distanceBetweenThumbs: CGFloat? = nil,
         keepsDistanceBetweenThumbs: Bool? = nil,
         valueLabelFormatter: NumberFormatter? = nil
     ) {
@@ -47,12 +50,15 @@ import SwiftUI
         uiView.isValueLabelRelative =? isValueLabelRelative
         uiView.orientation =? orientation
         uiView.outerTrackColor =? outerTrackColor
+        uiView.valueLabelColor =? valueLabelColor
+        uiView.valueLabelFont =? valueLabelFont
         uiView.thumbImage =? thumbImage
         uiView.showsThumbImageShadow =? showsThumbImageShadow
         uiView.minimumImage =? minimumImage
         uiView.maximumImage =? maximumImage
         uiView.trackWidth =? trackWidth
         uiView.hasRoundTrackEnds =? hasRoundTrackEnds
+        uiView.distanceBetweenThumbs =? distanceBetweenThumbs
         uiView.keepsDistanceBetweenThumbs =? keepsDistanceBetweenThumbs
         uiView.valueLabelFormatter =? valueLabelFormatter
     }

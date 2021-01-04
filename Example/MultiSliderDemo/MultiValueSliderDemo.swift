@@ -41,6 +41,8 @@ struct MultiValueSliderDemo: View {
                     maximumValue: 5,
                     valueLabelPosition: .right,
                     orientation: .vertical,
+                    valueLabelColor: .systemGreen,
+                    valueLabelFont: .boldSystemFont(ofSize: 20),
                     trackWidth: 12
                 )
                     .accentColor(.green)
