@@ -51,6 +51,7 @@ class ViewController: UIViewController {
         horizontalMultiSlider.keepsDistanceBetweenThumbs = false
         horizontalMultiSlider.valueLabelFormatter.positiveSuffix = " 𝞵s"
         horizontalMultiSlider.valueLabelColor = .purple
+        horizontalMultiSlider.valueLabelFont = UIFont.italicSystemFont(ofSize: 18)
 
         if #available(iOS 13.0, *) {
             horizontalMultiSlider.minimumImage = UIImage(systemName: "scissors")

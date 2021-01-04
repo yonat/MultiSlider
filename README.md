@@ -72,6 +72,7 @@ slider.valueLabelPosition = .left // .notAnAttribute = don't show labels
 slider.isValueLabelRelative = true // show differences between thumbs instead of absolute values
 slider.valueLabelFormatter.positiveSuffix = " 𝞵s"
 slider.valueLabelColor = .green
+slider.valueLabelFont = someFont
 ```
 
 ### Snap interval

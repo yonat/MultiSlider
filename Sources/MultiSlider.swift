@@ -103,6 +103,12 @@ open class MultiSlider: UIControl {
         }
     }
 
+    @IBInspectable open dynamic var valueLabelFont: UIFont? {
+        didSet {
+            valueLabels.forEach { $0.font = valueLabelFont }
+        }
+    }
+
     @IBInspectable open dynamic var thumbImage: UIImage? {
         didSet {
             thumbViews.forEach { $0.image = thumbImage }
