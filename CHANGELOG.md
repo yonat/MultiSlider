@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - add SwiftUI wrapper `MultiValueSlider`.
 
+## [1.11.2] - 2021-01-04
+
+### Fixed
+- update font and color of new value labels.
+
 ## [1.11.1] - 2021-01-04
 
 ### Added

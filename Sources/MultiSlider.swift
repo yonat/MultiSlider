@@ -103,7 +103,7 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @IBInspectable open dynamic var valueLabelFont: UIFont? {
+    open dynamic var valueLabelFont: UIFont? {
         didSet {
             valueLabels.forEach { $0.font = valueLabelFont }
         }
