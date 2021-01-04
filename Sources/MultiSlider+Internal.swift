@@ -172,7 +172,8 @@ extension MultiSlider {
         let valueLabel = UITextField()
         valueLabel.borderStyle = .none
         slideView.addConstrainedSubview(valueLabel)
-        valueLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        valueLabel.textColor = valueLabelColor ?? valueLabel.textColor
+        valueLabel.font = valueLabelFont ?? UIFont.preferredFont(forTextStyle: .footnote)
         if #available(iOS 10.0, *) {
             valueLabel.adjustsFontForContentSizeCategory = true
         }
