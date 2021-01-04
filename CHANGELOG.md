@@ -9,6 +9,41 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - add SwiftUI wrapper `MultiValueSlider`.
 
+## [1.11.1] - 2021-01-04
+
+### Added
+- add `valueLabelFont`.
+
+## [1.11.0] - 2020-12-17
+
+### Added
+- add `valueLabelColor`. (thanks sluzhynskyi!)
+
+## [1.10.13] - 2020-12-05
+
+### Fixed
+- don't skip first snap marks when the snap values are small.
+
+## [1.10.12] - 2020-09-18
+
+### Changed
+- allow using  `outerTrackColor` with a single thumb. (thanks gregorio-michael!)
+
+## [1.10.11] - 2020-06-23
+
+### Fixed
+- make `distanceBetweenThumbs` work  when also having a positive `snapStepSize`.
+
+## [1.10.10] - 2020-06-04
+
+### Added
+- support larger accessibility text (dynamic type) for value labels.
+
+## [1.10.9] - 2020-04-18
+
+### Added
+- add `distanceBetweenThumbs` to specify minimum distance between thumbs.
+
 ## [1.10.8] - 2020-03-01
 
 ### Fixed

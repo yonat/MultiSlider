@@ -127,12 +127,10 @@ extension MultiSlider {
         outerTrackViews.removeViewsStartingAt(0)
         outerTrackViews.removeAll()
         guard nil != outerTrackColor else { return }
-        guard let firstThumb = thumbViews.first, let lastThumb = thumbViews.last, firstThumb != lastThumb else { return }
-
-        outerTrackViews = [
-            outerTrackView(constraining: .top(in: orientation), to: firstThumb),
-            outerTrackView(constraining: .bottom(in: orientation), to: lastThumb),
-        ]
+        guard let lastThumb = thumbViews.last else { return }
+        outerTrackViews = [outerTrackView(constraining: .bottom(in: orientation), to: lastThumb)]
+        guard let firstThumb = thumbViews.first, firstThumb != lastThumb else { return }
+        outerTrackViews += [outerTrackView(constraining: .top(in: orientation), to: firstThumb)]
     }
 
     private func outerTrackView(constraining: NSLayoutConstraint.Attribute, to thumbView: UIView) -> UIView {
@@ -173,8 +171,11 @@ extension MultiSlider {
         guard valueLabelPosition != .notAnAttribute else { return }
         let valueLabel = UITextField()
         valueLabel.borderStyle = .none
-        slideView.addSubview(valueLabel)
-        valueLabel.translatesAutoresizingMaskIntoConstraints = false
+        slideView.addConstrainedSubview(valueLabel)
+        valueLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        if #available(iOS 10.0, *) {
+            valueLabel.adjustsFontForContentSizeCategory = true
+        }
         let thumbView = thumbViews[i]
         slideView.constrain(valueLabel, at: valueLabelPosition.perpendicularCenter, to: thumbView)
         slideView.constrain(
@@ -211,11 +212,11 @@ extension MultiSlider {
             let length = maximumValue - startValue
             let relativeStepSize = snapStepSize / (maximumValue - minimumValue)
             var step: CGFloat = 0
-            if 0 == value.count && 1 < appendCount {
+            if value.isEmpty && 1 < appendCount {
                 step = (length / CGFloat(appendCount - 1)).truncated(relativeStepSize)
             } else {
                 step = (length / CGFloat(appendCount)).truncated(relativeStepSize)
-                if 0 < value.count {
+                if !value.isEmpty {
                     startValue += step
                 }
             }

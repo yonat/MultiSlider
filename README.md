@@ -75,6 +75,8 @@ slider.isVertical = false // same effect, but accessible from Interface Builder
 slider.valueLabelPosition = .left // .notAnAttribute = don't show labels
 slider.isValueLabelRelative = true // show differences between thumbs instead of absolute values
 slider.valueLabelFormatter.positiveSuffix = " 𝞵s"
+slider.valueLabelColor = .green
+slider.valueLabelFont = someFont
 ```
 
 ### Snap interval
@@ -96,9 +98,26 @@ slider.showsThumbImageShadow = false // wide tracks look better without thumb sh
 ### Images
 
 ```swift
-slider.thumbImage   = UIImage(named: "balloon")
+// add images at the ends of the slider:
 slider.minimumImage = UIImage(named: "clown")
 slider.maximumImage = UIImage(named: "cloud")
+
+// change image for all thumbs:
+slider.thumbImage = UIImage(named: "balloon")
+
+// or let each thumb have a different image:
+slider.thumbViews[0].image = UIImage(named: "ball")
+slider.thumbViews[1].image = UIImage(named: "club")
+```
+
+### Distance/Overlap Between Thumbs
+
+```swift
+// allow thumbs to overlap:
+slider.keepsDistanceBetweenThumbs = false
+
+// make thumbs keep a greater distance from each other (default = half the thumb size):
+slider.distanceBetweenThumbs = 3.14
 ```
 
 ### Disabling/freezing thumbs
@@ -132,7 +151,7 @@ Legacy versions:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/yonat/MultiSlider", from: "1.10.8")
+    .package(url: "https://github.com/yonat/MultiSlider", from: "1.11.1")
 ]
 ```
 
