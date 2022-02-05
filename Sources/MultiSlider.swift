@@ -97,6 +97,14 @@ open class MultiSlider: UIControl {
         }
     }
 
+    @IBInspectable open dynamic var valueLabelTexts: [String] = [] {
+        didSet {
+            if valueLabelTexts.count == thumbCount {
+                valueLabels.enumerated().forEach { $1.text = valueLabelTexts[$0] } // needs to handle array with different length
+            }
+        }
+    }
+
     @IBInspectable open dynamic var valueLabelColor: UIColor? {
         didSet {
             valueLabels.forEach { $0.textColor = valueLabelColor }
