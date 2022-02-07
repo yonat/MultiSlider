@@ -195,7 +195,8 @@ extension MultiSlider {
         } else {
             labelValue = value[i]
         }
-        valueLabels[i].text = valueLabelFormatter.string(from: NSNumber(value: Double(labelValue)))
+        valueLabels[i].text = valueLabelTextForThumb?(i, labelValue)
+            ?? valueLabelFormatter.string(from: NSNumber(value: Double(labelValue)))
     }
 
     func updateAllValueLabels() {

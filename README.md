@@ -75,6 +75,14 @@ slider.valueLabelColor = .green
 slider.valueLabelFont = someFont
 ```
 
+For more control over the label text:
+
+```swift
+slider.valueLabelTextForThumb = { thumbIndex, thumbValue in
+    ["Parasol", "Umbrella"][thumbIndex] + " \(thumbValue)"
+}
+```
+
 ### Snap interval
 
 ```swift

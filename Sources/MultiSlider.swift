@@ -196,6 +196,15 @@ open class MultiSlider: UIControl {
         }
     }
 
+    /// Return value label text for a thumb index and value. If `nil`, then `valueLabelFormatter` will be used instead.
+    @objc open dynamic var valueLabelTextForThumb: ((Int, CGFloat) -> String)? {
+        didSet {
+            for i in valueLabels.indices {
+                updateValueLabel(i)
+            }
+        }
+    }
+
     // MARK: - Subviews
 
     @objc open var thumbViews: [UIImageView] = []
