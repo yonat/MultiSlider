@@ -4,10 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.12.0] - 2022-02-08
 
 ### Added
-- add `valueLabelTextForThumb`. (thanks ryota765!)
+- add `valueLabelTextForThumb`. (thanks @ryota765!)
 
 ## [1.11.2] - 2021-01-04
 
@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.11.0] - 2020-12-17
 
 ### Added
-- add `valueLabelColor`. (thanks sluzhynskyi!)
+- add `valueLabelColor`. (thanks @sluzhynskyi!)
 
 ## [1.10.13] - 2020-12-05
 
@@ -32,7 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.10.12] - 2020-09-18
 
 ### Changed
-- allow using  `outerTrackColor` with a single thumb. (thanks gregorio-michael!)
+- allow using  `outerTrackColor` with a single thumb. (thanks @gregorio-michael!)
 
 ## [1.10.11] - 2020-06-23
 
@@ -166,7 +166,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.5.0] - 2018-07-01
 
 ### Added
-- send `.touchUpInside` event when user finished dragging. (thanks benjaminfischer!)
+- send `.touchUpInside` event when user finished dragging. (thanks @benjaminfischer!)
 
 ## [1.4.3] - 2018-06-25
 
@@ -181,8 +181,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [1.4] - 2018-03-01
 
 ### Added
-- hasRoundTrackEnds (thanks benjaminfischer!)
-- showsThumbImageShadow (thanks benjaminfischer!)
+- hasRoundTrackEnds (thanks @benjaminfischer!)
+- showsThumbImageShadow (thanks @benjaminfischer!)
 
 ## [1.3.1] - 2018-02-24
 

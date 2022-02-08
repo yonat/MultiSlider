@@ -106,7 +106,6 @@
 				DC9FAA661DDE3EA800FFD2A1 /* Frameworks */,
 				DC9FAA671DDE3EA800FFD2A1 /* Resources */,
 				61F05BBEA427590579B0B9D8 /* [CP] Embed Pods Frameworks */,
-				AF265608107E3EFF3B660676 /* [CP] Copy Pods Resources */,
 				75790D202CDFD41C5D387C9F /* [CP-User] SwiftLint */,
 			);
 			buildRules = (
@@ -228,26 +227,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"Debug\" == \"${CONFIGURATION}\" ]; then \"${PODS_ROOT}/SwiftLint/swiftlint\" autocorrect --config \"${PODS_ROOT}/SwiftQuality/.swiftlint.yml\" --path \"${SRCROOT}/..\" ; fi";
-			showEnvVarsInLog = 0;
-		};
-		AF265608107E3EFF3B660676 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MultiSliderDemo/Pods-MultiSliderDemo-resources.sh",
-				"${PODS_ROOT}/SwiftQuality/.swiftformat",
-				"${PODS_ROOT}/SwiftQuality/.swiftlint.yml",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/.swiftformat",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/.swiftlint.yml",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MultiSliderDemo/Pods-MultiSliderDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F59C1AB2E62BFEA6F1D8C991 /* [CP-User] SwiftFormat */ = {
