@@ -109,6 +109,12 @@ open class MultiSlider: UIControl {
         }
     }
 
+    @IBInspectable public dynamic var thumbTintColor: UIColor? {
+        didSet {
+            thumbViews.forEach { $0.applyTint(color: thumbTintColor) }
+        }
+    }
+
     @IBInspectable open dynamic var thumbImage: UIImage? {
         didSet {
             thumbViews.forEach { $0.image = thumbImage }
@@ -225,13 +231,9 @@ open class MultiSlider: UIControl {
 
     // MARK: - Overrides
 
-    override open func tintColorDidChange() {
-        let thumbTint = thumbViews.map { $0.tintColor } // different thumbs may have different tints
-        super.tintColorDidChange()
-        trackView.backgroundColor = actualTintColor
-        for (thumbView, tint) in zip(thumbViews, thumbTint) {
-            thumbView.tintColor = tint
-        }
+    override open var tintColor: UIColor! { // swiftlint:disable:this implicitly_unwrapped_optional
+        get { trackView.backgroundColor }
+        set { trackView.backgroundColor = newValue }
     }
 
     override open var intrinsicContentSize: CGSize {

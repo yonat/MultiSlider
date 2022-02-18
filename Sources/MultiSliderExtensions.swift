@@ -85,6 +85,11 @@ extension Array where Element: UIView {
 }
 
 extension UIImageView {
+    func applyTint(color: UIColor?) {
+        image = image?.withRenderingMode(nil == color ? .alwaysOriginal : .alwaysTemplate)
+        tintColor = color
+    }
+
     func blur(_ on: Bool) {
         if on {
             guard nil == viewWithTag(UIImageView.blurViewTag) else { return }

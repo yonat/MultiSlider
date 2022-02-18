@@ -94,6 +94,7 @@ slider.isHapticSnap = false // default is true, i.e. generate haptic feedback wh
 
 ```swift
 slider.tintColor = .cyan // color of track
+slider.thumbTintColor = .blue // color of thumbs
 slider.trackWidth = 32
 slider.hasRoundTrackEnds = true
 slider.showsThumbImageShadow = false // wide tracks look better without thumb shadow
