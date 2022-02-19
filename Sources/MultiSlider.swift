@@ -233,7 +233,11 @@ open class MultiSlider: UIControl {
 
     override open var tintColor: UIColor! { // swiftlint:disable:this implicitly_unwrapped_optional
         get { trackView.backgroundColor }
-        set { trackView.backgroundColor = newValue }
+        set {
+            trackView.backgroundColor = newValue
+            minimumView.tintColor = newValue
+            maximumView.tintColor = newValue
+        }
     }
 
     override open var intrinsicContentSize: CGSize {
