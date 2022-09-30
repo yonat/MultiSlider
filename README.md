@@ -20,7 +20,7 @@ UISlider clone with multiple thumbs and values, range highlight, optional snap i
 * Vertical (optional)
 * Value labels (optional)
 * Snap interval (optional)
-* Haptic feedback
+* Haptic feedback (optional)
 * Configurable thumb image, minimum and maximum images.
 * Configurable track width, color, rounding.
 
@@ -37,9 +37,13 @@ slider.addTarget(self, action: #selector(sliderChanged(_:)), for: .valueChanged)
 slider.addTarget(self, action: #selector(sliderDragEnded(_:)), for: . touchUpInside) // sent when drag ends
 ```
 
-### SwiftUI
+### SwiftUI Usage
 
-Use `MultiValueSlider` from the [swiftui branch](https://github.com/yonat/MultiSlider/tree/swiftui).
+```swift
+MultiValueSlider(value: $valueArray, minimumValue: 1, maximumValue: 5)
+```
+
+All properties mentioned below can be passed as arguments to the `MultiValueSlider` initializer.
 
 ### Getting multiple thumb values
 

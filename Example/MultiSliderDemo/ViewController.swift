@@ -9,8 +9,13 @@
 import MultiSlider
 import UIKit
 
+#if canImport(SwiftUI)
+import SwiftUI
+#endif
+
 class ViewController: UIViewController {
     @IBOutlet var multiSlider: MultiSlider!
+    @IBOutlet var showSwiftUIButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,8 +64,26 @@ class ViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if #available(iOS 13.0, *) {
+            showSwiftUIButton.isHidden = false
+            showSwiftUIButton.layer.borderWidth = 1
+            showSwiftUIButton.layer.cornerRadius = showSwiftUIButton.frame.height / 2
+            showSwiftUIButton.layer.borderColor = view.actualTintColor.cgColor
+        }
+    }
+
     @objc func sliderChanged(_ slider: MultiSlider) {
         print("thumb \(slider.draggedThumbIndex) moved")
         print("now thumbs are at \(slider.value)") // e.g., [1.0, 4.5, 5.0]
+    }
+
+    @IBAction func showSwiftUIDemo() {
+        #if canImport(SwiftUI)
+        if #available(iOS 13.0, *) {
+            present(UIHostingController(rootView: MultiValueSliderDemo()), animated: true)
+        }
+        #endif
     }
 }

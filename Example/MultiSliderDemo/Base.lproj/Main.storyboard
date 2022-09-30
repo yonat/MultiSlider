@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zlo-FK-eVl" customClass="MultiSlider" customModule="MultiSlider">
-                                <rect key="frame" x="67" y="64" width="240" height="420"/>
+                                <rect key="frame" x="112" y="64" width="195" height="420"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
@@ -38,11 +38,24 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OJy-4r-oWI">
+                                <rect key="frame" x="20" y="8" width="160" height="26"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
+                                <state key="normal" title="Show in SwiftUI View"/>
+                                <connections>
+                                    <action selector="showSwiftUIDemo" destination="BYZ-38-t0r" eventType="touchUpInside" id="hXV-3e-qnp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="OJy-4r-oWI" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="j4S-k8-Rug"/>
+                            <constraint firstItem="OJy-4r-oWI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="ss2-bL-kSe"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="multiSlider" destination="zlo-FK-eVl" id="oni-yL-a0s"/>
+                        <outlet property="showSwiftUIButton" destination="OJy-4r-oWI" id="n4i-73-xgD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
