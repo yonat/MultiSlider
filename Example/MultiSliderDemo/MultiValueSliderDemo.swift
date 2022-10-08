@@ -54,6 +54,7 @@ struct MultiValueSliderDemo: View {
                     outerTrackColor: .lightGray,
                     trackWidth: 12
                 )
+                    .thumbTintColor(.blue)
             }
         }
             .padding()

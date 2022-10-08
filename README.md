@@ -43,7 +43,13 @@ slider.addTarget(self, action: #selector(sliderDragEnded(_:)), for: . touchUpIns
 MultiValueSlider(value: $valueArray, minimumValue: 1, maximumValue: 5)
 ```
 
-All properties mentioned below can be passed as arguments to the `MultiValueSlider` initializer.
+The properties mentioned below can be used as modifiers, or passed as arguments to the `MultiValueSlider` initializer. For example:
+
+```swift
+MultiValueSlider(value: $valueArray, outerTrackColor: .lightGray)
+    .thumbTintColor(.blue)
+```
+
 
 ### Getting multiple thumb values
 
