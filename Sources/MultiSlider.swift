@@ -231,12 +231,15 @@ open class MultiSlider: UIControl {
 
     // MARK: - Overrides
 
-    override open var tintColor: UIColor! { // swiftlint:disable:this implicitly_unwrapped_optional
-        get { trackView.backgroundColor }
-        set {
-            trackView.backgroundColor = newValue
-            minimumView.tintColor = newValue
-            maximumView.tintColor = newValue
+    override open func tintColorDidChange() {
+        let thumbTint = thumbViews.map { $0.tintColor } // different thumbs may have different tints
+        super.tintColorDidChange()
+        let actualColor = actualTintColor
+        trackView.backgroundColor = actualColor
+        minimumView.tintColor = actualColor
+        maximumView.tintColor = actualColor
+        for (thumbView, tint) in zip(thumbViews, thumbTint) {
+            thumbView.tintColor = tint
         }
     }
 
