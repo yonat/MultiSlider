@@ -17,6 +17,8 @@ target 'MultiSliderDemo' do
     :script => 'if [ "Debug" == "${CONFIGURATION}" && ! $ENABLE_PREVIEWS == "YES" ]; then "${PODS_ROOT}/SwiftLint/swiftlint" --config "${PODS_ROOT}/SwiftQuality/.swiftlint.yml" "${SRCROOT}/.." ; fi'
 end
 
+target 'MultiSliderTests'
+
 # Fix Xcode 14 warnings "Run script build phase '[CP] _____' will be run during every build because it does not specify any outputs."
 # Based on https://github.com/CocoaPods/CocoaPods/issues/11444#issuecomment-1300023416
 post_integrate do |installer|

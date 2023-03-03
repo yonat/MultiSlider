@@ -110,21 +110,17 @@ extension MultiSlider {
     }
 
     func adjustThumbCountToValueCount() {
-        if value.count == thumbViews.count {
-            return
-        } else if value.count < thumbViews.count {
-            thumbViews.removeViewsStartingAt(value.count)
-            valueLabels.removeViewsStartingAt(value.count)
-        } else { // add thumbViews
-            for _ in thumbViews.count ..< value.count {
-                addThumbView()
-            }
+        guard value.count != thumbViews.count else { return }
+        thumbViews.removeAllViews()
+        valueLabels.removeAllViews()
+        for _ in value {
+            addThumbView()
         }
         updateOuterTrackViews()
     }
 
     func updateOuterTrackViews() {
-        outerTrackViews.removeViewsStartingAt(0)
+        outerTrackViews.removeAllViews()
         outerTrackViews.removeAll()
         guard nil != outerTrackColor else { return }
         guard let lastThumb = thumbViews.last else { return }
@@ -209,35 +205,24 @@ extension MultiSlider {
     func updateValueCount(_ count: Int) {
         guard count != value.count else { return }
         isSettingValue = true
+        defer { isSettingValue = false }
+
         if value.count < count {
             let appendCount = count - value.count
-            var startValue = value.last ?? minimumValue
-            let length = maximumValue - startValue
-            let relativeStepSize = snapStepSize / (maximumValue - minimumValue)
-            var step: CGFloat = 0
-            if value.isEmpty && 1 < appendCount {
-                step = (length / CGFloat(appendCount - 1)).truncated(relativeStepSize)
-            } else {
-                step = (length / CGFloat(appendCount)).truncated(relativeStepSize)
-                if !value.isEmpty {
-                    startValue += step
-                }
-            }
-            if 0 == step { step = relativeStepSize }
-            value += stride(from: startValue, through: maximumValue, by: step)
+            value += snapValues.isEmpty
+                ? value.distributedNewValues(count: appendCount, min: minimumValue, max: maximumValue)
+                : value.distributedNewValues(count: appendCount, allowedValues: snapValues)
+            value.sort()
         }
         if value.count > count { // don't add "else", since prev calc may add too many values in some cases
             value.removeLast(value.count - count)
         }
-
-        isSettingValue = false
     }
 
     func adjustValuesToStepAndLimits() {
         var adjusted = value.sorted()
         for i in 0 ..< adjusted.count {
-            let snapped = adjusted[i].rounded(snapStepSize)
-            adjusted[i] = min(maximumValue, max(minimumValue, snapped))
+            adjusted[i] = snap.snap(value: adjusted[i])
         }
 
         isSettingValue = true

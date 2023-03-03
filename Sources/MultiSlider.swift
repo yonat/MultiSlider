@@ -15,6 +15,7 @@ open class MultiSlider: UIControl {
     @objc open var value: [CGFloat] = [] {
         didSet {
             if isSettingValue { return }
+            value.sort()
             adjustThumbCountToValueCount()
             adjustValuesToStepAndLimits()
             updateAllValueLabels()
@@ -22,17 +23,13 @@ open class MultiSlider: UIControl {
         }
     }
 
-    @objc public internal(set) var draggedThumbIndex: Int = -1
-
     @IBInspectable open dynamic var minimumValue: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
     @IBInspectable open dynamic var maximumValue: CGFloat = 1 { didSet { adjustValuesToStepAndLimits() } }
     @IBInspectable open dynamic var isContinuous: Bool = true
 
-    /// snap thumbs to specific values, evenly spaced. (default = 0: allow any value)
-    @IBInspectable open dynamic var snapStepSize: CGFloat = 0 { didSet { adjustValuesToStepAndLimits() } }
+    // MARK: - Multiple Thumbs
 
-    /// generate haptic feedback when hitting snap steps
-    @IBInspectable open dynamic var isHapticSnap: Bool = true
+    @objc public internal(set) var draggedThumbIndex: Int = -1
 
     @IBInspectable open dynamic var thumbCount: Int {
         get {
@@ -54,10 +51,94 @@ open class MultiSlider: UIControl {
         }
     }
 
+    /// minimal distance to keep between thumbs (half a thumb by default)
+    @IBInspectable public dynamic var distanceBetweenThumbs: CGFloat = -1
+
+    @IBInspectable public dynamic var keepsDistanceBetweenThumbs: Bool {
+        get { return distanceBetweenThumbs != 0 }
+        set {
+            if keepsDistanceBetweenThumbs != newValue {
+                distanceBetweenThumbs = newValue ? -1 : 0
+            }
+        }
+    }
+
+    // MARK: - Snap to Discrete Values
+
+    /// snap thumbs to specific values, evenly spaced. (default = 0: allow any value)
+    @IBInspectable open dynamic var snapStepSize: CGFloat {
+        get {
+            switch snap {
+            case let .stepSize(stepSize): return stepSize
+            default: return 0
+            }
+        }
+        set {
+            snap = newValue.isNormal ? .stepSize(newValue) : .never
+        }
+    }
+
+    /// snap thumbs to specific values. changes `minimumValue` and `maximumValue`.  (default = []: allow any value)
+    @objc open dynamic var snapValues: [CGFloat] {
+        get {
+            switch snap {
+            case .never:
+                return []
+            case let .stepSize(stepSize):
+                return Array(stride(from: minimumValue, to: maximumValue, by: stepSize)) + [maximumValue]
+            case let .values(values):
+                return values
+            }
+        }
+        set {
+            snap = .values(newValue)
+        }
+    }
+
+    /// Snapping behavior: How should the slider snap thumbs to discrete values
+    public enum Snap: Equatable {
+        /// No snapping, slider continuously.
+        case never
+        /// Snap to values separated by a constant step, starting from `minimumValue`. Equivalent to setting `snapStepSize`.
+        case stepSize(CGFloat)
+        /// Snap to the specified values. Equivalent to setting `snapValues`.
+        case values([CGFloat])
+    }
+
+    /// Snapping behavior: How should the slider snap thumbs to discrete values
+    open dynamic var snap: Snap = .never {
+        didSet {
+            if case let .values(values) = snap {
+                if values.isEmpty {
+                    snap = .never
+                } else {
+                    var sorted = values.sorted()
+                    if minimumValue > values.first! {
+                        minimumValue = sorted.first!
+                    } else if minimumValue < sorted.first! {
+                        sorted.insert(minimumValue, at: 0)
+                    }
+                    if maximumValue < values.last! {
+                        maximumValue = sorted.last!
+                    } else if maximumValue > sorted.last! {
+                        sorted.append(maximumValue)
+                    }
+                    snap = .values(sorted)
+                }
+            }
+            adjustValuesToStepAndLimits()
+        }
+    }
+
+    /// generate haptic feedback when hitting snap steps
+    @IBInspectable open dynamic var isHapticSnap: Bool = true
+
+    // MARK: - Value Labels
+
     /// show value labels next to thumbs. (default: show no label)
     @objc open dynamic var valueLabelPosition: NSLayoutConstraint.Attribute = .notAnAttribute {
         didSet {
-            valueLabels.removeViewsStartingAt(0)
+            valueLabels.removeAllViews()
             if valueLabelPosition != .notAnAttribute {
                 for i in 0 ..< thumbViews.count {
                     addValueLabel(i)
@@ -70,6 +151,43 @@ open class MultiSlider: UIControl {
     @IBInspectable open dynamic var isValueLabelRelative: Bool = false {
         didSet {
             updateAllValueLabels()
+        }
+    }
+
+    @IBInspectable open dynamic var valueLabelColor: UIColor? {
+        didSet {
+            valueLabels.forEach { $0.textColor = valueLabelColor }
+        }
+    }
+
+    open dynamic var valueLabelFont: UIFont? {
+        didSet {
+            valueLabels.forEach { $0.font = valueLabelFont }
+        }
+    }
+
+    @objc open dynamic var valueLabelFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 2
+        formatter.minimumIntegerDigits = 1
+        formatter.roundingMode = .halfEven
+        return formatter
+    }() {
+        didSet {
+            updateAllValueLabels()
+            if #available(iOS 11.0, *) {
+                oldValue.removeObserverForAllProperties(observer: self)
+                valueLabelFormatter.addObserverForAllProperties(observer: self)
+            }
+        }
+    }
+
+    /// Return value label text for a thumb index and value. If `nil`, then `valueLabelFormatter` will be used instead.
+    @objc open dynamic var valueLabelTextForThumb: ((Int, CGFloat) -> String?)? {
+        didSet {
+            for i in valueLabels.indices {
+                updateValueLabel(i)
+            }
         }
     }
 
@@ -94,18 +212,6 @@ open class MultiSlider: UIControl {
     @IBInspectable open dynamic var outerTrackColor: UIColor? {
         didSet {
             updateOuterTrackViews()
-        }
-    }
-
-    @IBInspectable open dynamic var valueLabelColor: UIColor? {
-        didSet {
-            valueLabels.forEach { $0.textColor = valueLabelColor }
-        }
-    }
-
-    open dynamic var valueLabelFont: UIFont? {
-        didSet {
-            valueLabels.forEach { $0.font = valueLabelFont }
         }
     }
 
@@ -171,43 +277,6 @@ open class MultiSlider: UIControl {
     @IBInspectable public dynamic var hasRoundTrackEnds: Bool = true {
         didSet {
             updateTrackViewCornerRounding()
-        }
-    }
-
-    /// minimal distance to keep between thumbs (half a thumb by default)
-    @IBInspectable public dynamic var distanceBetweenThumbs: CGFloat = -1
-
-    @IBInspectable public dynamic var keepsDistanceBetweenThumbs: Bool {
-        get { return distanceBetweenThumbs != 0 }
-        set {
-            if keepsDistanceBetweenThumbs != newValue {
-                distanceBetweenThumbs = newValue ? -1 : 0
-            }
-        }
-    }
-
-    @objc open dynamic var valueLabelFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.maximumFractionDigits = 2
-        formatter.minimumIntegerDigits = 1
-        formatter.roundingMode = .halfEven
-        return formatter
-    }() {
-        didSet {
-            updateAllValueLabels()
-            if #available(iOS 11.0, *) {
-                oldValue.removeObserverForAllProperties(observer: self)
-                valueLabelFormatter.addObserverForAllProperties(observer: self)
-            }
-        }
-    }
-
-    /// Return value label text for a thumb index and value. If `nil`, then `valueLabelFormatter` will be used instead.
-    @objc open dynamic var valueLabelTextForThumb: ((Int, CGFloat) -> String?)? {
-        didSet {
-            for i in valueLabels.indices {
-                updateValueLabel(i)
-            }
         }
     }
 

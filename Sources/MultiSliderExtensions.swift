@@ -8,14 +8,75 @@
 import SweeterSwift
 import UIKit
 
-extension CGFloat {
-    func truncated(_ step: CGFloat) -> CGFloat {
-        return step.isNormal ? self - remainder(dividingBy: step) : self
+extension MultiSlider.Snap {
+    func snap(value: CGFloat) -> CGFloat {
+        switch self {
+        case .never:
+            return value
+        case let .stepSize(stepSize):
+            guard stepSize.isNormal && value.isNormal else { return value }
+            return (value / stepSize).rounded() * stepSize
+        case let .values(values):
+            return values.closest(to: value)
+        }
     }
+}
 
-    func rounded(_ step: CGFloat) -> CGFloat {
-        guard step.isNormal && isNormal else { return self }
-        return (self / step).rounded() * step
+extension Array where Element: SignedNumeric & Comparable {
+    func closest(to number: Element) -> Element {
+        guard !isEmpty else { return number }
+        return self.min { abs($0 - number) < abs($1 - number) }!
+    }
+}
+
+extension Array where Element: SignedNumeric & Comparable & Hashable {
+    /// Distribute new `count` values evenly among `allowedValues`, skipping sender's values if possible.
+    func distributedNewValues(count newValuesCount: Int, allowedValues: Self = []) -> Self {
+        guard allowedValues.count > 1 else { return self }
+        guard newValuesCount > 0 else { return [] }
+
+        var ret: Self = []
+        var availableSpots = Set(allowedValues).subtracting(self).sorted()
+        var needingSpotsCount = newValuesCount
+
+        while availableSpots.count <= needingSpotsCount { // fill all spots
+            ret += availableSpots
+            needingSpotsCount -= availableSpots.count
+            availableSpots = allowedValues
+        }
+
+        if needingSpotsCount > 1 { // distribute evenly over spotsToFill
+            let spotsToSkip = Double(availableSpots.count - 1) / Double(needingSpotsCount - 1)
+            for i in 0 ..< needingSpotsCount {
+                let spotIndex = (Double(i) * spotsToSkip).rounded()
+                ret.append(availableSpots[Int(spotIndex)])
+            }
+        } else if needingSpotsCount == 1 {
+            let spotIndex = availableSpots.count / 2
+            ret.append(availableSpots[spotIndex])
+        }
+
+        return ret.sorted()
+    }
+}
+
+extension Array where Element: FloatingPoint {
+    /// Distribute new `count` values evenly between sender's values and `max`.
+    func distributedNewValues(count newValuesCount: Int, min: Element, max: Element) -> Self {
+        guard newValuesCount > 0, min < max else { return [] }
+
+        let step: Element
+        if let last = last {
+            step = (max - last) / Element(newValuesCount)
+        } else {
+            if newValuesCount == 1 {
+                return [(max + min) / 2]
+            }
+            step = (max - min) / Element(newValuesCount - 1)
+        }
+        return sequence(first: max, next: { $0 - step })
+            .prefix(newValuesCount)
+            .reversed()
     }
 }
 
@@ -77,10 +138,9 @@ extension UIView {
 }
 
 extension Array where Element: UIView {
-    mutating func removeViewsStartingAt(_ index: Int) {
-        guard index >= 0 && index < count else { return }
-        self[index ..< count].forEach { $0.removeFromSuperview() }
-        removeLast(count - index)
+    mutating func removeAllViews() {
+        forEach { $0.removeFromSuperview() }
+        removeAll()
     }
 }
 

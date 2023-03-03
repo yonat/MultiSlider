@@ -20,22 +20,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         multiSlider.addTarget(self, action: #selector(sliderChanged), for: .valueChanged)
-        multiSlider.disabledThumbIndices = [3]
 
         if #available(iOS 13.0, *) {
             multiSlider.minimumImage = UIImage(systemName: "moon.fill")
             multiSlider.maximumImage = UIImage(systemName: "sun.max.fill")
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.multiSlider.value = [0.4, 2.8]
-            self.multiSlider.valueLabelPosition = .top
-        }
-
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.multiSlider.thumbCount = 5
             self.multiSlider.valueLabelPosition = .right
-            self.multiSlider.isValueLabelRelative = true
+            self.multiSlider.thumbCount = 7
         }
 
         let horizontalMultiSlider = MultiSlider()
@@ -62,6 +55,19 @@ class ViewController: UIViewController {
             horizontalMultiSlider.minimumImage = UIImage(systemName: "scissors")
             horizontalMultiSlider.maximumImage = UIImage(systemName: "paperplane.fill")
         }
+
+        let snapSlider = MultiSlider()
+        snapSlider.orientation = .horizontal
+        snapSlider.snapValues = [0, 0.5, 1, 2, 4, 8]
+        snapSlider.value = [0.5]
+        snapSlider.tintColor = .systemGreen
+        snapSlider.trackWidth = 5
+        snapSlider.valueLabelPosition = .top
+        snapSlider.valueLabelColor = snapSlider.tintColor
+        snapSlider.valueLabelFont = .boldSystemFont(ofSize: 16)
+        snapSlider.valueLabelFormatter.positiveSuffix = " pt"
+        view.addConstrainedSubview(snapSlider, constrain: .leftMargin, .rightMargin)
+        view.constrain(horizontalMultiSlider, at: .top, to: snapSlider, at: .bottom, diff: 32)
     }
 
     override func viewDidAppear(_ animated: Bool) {

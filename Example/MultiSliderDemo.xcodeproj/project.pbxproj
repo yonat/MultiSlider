@@ -3,13 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		BD551EB16742BBABC5D0A71E /* Pods_MultiSliderDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0F8C92467D76443D27A74D /* Pods_MultiSliderDemo.framework */; };
+		BE3CD81738D1466E768F9ED0 /* Pods_MultiSliderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260AFA7CF37597B63796A197 /* Pods_MultiSliderTests.framework */; };
 		DC64D11323311C5300506A50 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC64D11223311C5300506A50 /* SwiftUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DC64D11523311C8F00506A50 /* MultiValueSliderDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC64D11423311C8F00506A50 /* MultiValueSliderDemo.swift */; };
+		DC99EE7C29B1146C00C82032 /* MultiSliderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC99EE7B29B1146C00C82032 /* MultiSliderTests.swift */; };
 		DC9FAA6D1DDE3EA800FFD2A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9FAA6C1DDE3EA800FFD2A1 /* AppDelegate.swift */; };
 		DC9FAA6F1DDE3EA800FFD2A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9FAA6E1DDE3EA800FFD2A1 /* ViewController.swift */; };
 		DC9FAA721DDE3EA800FFD2A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC9FAA701DDE3EA800FFD2A1 /* Main.storyboard */; };
@@ -17,11 +19,26 @@
 		DC9FAA771DDE3EA800FFD2A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC9FAA751DDE3EA800FFD2A1 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		DC99EE7D29B1146C00C82032 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC9FAA611DDE3EA800FFD2A1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC9FAA681DDE3EA800FFD2A1;
+			remoteInfo = MultiSliderDemo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1DECD70B602B52AE320E28CD /* Pods-MultiSliderDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultiSliderDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MultiSliderDemo/Pods-MultiSliderDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		260AFA7CF37597B63796A197 /* Pods_MultiSliderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MultiSliderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D6D2C8AFA7DCFF3D037EC1B /* Pods-MultiSliderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultiSliderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MultiSliderTests/Pods-MultiSliderTests.debug.xcconfig"; sourceTree = "<group>"; };
+		63ED42884C1B71EF5AFC8648 /* Pods-MultiSliderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultiSliderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MultiSliderTests/Pods-MultiSliderTests.release.xcconfig"; sourceTree = "<group>"; };
 		99930DE4D58EFEAF1D745B49 /* Pods-MultiSliderDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MultiSliderDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MultiSliderDemo/Pods-MultiSliderDemo.release.xcconfig"; sourceTree = "<group>"; };
 		DC64D11223311C5300506A50 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		DC64D11423311C8F00506A50 /* MultiValueSliderDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiValueSliderDemo.swift; sourceTree = "<group>"; };
+		DC99EE7929B1146C00C82032 /* MultiSliderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultiSliderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC99EE7B29B1146C00C82032 /* MultiSliderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSliderTests.swift; sourceTree = "<group>"; };
 		DC9FAA691DDE3EA800FFD2A1 /* MultiSliderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiSliderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC9FAA6C1DDE3EA800FFD2A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC9FAA6E1DDE3EA800FFD2A1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +52,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DC99EE7629B1146C00C82032 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BE3CD81738D1466E768F9ED0 /* Pods_MultiSliderTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DC9FAA661DDE3EA800FFD2A1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -52,6 +77,7 @@
 			children = (
 				DC64D11223311C5300506A50 /* SwiftUI.framework */,
 				ED0F8C92467D76443D27A74D /* Pods_MultiSliderDemo.framework */,
+				260AFA7CF37597B63796A197 /* Pods_MultiSliderTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -61,8 +87,18 @@
 			children = (
 				1DECD70B602B52AE320E28CD /* Pods-MultiSliderDemo.debug.xcconfig */,
 				99930DE4D58EFEAF1D745B49 /* Pods-MultiSliderDemo.release.xcconfig */,
+				2D6D2C8AFA7DCFF3D037EC1B /* Pods-MultiSliderTests.debug.xcconfig */,
+				63ED42884C1B71EF5AFC8648 /* Pods-MultiSliderTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		DC99EE7A29B1146C00C82032 /* MultiSliderTests */ = {
+			isa = PBXGroup;
+			children = (
+				DC99EE7B29B1146C00C82032 /* MultiSliderTests.swift */,
+			);
+			path = MultiSliderTests;
 			sourceTree = "<group>";
 		};
 		DC9FAA601DDE3EA800FFD2A1 = {
@@ -71,6 +107,7 @@
 				DCAE152A2181FC7B002B9A25 /* README.md */,
 				DCAE152B2181FC7B002B9A25 /* CHANGELOG.md */,
 				DC9FAA6B1DDE3EA800FFD2A1 /* MultiSliderDemo */,
+				DC99EE7A29B1146C00C82032 /* MultiSliderTests */,
 				DC9FAA6A1DDE3EA800FFD2A1 /* Products */,
 				945EA595AF8FFF6034B208B8 /* Pods */,
 				4CE0773038075DD9E1826549 /* Frameworks */,
@@ -81,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				DC9FAA691DDE3EA800FFD2A1 /* MultiSliderDemo.app */,
+				DC99EE7929B1146C00C82032 /* MultiSliderTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,6 +140,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DC99EE7829B1146C00C82032 /* MultiSliderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC99EE7F29B1146C00C82032 /* Build configuration list for PBXNativeTarget "MultiSliderTests" */;
+			buildPhases = (
+				B803CC36B59E25121C4723AB /* [CP] Check Pods Manifest.lock */,
+				DC99EE7529B1146C00C82032 /* Sources */,
+				DC99EE7629B1146C00C82032 /* Frameworks */,
+				DC99EE7729B1146C00C82032 /* Resources */,
+				369B75C881DBD016F610DD1F /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DC99EE7E29B1146C00C82032 /* PBXTargetDependency */,
+			);
+			name = MultiSliderTests;
+			productName = MultiSliderTests;
+			productReference = DC99EE7929B1146C00C82032 /* MultiSliderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		DC9FAA681DDE3EA800FFD2A1 /* MultiSliderDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DC9FAA7B1DDE3EA800FFD2A1 /* Build configuration list for PBXNativeTarget "MultiSliderDemo" */;
@@ -130,10 +188,14 @@
 		DC9FAA611DDE3EA800FFD2A1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0810;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = "Yonat Sharon";
 				TargetAttributes = {
+					DC99EE7829B1146C00C82032 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = DC9FAA681DDE3EA800FFD2A1;
+					};
 					DC9FAA681DDE3EA800FFD2A1 = {
 						CreatedOnToolsVersion = 8.1;
 						LastSwiftMigration = 1020;
@@ -156,11 +218,19 @@
 			projectRoot = "";
 			targets = (
 				DC9FAA681DDE3EA800FFD2A1 /* MultiSliderDemo */,
+				DC99EE7829B1146C00C82032 /* MultiSliderTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DC99EE7729B1146C00C82032 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DC9FAA671DDE3EA800FFD2A1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -174,6 +244,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		369B75C881DBD016F610DD1F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MultiSliderTests/Pods-MultiSliderTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AvailableHapticFeedback/AvailableHapticFeedback.framework",
+				"${BUILT_PRODUCTS_DIR}/MultiSlider/MultiSlider.framework",
+				"${BUILT_PRODUCTS_DIR}/SweeterSwift/SweeterSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AvailableHapticFeedback.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MultiSlider.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SweeterSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MultiSliderTests/Pods-MultiSliderTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		398675B49EAC4B8B165FE351 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -238,6 +330,28 @@
 			shellScript = "if [[ \"Debug\" == \"${CONFIGURATION}\" && ! $ENABLE_PREVIEWS == \"YES\" ]]; then \"${PODS_ROOT}/SwiftLint/swiftlint\" --fix --config \"${PODS_ROOT}/SwiftQuality/.swiftlint.yml\" \"${SRCROOT}/..\" ; fi";
 			showEnvVarsInLog = 0;
 		};
+		B803CC36B59E25121C4723AB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MultiSliderTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		F59C1AB2E62BFEA6F1D8C991 /* [CP-User] SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -253,6 +367,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		DC99EE7529B1146C00C82032 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC99EE7C29B1146C00C82032 /* MultiSliderTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DC9FAA651DDE3EA800FFD2A1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -264,6 +386,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DC99EE7E29B1146C00C82032 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC9FAA681DDE3EA800FFD2A1 /* MultiSliderDemo */;
+			targetProxy = DC99EE7D29B1146C00C82032 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		DC9FAA701DDE3EA800FFD2A1 /* Main.storyboard */ = {
@@ -285,6 +415,57 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DC99EE8029B1146C00C82032 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2D6D2C8AFA7DCFF3D037EC1B /* Pods-MultiSliderTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UT7SLSWEUX;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.yonat.MultiSliderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MultiSliderDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MultiSliderDemo";
+			};
+			name = Debug;
+		};
+		DC99EE8129B1146C00C82032 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63ED42884C1B71EF5AFC8648 /* Pods-MultiSliderTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UT7SLSWEUX;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = io.yonat.MultiSliderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MultiSliderDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MultiSliderDemo";
+			};
+			name = Release;
+		};
 		DC9FAA791DDE3EA800FFD2A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -390,7 +571,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -439,6 +621,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DC99EE7F29B1146C00C82032 /* Build configuration list for PBXNativeTarget "MultiSliderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC99EE8029B1146C00C82032 /* Debug */,
+				DC99EE8129B1146C00C82032 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DC9FAA641DDE3EA800FFD2A1 /* Build configuration list for PBXProject "MultiSliderDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

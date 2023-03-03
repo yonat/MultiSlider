@@ -75,12 +75,12 @@ extension MultiSlider: UIGestureRecognizerDelegate {
         } else {
             newValue += minimumValue
         }
-        newValue = newValue.rounded(snapStepSize)
+        newValue = snap.snap(value: newValue)
         guard newValue != value[draggedThumbIndex] else { return }
         isSettingValue = true
         value[draggedThumbIndex] = newValue
         isSettingValue = false
-        if (isHapticSnap && snapStepSize > 0) || relativeValue == 0 || relativeValue == 1 {
+        if (isHapticSnap && (snap != .never)) || relativeValue == 0 || relativeValue == 1 {
             selectionFeedbackGenerator.generateFeedback()
         }
         if isContinuous { sendActions(for: [.valueChanged, .primaryActionTriggered]) }

@@ -106,6 +106,12 @@ import SwiftUI
         return self
     }
 
+    /// snap thumbs to specific values. changes `minimumValue` and `maximumValue`.  (default = []: allow any value)
+    func snapValues(_ value: [CGFloat]) -> Self {
+        uiView.snapValues = value
+        return self
+    }
+
     /// generate haptic feedback when hitting snap steps
     func isHapticSnap(_ value: Bool) -> Self {
         uiView.isHapticSnap = value

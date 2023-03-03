@@ -93,10 +93,11 @@ slider.valueLabelTextForThumb = { thumbIndex, thumbValue in
 }
 ```
 
-### Snap interval
+### Snap steps
 
 ```swift
 slider.snapStepSize = 0.5 // default is 0.0, i.e. don't snap
+slider.snapValues = [1, 2, 4, 8] // specify specific snap values instead uniform steps
 slider.isHapticSnap = false // default is true, i.e. generate haptic feedback when sliding over snap values
 ```
 
