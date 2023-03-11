@@ -178,6 +178,11 @@ import SwiftUI
         return self
     }
 
+    func snapImage(_ value: UIImage?) -> Self {
+        uiView.snapImage = value
+        return self
+    }
+
     func trackWidth(_ value: CGFloat) -> Self {
         uiView.trackWidth = value
         return self

@@ -145,6 +145,15 @@ extension MultiSlider {
         return view
     }
 
+    func addSnapView(at snapValue: CGFloat) {
+        let snapView = UIImageView(image: snapImage)
+        snapView.tintColor = actualTintColor
+        snapViews.append(snapView)
+        slideView.addConstrainedSubview(snapView, constrain: NSLayoutConstraint.Attribute.center(in: orientation).perpendicularCenter)
+        slideView.sendSubviewToBack(snapView)
+        position(marker: snapView, at: snapValue)
+    }
+
     private func addThumbView() {
         let i = thumbViews.count
         let thumbView = UIImageView(image: thumbImage ?? defaultThumbImage)
@@ -235,26 +244,34 @@ extension MultiSlider {
     }
 
     func positionThumbView(_ i: Int) {
-        let thumbView = thumbViews[i]
-        let thumbValue = value[i]
-        slideView.removeFirstConstraint { $0.firstItem === thumbView && $0.firstAttribute == .center(in: orientation) }
-        let thumbRelativeDistanceToMax = (maximumValue - thumbValue) / (maximumValue - minimumValue)
+        position(marker: thumbViews[i], at: value[i])
+    }
+
+    private func position(marker: UIView, at value: CGFloat) {
+        guard let containerView = marker.superview else { return }
+        containerView.removeFirstConstraint { $0.firstItem === marker && $0.firstAttribute == .center(in: orientation) }
+        let relativeDistanceToMax = (maximumValue - value) / (maximumValue - minimumValue)
         if orientation == .horizontal {
-            if thumbRelativeDistanceToMax < 1 {
-                slideView.constrain(thumbView, at: .centerX, to: slideView, at: .right, ratio: CGFloat(1 - thumbRelativeDistanceToMax))
+            if relativeDistanceToMax < 1 {
+                containerView.constrain(marker, at: .centerX, to: containerView, at: .right, ratio: CGFloat(1 - relativeDistanceToMax))
             } else {
-                slideView.constrain(thumbView, at: .centerX, to: slideView, at: .left)
+                containerView.constrain(marker, at: .centerX, to: containerView, at: .left)
             }
         } else { // vertical orientation
-            if thumbRelativeDistanceToMax.isNormal {
-                slideView.constrain(thumbView, at: .centerY, to: slideView, at: .bottom, ratio: CGFloat(thumbRelativeDistanceToMax))
+            if relativeDistanceToMax.isNormal {
+                containerView.constrain(marker, at: .centerY, to: containerView, at: .bottom, ratio: CGFloat(relativeDistanceToMax))
             } else {
-                slideView.constrain(thumbView, at: .centerY, to: slideView, at: .top)
+                containerView.constrain(marker, at: .centerY, to: containerView, at: .top)
             }
         }
         UIView.animate(withDuration: 0.1) {
-            self.slideView.updateConstraintsIfNeeded()
+            containerView.updateConstraintsIfNeeded()
         }
+    }
+
+    func changePositionConstraint(for subview: UIView?, to constant: CGFloat) {
+        guard let constraint = subview?.superview?.constraints.first(where: { $0.firstItem === subview && $0.firstAttribute == .center(in: orientation) }) else { return }
+        constraint.constant = constant * constraint.secondAttribute.inwardSign
     }
 
     func layoutTrackEdge(toView: UIImageView, edge: NSLayoutConstraint.Attribute, superviewEdge: NSLayoutConstraint.Attribute) {

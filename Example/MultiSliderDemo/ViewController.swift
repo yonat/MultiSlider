@@ -62,6 +62,9 @@ class ViewController: UIViewController {
         snapSlider.value = [0.5]
         snapSlider.tintColor = .systemGreen
         snapSlider.trackWidth = 5
+        if #available(iOS 13.0, *) {
+            snapSlider.snapImage = .init(systemName: "circle.fill")
+        }
         snapSlider.valueLabelPosition = .top
         snapSlider.valueLabelColor = snapSlider.tintColor
         snapSlider.valueLabelFont = .boldSystemFont(ofSize: 16)

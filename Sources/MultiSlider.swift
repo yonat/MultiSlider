@@ -95,6 +95,30 @@ open class MultiSlider: UIControl {
         }
     }
 
+    /// image to show at each snap value
+    @IBInspectable open dynamic var snapImage: UIImage? {
+        didSet {
+            guard snapValues.count > 2 else { return }
+            if let snapImage = snapImage {
+                if nil != oldValue {
+                    snapViews.forEach { $0.image = snapImage }
+                } else {
+                    snapValues.forEach { addSnapView(at: $0) }
+                }
+
+                // move first and last view past trackView.layoutMargins
+                let trackMargin = max(trackView.layoutMargins.left, trackView.layoutMargins.top)
+                let snapImageDiameter = orientation == .vertical ? snapImage.size.height : snapImage.size.width
+                let halfSnapImage = snapImageDiameter / 2 - 1 // 1 pixel for semi-transparent boundary
+                let positionOutsideMargin = halfSnapImage - trackMargin
+                changePositionConstraint(for: snapViews.first, to: positionOutsideMargin)
+                changePositionConstraint(for: snapViews.last, to: positionOutsideMargin)
+            } else {
+                snapViews.removeAllViews()
+            }
+        }
+    }
+
     /// Snapping behavior: How should the slider snap thumbs to discrete values
     public enum Snap: Equatable {
         /// No snapping, slider continuously.
@@ -285,6 +309,7 @@ open class MultiSlider: UIControl {
     @objc open var thumbViews: [UIImageView] = []
     @objc open var valueLabels: [UITextField] = [] // UILabels are a pain to layout, text fields look nice as-is.
     @objc open var trackView = UIView()
+    @objc open var snapViews: [UIImageView] = []
     @objc open var outerTrackViews: [UIView] = []
     @objc open var minimumView = UIImageView()
     @objc open var maximumView = UIImageView()

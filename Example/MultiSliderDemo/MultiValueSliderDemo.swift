@@ -24,6 +24,7 @@ struct MultiValueSliderDemo: View {
                 orientation: .horizontal,
                 outerTrackColor: .lightGray
             )
+                .snapImage(.init(systemName: "line.diagonal"))
                 .frame(width: 320)
                 .scaledToFit()
 

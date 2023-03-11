@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added
-- add snapValues to allow snapping to any series of values.
+- add `snapValues` to allow snapping to any series of values.
+- add optional `snapImage` to mark snap values over slider track.
 
 ## [1.13.2] - 2022-11-07
 
