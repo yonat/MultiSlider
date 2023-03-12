@@ -193,6 +193,12 @@ import SwiftUI
         return self
     }
 
+    /// when thumb value is minimum or maximum, align it's center with the track end instead of its edge.
+    func centerThumbOnTrackEnd(_ value: Bool) -> Self {
+        uiView.centerThumbOnTrackEnd = value
+        return self
+    }
+
     /// minimal distance to keep between thumbs (half a thumb by default)
     func distanceBetweenThumbs(_ value: CGFloat) -> Self {
         uiView.distanceBetweenThumbs = value

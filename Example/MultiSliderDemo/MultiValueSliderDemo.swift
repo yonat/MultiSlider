@@ -24,9 +24,9 @@ struct MultiValueSliderDemo: View {
                 orientation: .horizontal,
                 outerTrackColor: .lightGray
             )
-                .snapImage(.init(systemName: "line.diagonal"))
-                .frame(width: 320)
-                .scaledToFit()
+            .snapImage(.init(systemName: "line.diagonal"))
+            .frame(width: 320)
+            .scaledToFit()
 
             MultiValueSlider(
                 value: $tripleValue,
@@ -34,7 +34,7 @@ struct MultiValueSliderDemo: View {
                 valueLabelPosition: .top,
                 orientation: .horizontal
             )
-                .accentColor(.purple)
+            .accentColor(.purple)
 
             HStack {
                 MultiValueSlider(
@@ -46,7 +46,9 @@ struct MultiValueSliderDemo: View {
                     valueLabelFont: .boldSystemFont(ofSize: 20),
                     trackWidth: 12
                 )
-                    .accentColor(.green)
+                .snapValues([0.5, 1, 2, 3, 0.2])
+                .snapImage(snapImage)
+                .accentColor(.green)
 
                 MultiValueSlider(
                     value: $tripleValue,
@@ -55,11 +57,18 @@ struct MultiValueSliderDemo: View {
                     outerTrackColor: .lightGray,
                     trackWidth: 12
                 )
-                    .thumbTintColor(.blue)
+                .thumbTintColor(.blue)
             }
         }
-            .padding()
+        .padding()
     }
+
+    let snapImage = UIImage(
+        systemName: "minus",
+        withConfiguration: UIImage.SymbolConfiguration(pointSize: 30)
+            .applying(UIImage.SymbolConfiguration(weight: .black))
+    )?
+        .withTintColor(.darkGray, renderingMode: .alwaysOriginal)
 }
 
 #endif

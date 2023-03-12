@@ -110,6 +110,7 @@ slider.thumbTintColor = .blue // color of thumbs
 slider.trackWidth = 32
 slider.hasRoundTrackEnds = true
 slider.showsThumbImageShadow = false // wide tracks look better without thumb shadow
+slider.centerThumbOnTrackEnd = true // when thumb value is minimum or maximum, align it's center with the track end instead of its edge
 ```
 
 ### Images

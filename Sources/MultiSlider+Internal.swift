@@ -78,12 +78,15 @@ extension MultiSlider {
     func setupTrackLayoutMargins() {
         let thumbSize = (thumbImage ?? defaultThumbImage)?.size ?? CGSize(width: 2, height: 2)
         let thumbDiameter = orientation == .vertical ? thumbSize.height : thumbSize.width
-        let halfThumb = thumbDiameter / 2 - 1 // 1 pixel for semi-transparent boundary
+        let margin = (centerThumbOnTrackEnd || nil != snapImage)
+            ? 0
+            : thumbDiameter / 2 - 1 // 1 pixel for semi-transparent boundary
         if orientation == .vertical {
-            trackView.layoutMargins = UIEdgeInsets(top: halfThumb, left: 0, bottom: halfThumb, right: 0)
+            trackView.layoutMargins = UIEdgeInsets(top: margin, left: 0, bottom: margin, right: 0)
+            constrainVerticalTrackViewToLayoutMargins()
             constrain(.width, to: max(thumbSize.width, trackWidth), relation: .greaterThanOrEqual)
         } else {
-            trackView.layoutMargins = UIEdgeInsets(top: 0, left: halfThumb, bottom: 0, right: halfThumb)
+            trackView.layoutMargins = UIEdgeInsets(top: 0, left: margin, bottom: 0, right: margin)
             constrainHorizontalTrackViewToLayoutMargins()
             constrain(.height, to: max(thumbSize.height, trackWidth), relation: .greaterThanOrEqual)
         }

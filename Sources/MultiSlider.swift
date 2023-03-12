@@ -98,6 +98,8 @@ open class MultiSlider: UIControl {
     /// image to show at each snap value
     @IBInspectable open dynamic var snapImage: UIImage? {
         didSet {
+            setupTrackLayoutMargins()
+
             guard snapValues.count > 2 else { return }
             if let snapImage = snapImage {
                 if nil != oldValue {
@@ -105,14 +107,6 @@ open class MultiSlider: UIControl {
                 } else {
                     snapValues.forEach { addSnapView(at: $0) }
                 }
-
-                // move first and last view past trackView.layoutMargins
-                let trackMargin = max(trackView.layoutMargins.left, trackView.layoutMargins.top)
-                let snapImageDiameter = orientation == .vertical ? snapImage.size.height : snapImage.size.width
-                let halfSnapImage = snapImageDiameter / 2 - 1 // 1 pixel for semi-transparent boundary
-                let positionOutsideMargin = halfSnapImage - trackMargin
-                changePositionConstraint(for: snapViews.first, to: positionOutsideMargin)
-                changePositionConstraint(for: snapViews.last, to: positionOutsideMargin)
             } else {
                 snapViews.removeAllViews()
             }
@@ -301,6 +295,13 @@ open class MultiSlider: UIControl {
     @IBInspectable public dynamic var hasRoundTrackEnds: Bool = true {
         didSet {
             updateTrackViewCornerRounding()
+        }
+    }
+
+    /// when thumb value is minimum or maximum, align it's center with the track end instead of its edge.
+    @IBInspectable public dynamic var centerThumbOnTrackEnd: Bool = false {
+        didSet {
+            setupTrackLayoutMargins()
         }
     }
 
