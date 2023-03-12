@@ -1,5 +1,5 @@
 # MultiSlider
-UISlider clone with multiple thumbs and values, range highlight, optional snap intervals, optional value labels, either vertical or horizontal.
+UISlider clone with multiple thumbs and values, range highlight, optional snap values, optional value labels, either vertical or horizontal.
 
 [![Swift Version][swift-image]][swift-url]
 [![Build Status][travis-image]][travis-url]
@@ -19,7 +19,7 @@ UISlider clone with multiple thumbs and values, range highlight, optional snap i
 * Range slider (optional) - track color between thumbs different from track color outside thumbs
 * Vertical (optional)
 * Value labels (optional)
-* Snap interval (optional)
+* Snap steps or specific snap values (optional)
 * Haptic feedback (optional)
 * Configurable thumb image, minimum and maximum images.
 * Configurable track width, color, rounding.
