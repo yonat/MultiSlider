@@ -24,6 +24,7 @@ import SwiftUI
         snapStepSize: CGFloat? = nil,
         isHapticSnap: Bool? = nil,
         valueLabelPosition: NSLayoutConstraint.Attribute? = nil,
+        valueLabelAlternatePosition: Bool? = nil,
         isValueLabelRelative: Bool? = nil,
         orientation: NSLayoutConstraint.Axis? = nil,
         outerTrackColor: UIColor? = nil,
@@ -47,6 +48,7 @@ import SwiftUI
         uiView.snapStepSize =? snapStepSize
         uiView.isHapticSnap =? isHapticSnap
         uiView.valueLabelPosition =? valueLabelPosition
+        uiView.valueLabelAlternatePosition =? valueLabelAlternatePosition
         uiView.isValueLabelRelative =? isValueLabelRelative
         uiView.orientation =? orientation
         uiView.outerTrackColor =? outerTrackColor
@@ -121,6 +123,12 @@ import SwiftUI
     /// show value labels next to thumbs
     func valueLabelPosition(_ value: NSLayoutConstraint.Attribute) -> Self {
         uiView.valueLabelPosition = value
+        return self
+    }
+
+    /// show every other value label opposite of the value label position.
+    func valueLabelAlternatePosition(_ value: Bool) -> Self {
+        uiView.valueLabelAlternatePosition = value
         return self
     }
 

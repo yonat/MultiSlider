@@ -153,22 +153,25 @@ open class MultiSlider: UIControl {
 
     // MARK: - Value Labels
 
-    /// show value labels next to thumbs. (default: show no label)
-    @objc open dynamic var valueLabelPosition: NSLayoutConstraint.Attribute = .notAnAttribute {
-        didSet {
-            valueLabels.removeAllViews()
-            if valueLabelPosition != .notAnAttribute {
-                for i in 0 ..< thumbViews.count {
-                    addValueLabel(i)
-                }
-            }
-        }
-    }
-
     /// value label shows difference from previous thumb value (true) or absolute value (false = default)
     @IBInspectable open dynamic var isValueLabelRelative: Bool = false {
         didSet {
             updateAllValueLabels()
+        }
+    }
+
+    /// show value labels next to thumbs. (default: show no label)
+    @objc open dynamic var valueLabelPosition: NSLayoutConstraint.Attribute = .notAnAttribute {
+        didSet {
+            updateValueLabelPosition()
+        }
+    }
+
+    /// show every other value label opposite of the value label position.
+    /// e.g., If you set `valueLabelPosition` to `.top`, the second value label position would be `.bottom`.
+    @IBInspectable open dynamic var valueLabelAlternatePosition: Bool = false {
+        didSet {
+            updateValueLabelPosition()
         }
     }
 

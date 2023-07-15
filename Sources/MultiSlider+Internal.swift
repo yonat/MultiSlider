@@ -188,10 +188,13 @@ extension MultiSlider {
         }
         let thumbView = thumbViews[i]
         slideView.constrain(valueLabel, at: valueLabelPosition.perpendicularCenter, to: thumbView)
+        let position = valueLabelAlternatePosition && (i % 2) == 0
+            ? valueLabelPosition.opposite
+            : valueLabelPosition
         slideView.constrain(
-            valueLabel, at: valueLabelPosition.opposite,
-            to: thumbView, at: valueLabelPosition,
-            diff: -valueLabelPosition.inwardSign * thumbView.diagonalSize / 4
+            valueLabel, at: position.opposite,
+            to: thumbView, at: position,
+            diff: -position.inwardSign * thumbView.diagonalSize / 4
         )
         valueLabels.append(valueLabel)
         updateValueLabel(i)
@@ -211,6 +214,15 @@ extension MultiSlider {
     func updateAllValueLabels() {
         for i in 0 ..< valueLabels.count {
             updateValueLabel(i)
+        }
+    }
+
+    func updateValueLabelPosition() {
+        valueLabels.removeAllViews()
+        if valueLabelPosition != .notAnAttribute {
+            for i in 0 ..< thumbViews.count {
+                addValueLabel(i)
+            }
         }
     }
 
