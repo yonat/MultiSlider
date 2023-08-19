@@ -15,7 +15,7 @@ let package = Package(
         .package(url: "https://github.com/yonat/AvailableHapticFeedback", from: "1.0.2"),
     ],
     targets: [
-        .target(name: "MultiSlider", dependencies: ["SweeterSwift", "AvailableHapticFeedback"], path: "Sources"),
+        .target(name: "MultiSlider", dependencies: ["SweeterSwift", "AvailableHapticFeedback"], path: "Sources", resources: [.copy("PrivacyInfo.xcprivacy")]),
     ],
     swiftLanguageVersions: [.v5]
 )
