@@ -6,7 +6,6 @@
 //  Copyright © 2016 Yonat Sharon. All rights reserved.
 //
 
-import AvailableHapticFeedback
 import SweeterSwift
 import UIKit
 
@@ -149,7 +148,15 @@ open class MultiSlider: UIControl {
     }
 
     /// generate haptic feedback when hitting snap steps
-    @IBInspectable open dynamic var isHapticSnap: Bool = true
+    @IBInspectable open dynamic var isHapticSnap: Bool {
+        get {
+            selectionFeedbackGenerator != nil
+        }
+        set {
+            selectionFeedbackGenerator = newValue ? UISelectionFeedbackGenerator() : nil
+            selectionFeedbackGenerator?.prepare()
+        }
+    }
 
     // MARK: - Value Labels
 
@@ -325,7 +332,7 @@ open class MultiSlider: UIControl {
     let margin: CGFloat = 32
     var isSettingValue = false
     lazy var defaultThumbImage: UIImage? = .circle()
-    var selectionFeedbackGenerator = AvailableHapticFeedback()
+    var selectionFeedbackGenerator: UISelectionFeedbackGenerator?
 
     // MARK: - Overrides
 

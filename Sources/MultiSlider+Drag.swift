@@ -18,12 +18,10 @@ extension MultiSlider: UIGestureRecognizerDelegate {
     @objc open func didDrag(_ panGesture: UIPanGestureRecognizer) {
         switch panGesture.state {
         case .began:
-            if isHapticSnap { selectionFeedbackGenerator.prepare() }
             // determine thumb to drag
             let location = panGesture.location(in: slideView)
             draggedThumbIndex = closestThumb(point: location)
         case .ended, .cancelled, .failed:
-            if isHapticSnap { selectionFeedbackGenerator.end() }
             sendActions(for: .touchUpInside) // no bounds check for now (.touchUpInside vs .touchUpOutside)
             if !isContinuous { sendActions(for: [.valueChanged, .primaryActionTriggered]) }
         default:
@@ -80,8 +78,8 @@ extension MultiSlider: UIGestureRecognizerDelegate {
         isSettingValue = true
         value[draggedThumbIndex] = newValue
         isSettingValue = false
-        if (isHapticSnap && (snap != .never)) || relativeValue == 0 || relativeValue == 1 {
-            selectionFeedbackGenerator.generateFeedback()
+        if snap != .never || relativeValue == 0 || relativeValue == 1 {
+            selectionFeedbackGenerator?.selectionChanged()
         }
         if isContinuous { sendActions(for: [.valueChanged, .primaryActionTriggered]) }
     }
