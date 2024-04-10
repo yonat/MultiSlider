@@ -26,6 +26,8 @@ extension MultiSlider {
         if #available(iOS 11.0, *) {
             valueLabelFormatter.addObserverForAllProperties(observer: self)
         }
+
+        selectionFeedbackGenerator = UISelectionFeedbackGenerator()
     }
 
     private func setupPanGesture() {
