@@ -39,7 +39,10 @@ slider.addTarget(self, action: #selector(sliderDragEnded(_:)), for: . touchUpIns
 
 ### SwiftUI Usage
 
+Please, make sure the valueArray is not empty to begin with
+
 ```swift
+@State var valueArray: [CGFLoat] = [1, 2]
 MultiValueSlider(value: $valueArray, minimumValue: 1, maximumValue: 5)
 ```
 
