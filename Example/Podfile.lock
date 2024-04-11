@@ -1,5 +1,5 @@
 PODS:
-  - MultiSlider (2.1.3):
+  - MultiSlider (2.1.6):
     - SweeterSwift
   - SweeterSwift (1.2.1)
   - SwiftFormat/CLI (0.50.7)
@@ -30,7 +30,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/yonat/SwiftQuality
 
 SPEC CHECKSUMS:
-  MultiSlider: eec43a6f41342001f5cabc698055ce3bdee4c711
+  MultiSlider: eb24e3dd4ff55cdd76effa06d929312ea6dd7dae
   SweeterSwift: 61baeda1c0c27d1dc57c8112c3d6a82e5aff3139
   SwiftFormat: 4fcf72ee44c7198255108c22ed7135c38a36ba6b
   SwiftLint: 77f7cb2b9bb81ab4a12fcc86448ba3f11afa50c6
@@ -38,4 +38,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ed7f9205bad8b43d16383ee943568b2a6adc7775
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.11.3
