@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/yonat/MultiSlider.git", :tag => s.version }
   s.source_files  = "Sources/*.swift"
-  s.resources = ['PrivacyInfo.xcprivacy']
+  s.resource_bundles = { 'MultiSlider' => '*.xcprivacy' }
 
   s.dependency 'SweeterSwift'
 
