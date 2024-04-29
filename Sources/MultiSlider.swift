@@ -257,6 +257,9 @@ open class MultiSlider: UIControl {
         }
     }
 
+    /// Respond to dragging beyond thumb image (useful if the image is small)
+    @IBInspectable open dynamic var thumbTouchExpansionRadius: CGFloat = 0
+
     @IBInspectable public dynamic var showsThumbImageShadow: Bool = true {
         didSet {
             updateThumbViewShadowVisibility()

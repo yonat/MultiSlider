@@ -171,6 +171,11 @@ import SwiftUI
         return self
     }
 
+    func thumbTouchExpansionRadius(_ value: CGFloat) -> Self {
+        uiView.thumbTouchExpansionRadius = value
+        return self
+    }
+
     func showsThumbImageShadow(_ value: Bool) -> Self {
         uiView.showsThumbImageShadow = value
         return self

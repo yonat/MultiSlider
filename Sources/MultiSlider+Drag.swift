@@ -111,7 +111,7 @@ extension MultiSlider: UIGestureRecognizerDelegate {
                 break
             }
             minimumDistance = distance
-            if distance < thumbViews[i].diagonalSize {
+            if distance < thumbViews[i].diagonalSize + thumbTouchExpansionRadius {
                 closest = i
             }
         }

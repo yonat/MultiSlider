@@ -129,6 +129,9 @@ slider.thumbImage = UIImage(named: "balloon")
 // or let each thumb have a different image:
 slider.thumbViews[0].image = UIImage(named: "ball")
 slider.thumbViews[1].image = UIImage(named: "club")
+
+// expand drag area when using a small thumb image:
+slider.thumbTouchExpansionRadius = 16
 ```
 
 ### Distance/Overlap Between Thumbs
