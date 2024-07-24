@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.6
 
 import PackageDescription
 
@@ -14,7 +14,7 @@ let package = Package(
         .package(url: "https://github.com/yonat/SweeterSwift", from: "1.0.4"),
     ],
     targets: [
-        .target(name: "MultiSlider", dependencies: ["SweeterSwift"], path: "Sources", resources: [.copy("PrivacyInfo.xcprivacy")]),
+        .target(name: "MultiSlider", dependencies: ["SweeterSwift"], path: "Sources", resources: [.process("PrivacyInfo.xcprivacy")]),
     ],
     swiftLanguageVersions: [.v5]
 )
