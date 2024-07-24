@@ -18,7 +18,7 @@ extension MultiSlider {
         isAccessibilityElement = true
         accessibilityIdentifier = "multi_slider"
         accessibilityLabel = "slider"
-        accessibilityTraits = [.adjustable]
+        accessibilityTraits = [.allowsDirectInteraction]
 
         minimumView.isHidden = true
         maximumView.isHidden = true
@@ -209,7 +209,11 @@ extension MultiSlider {
         } else {
             labelValue = value[i]
         }
-        valueLabels[i].text = valueLabelTextForThumb?(i, labelValue)
+        valueLabels[i].text = valueLabelText(i, labelValue: labelValue)
+    }
+
+    func valueLabelText(_ i: Int, labelValue: CGFloat) -> String? {
+        valueLabelTextForThumb?(i, labelValue)
             ?? valueLabelFormatter.string(from: NSNumber(value: Double(labelValue)))
     }
 

@@ -92,6 +92,7 @@ extension MultiSlider: UIGestureRecognizerDelegate {
                 updateValueLabel(draggedThumbIndex + 1)
             }
         }
+        UIAccessibility.post(notification: .announcement, argument: valueLabelText(draggedThumbIndex, labelValue: value[draggedThumbIndex]))
     }
 
     private func closestThumb(point: CGPoint) -> Int {

@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Fixed
+- fix VoiceOver functionality.
 - fix PrivacyInfo.xcprivacy for spm.
 
 ## [2.1.7] - 2024-04-29
