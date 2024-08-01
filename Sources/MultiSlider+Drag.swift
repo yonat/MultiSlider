@@ -54,11 +54,11 @@ extension MultiSlider: UIGestureRecognizerDelegate {
         }
         if orientation == .horizontal { delta = -delta }
         let bottomLimit = draggedThumbIndex > 0
-            ? thumbViews[draggedThumbIndex - 1].center.coordinate(in: orientation) - delta
-            : slideView.bounds.bottom(in: orientation)
+        ? thumbViews[draggedThumbIndex - 1].center.coordinate(in: orientation) - delta
+        : slideView.bounds.bottom(in: orientation)
         let topLimit = draggedThumbIndex < thumbViews.count - 1
-            ? thumbViews[draggedThumbIndex + 1].center.coordinate(in: orientation) + delta
-            : slideView.bounds.top(in: orientation)
+        ? thumbViews[draggedThumbIndex + 1].center.coordinate(in: orientation) + delta
+        : slideView.bounds.top(in: orientation)
         if orientation == .vertical {
             return min(bottomLimit, max(targetPosition, topLimit))
         } else {
@@ -92,7 +92,8 @@ extension MultiSlider: UIGestureRecognizerDelegate {
                 updateValueLabel(draggedThumbIndex + 1)
             }
         }
-        UIAccessibility.post(notification: .announcement, argument: valueLabelText(draggedThumbIndex, labelValue: value[draggedThumbIndex]))
+
+        UIAccessibility.post(notification: .announcement, argument: thumbViews[draggedThumbIndex].accessibilityValue)
     }
 
     private func closestThumb(point: CGPoint) -> Int {

@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "sweeterswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yonat/SweeterSwift",
+      "state" : {
+        "revision" : "d324c3ce0d021f8d1f11f10014ad597fad60e36c",
+        "version" : "1.2.5"
+      }
+    }
+  ],
+  "version" : 2
+}
