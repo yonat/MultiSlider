@@ -324,8 +324,6 @@ open class MultiSlider: UIControl {
     private(set) var thumbsCustomAccessibility: Bool = false
     private(set) var thumbsCustomAccessibilitySuffix: String? = nil
     private(set) var customAccessibilityPrefixes: [String] = []
-    private(set) var leftThumbCustomAccessibilityPrefix: String? = nil
-    private(set) var rightThumbCustomAccessibilityPrefix: String? = nil
 
     // MARK: - Subviews
 
