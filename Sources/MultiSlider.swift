@@ -410,7 +410,7 @@ open class MultiSlider: UIControl {
         thumbCount = oldThumbCount
     }
 
-    func setupThumbsCustomAccessibility(prefixes: [String], suffix: String) {
+    open func setupThumbsCustomAccessibility(prefixes: [String], suffix: String) {
         isAccessibilityElement = false
         thumbsCustomAccessibility = true
         customAccessibilityPrefixes = prefixes
