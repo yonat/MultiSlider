@@ -318,6 +318,13 @@ open class MultiSlider: UIControl {
         }
     }
 
+
+    // MARK: - Private vars
+
+    private(set) var thumbsCustomAccessibility: Bool = false
+    private(set) var thumbsCustomAccessibilitySuffix: String? = nil
+    private(set) var customAccessibilityPrefixes: [String] = []
+
     // MARK: - Subviews
 
     @objc open var thumbViews: [UIImageView] = []
@@ -401,5 +408,12 @@ open class MultiSlider: UIControl {
         let oldThumbCount = thumbCount
         thumbCount = 0
         thumbCount = oldThumbCount
+    }
+
+    func setupThumbsCustomAccessibility(prefixes: [String], suffix: String) {
+        isAccessibilityElement = false
+        thumbsCustomAccessibility = true
+        customAccessibilityPrefixes = prefixes
+        thumbsCustomAccessibilitySuffix = suffix
     }
 }
