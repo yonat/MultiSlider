@@ -16,9 +16,6 @@ extension MultiSlider {
         setupPanGesture()
 
         isAccessibilityElement = true
-        accessibilityIdentifier = "multi_slider"
-        accessibilityLabel = "slider"
-        accessibilityTraits = [.allowsDirectInteraction]
 
         minimumView.isHidden = true
         maximumView.isHidden = true
@@ -81,8 +78,8 @@ extension MultiSlider {
         let thumbSize = (thumbImage ?? defaultThumbImage)?.size ?? CGSize(width: 2, height: 2)
         let thumbDiameter = orientation == .vertical ? thumbSize.height : thumbSize.width
         let margin = (centerThumbOnTrackEnd || nil != snapImage)
-            ? 0
-            : thumbDiameter / 2 - 1 // 1 pixel for semi-transparent boundary
+        ? 0
+        : thumbDiameter / 2 - 1 // 1 pixel for semi-transparent boundary
         if orientation == .vertical {
             trackView.layoutMargins = UIEdgeInsets(top: margin, left: 0, bottom: margin, right: 0)
             constrainVerticalTrackViewToLayoutMargins()
@@ -170,6 +167,14 @@ extension MultiSlider {
         thumbView.blur(disabledThumbIndices.contains(i))
         addValueLabel(i)
         updateThumbViewShadowVisibility()
+
+        if thumbsCustomAccessibility {
+            thumbView.isAccessibilityElement = true
+            let j = thumbViews.count
+            thumbView.accessibilityLabel = j > 0 && !customAccessibilityPrefixes.isEmpty ? customAccessibilityPrefixes[j - 1] : nil
+
+            thumbView.accessibilityTraits = .adjustable
+        }
     }
 
     func updateThumbViewShadowVisibility() {
@@ -181,6 +186,7 @@ extension MultiSlider {
     func addValueLabel(_ i: Int) {
         guard valueLabelPosition != .notAnAttribute else { return }
         let valueLabel = UITextField()
+        valueLabel.isAccessibilityElement = !thumbsCustomAccessibility
         valueLabel.borderStyle = .none
         slideView.addConstrainedSubview(valueLabel)
         valueLabel.textColor = valueLabelColor ?? valueLabel.textColor
@@ -191,8 +197,8 @@ extension MultiSlider {
         let thumbView = thumbViews[i]
         slideView.constrain(valueLabel, at: valueLabelPosition.perpendicularCenter, to: thumbView)
         let position = valueLabelAlternatePosition && (i % 2) == 0
-            ? valueLabelPosition.opposite
-            : valueLabelPosition
+        ? valueLabelPosition.opposite
+        : valueLabelPosition
         slideView.constrain(
             valueLabel, at: position.opposite,
             to: thumbView, at: position,
@@ -210,11 +216,15 @@ extension MultiSlider {
             labelValue = value[i]
         }
         valueLabels[i].text = valueLabelText(i, labelValue: labelValue)
+        if thumbsCustomAccessibility {
+            let stringValue = "\(NSNumber(value: Double(labelValue)))"
+            thumbViews[i].accessibilityValue = stringValue + "\(thumbsCustomAccessibilitySuffix ?? "")"
+        }
     }
 
     func valueLabelText(_ i: Int, labelValue: CGFloat) -> String? {
         valueLabelTextForThumb?(i, labelValue)
-            ?? valueLabelFormatter.string(from: NSNumber(value: Double(labelValue)))
+        ?? valueLabelFormatter.string(from: NSNumber(value: Double(labelValue)))
     }
 
     func updateAllValueLabels() {
@@ -240,8 +250,8 @@ extension MultiSlider {
         if value.count < count {
             let appendCount = count - value.count
             value += snapValues.isEmpty
-                ? value.distributedNewValues(count: appendCount, min: minimumValue, max: maximumValue)
-                : value.distributedNewValues(count: appendCount, allowedValues: snapValues)
+            ? value.distributedNewValues(count: appendCount, min: minimumValue, max: maximumValue)
+            : value.distributedNewValues(count: appendCount, allowedValues: snapValues)
             value.sort()
         }
         if value.count > count { // don't add "else", since prev calc may add too many values in some cases
