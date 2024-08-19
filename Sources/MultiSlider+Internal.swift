@@ -170,9 +170,6 @@ extension MultiSlider {
 
         if thumbsCustomAccessibility {
             thumbView.isAccessibilityElement = true
-            let j = thumbViews.count
-            thumbView.accessibilityLabel = j > 0 && !customAccessibilityPrefixes.isEmpty ? customAccessibilityPrefixes[j - 1] : nil
-
             thumbView.accessibilityTraits = .adjustable
         }
     }
@@ -218,7 +215,7 @@ extension MultiSlider {
         valueLabels[i].text = valueLabelText(i, labelValue: labelValue)
         if thumbsCustomAccessibility {
             let stringValue = "\(NSNumber(value: Double(labelValue)))"
-            thumbViews[i].accessibilityValue = stringValue + "\(thumbsCustomAccessibilitySuffix ?? "")"
+            thumbViews[i].accessibilityValue = "\(customAccessibilityPrefixes[i])" + stringValue
         }
     }
 
