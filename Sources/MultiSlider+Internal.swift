@@ -271,7 +271,8 @@ extension MultiSlider {
     private func position(marker: UIView, at value: CGFloat) {
         guard let containerView = marker.superview else { return }
         containerView.removeFirstConstraint { $0.firstItem === marker && $0.firstAttribute == .center(in: orientation) }
-        let relativeDistanceToMax = (maximumValue - value) / ((maximumValue - minimumValue) == 0 ? 1 : (maximumValue - minimumValue))
+        let minMaxValueDifference = maximumValue - minimumValue
+        let relativeDistanceToMax = (maximumValue - value) / (minMaxValueDifference.isZero ? 1 : minMaxValueDifference)
         if orientation == .horizontal {
             if relativeDistanceToMax < 1 {
                 containerView.constrain(marker, at: .centerX, to: containerView, at: .right, ratio: CGFloat(1 - relativeDistanceToMax))
