@@ -38,6 +38,7 @@ import SwiftUI
         hasRoundTrackEnds: Bool? = nil,
         distanceBetweenThumbs: CGFloat? = nil,
         keepsDistanceBetweenThumbs: Bool? = nil,
+        disabledThumbIndices: Set<Int>? = nil,
         valueLabelFormatter: NumberFormatter? = nil
     ) {
         _value = value
@@ -62,6 +63,7 @@ import SwiftUI
         uiView.hasRoundTrackEnds =? hasRoundTrackEnds
         uiView.distanceBetweenThumbs =? distanceBetweenThumbs
         uiView.keepsDistanceBetweenThumbs =? keepsDistanceBetweenThumbs
+        uiView.disabledThumbIndices =? disabledThumbIndices
         uiView.valueLabelFormatter =? valueLabelFormatter
     }
 
@@ -220,6 +222,12 @@ import SwiftUI
 
     func keepsDistanceBetweenThumbs(_ value: Bool) -> Self {
         uiView.keepsDistanceBetweenThumbs = value
+        return self
+    }
+
+    /// make specific thumbs fixed (and grayed)
+    func disabledThumbIndices(_ value: Set<Int>) -> Self {
+        uiView.disabledThumbIndices = value
         return self
     }
 
